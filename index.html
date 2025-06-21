@@ -15,18 +15,18 @@
       <nav>
         <div class="logo">Ouachita Labs</div>
         <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html" class="active">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="blog/index.html">Blog</a></li>
         </ul>
-        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">Menu</button>
       </nav>
     </div>
   </header>
 
   <div class="mobile-nav" id="mobileNav">
-    <button class="mobile-close" onclick="closeMobileMenu()">×</button>
-    <a href="index.html" onclick="closeMobileMenu()">Home</a>
+    <button class="mobile-close" onclick="closeMobileMenu()">Close</button>
+    <a href="index.html" onclick="closeMobileMenu()" class="active">Home</a>
     <a href="about.html" onclick="closeMobileMenu()">About</a>
     <a href="blog/index.html" onclick="closeMobileMenu()">Blog</a>
   </div>
@@ -36,6 +36,7 @@
       <div class="container">
         <h1>AI Consulting & <span class="highlight">Development</span></h1>
         <p>Production AI systems for Arkansas businesses.</p>
+        <a href="#contact" class="cta-button">Get Started</a>
       </div>
     </section>
 
@@ -46,21 +47,21 @@
 
         <div class="features-grid">
           <div class="feature-card">
-            <div class="feature-icon">🤖</div>
+            <div class="feature-icon"></div>
             <h3>Custom AI Agents</h3>
             <p>Build agents that analyze your data and automate workflows. Experience shipping production systems at
               Numerator and Amazon.</p>
           </div>
 
           <div class="feature-card">
-            <div class="feature-icon">⚡</div>
+            <div class="feature-icon"></div>
             <h3>Data Integration</h3>
             <p>Connect AI models to your databases and APIs through custom MCP servers. Make your data accessible to
               modern AI tools.</p>
           </div>
 
           <div class="feature-card">
-            <div class="feature-icon">🔧</div>
+            <div class="feature-icon"></div>
             <h3>Consulting</h3>
             <p>Technical guidance on AI adoption. From proof-of-concept to production deployment.</p>
           </div>
@@ -70,23 +71,28 @@
 
     <section class="contact" id="contact">
       <div class="container">
-        <h2>Let's Connect</h2>
-        <p>Ready to leverage AI for your business? Get in touch.</p>
+        <h2>John McCrary</h2>
+        <p><strong>AI Systems Expert | North Little Rock, Arkansas</strong></p>
+        <p>I build AI agents that solve your business problems. My systems detect issues automatically, investigate root causes, and connect your teams to solutions. Proven experience shipping production systems that transform manual work into intelligent automation.</p>
 
         <div class="contact-links">
           <button class="contact-button email-copy" data-email="john@ouachitalabs.com">
-            <span class="contact-icon">📬</span>
             <span class="email">john@ouachitalabs.com</span>
           </button>
           <a href="https://linkedin.com/in/jomccr" class="contact-button" target="_blank" rel="noopener noreferrer">
-            <span class="contact-icon">💼</span>
             LinkedIn
           </a>
         </div>
 
         <div class="contact-info">
           <div class="contact-item">
-            <span>North Little Rock, Arkansas</span>
+            <span>Production AI Agent Development</span>
+          </div>
+          <div class="contact-item">
+            <span>Data Systems Integration</span>
+          </div>
+          <div class="contact-item">
+            <span>Arkansas-Based with Enterprise Experience</span>
           </div>
         </div>
       </div>
@@ -125,8 +131,8 @@
         try {
           await navigator.clipboard.writeText(email);
           emailSpan.textContent = 'Copied!';
-          this.style.background = 'var(--primary-accent)';
-          this.style.color = 'var(--bg-primary)';
+          this.style.background = 'var(--primary-blue)';
+          this.style.color = 'var(--surface-primary)';
 
           setTimeout(() => {
             emailSpan.textContent = originalText;
