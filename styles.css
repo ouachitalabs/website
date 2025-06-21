@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #1a2e1d 0%, #243328 25%, #2f3f32 50%, #3a4a3d 75%, #455649 100%);
+    background: #2f3f32;
     color: #ffffff;
     overflow-x: hidden;
     min-height: 100vh;
@@ -116,7 +116,9 @@ nav {
     padding: 100px 0 150px;
     text-align: center;
     position: relative;
-    background-image: linear-gradient(to bottom, rgba(26, 46, 29, 0.3), rgba(36, 51, 40, 0.4)), url('ouachita_from_above.jpg');
+    background-image: url('ouachita_from_above.jpg');
+    background-color: rgba(30, 45, 34, 0.35);
+    background-blend-mode: overlay;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -147,7 +149,7 @@ nav {
 }
 
 .cta-button {
-    background: linear-gradient(135deg, #a8d8a3 0%, #7fb87a 100%);
+    background: #92d08d;
     color: #2d4a2b;
     padding: 18px 40px;
     border: none;
@@ -170,7 +172,7 @@ nav {
 .features {
     padding: 80px 0;
     position: relative;
-    background: linear-gradient(135deg, #1a2e1d 0%, #243328 25%, #2f3f32 50%, #3a4a3d 75%, #455649 100%);
+    background: #2f3f32;
 }
 
 .features-grid {
@@ -194,7 +196,7 @@ nav {
 .feature-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #a8d8a3 0%, #7fb87a 100%);
+    background: #92d08d;
     border-radius: 15px;
     display: flex;
     align-items: center;
@@ -482,7 +484,9 @@ nav {
 .blog-hero {
     padding: 80px 0 60px;
     text-align: center;
-    background: linear-gradient(to bottom, rgba(26, 46, 29, 0.4), rgba(36, 51, 40, 0.5)), url('ouachita_from_above.jpg');
+    background: url('ouachita_from_above.jpg');
+    background-color: rgba(30, 45, 34, 0.45);
+    background-blend-mode: overlay;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -622,7 +626,9 @@ nav {
 
 /* Blog post detail page styles */
 .blog-header {
-    background: linear-gradient(to bottom, rgba(26, 46, 29, 0.4), rgba(36, 51, 40, 0.5)), url('../../ouachita_from_above.jpg');
+    background: url('../../ouachita_from_above.jpg');
+    background-color: rgba(30, 45, 34, 0.45);
+    background-blend-mode: overlay;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
