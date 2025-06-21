@@ -1,77 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Ouachita Labs</title>
-    <link rel="stylesheet" href="../styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog - Ouachita Labs</title>
+  <link rel="stylesheet" href="../styles.css" />
 </head>
+
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">Ouachita Labs</div>
-                <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="../about.html">About</a></li>
-                    <li><a href="index.html" class="active">Blog</a></li>
-                    <li><a href="../index.html#contact">Contact</a></li>
-                </ul>
-                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
-            </nav>
-        </div>
-    </header>
-
-    <div class="mobile-nav" id="mobileNav">
-        <button class="mobile-close" onclick="closeMobileMenu()">×</button>
-        <a href="../index.html" onclick="closeMobileMenu()">Home</a>
-        <a href="../about.html" onclick="closeMobileMenu()">About</a>
-        <a href="index.html" onclick="closeMobileMenu()" class="active">Blog</a>
-        <a href="../index.html#contact" onclick="closeMobileMenu()">Contact</a>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Ouachita Labs</div>
+        <ul class="nav-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="index.html" class="active">Blog</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+          ☰
+        </button>
+      </nav>
     </div>
+  </header>
 
-    <main>
-        <section class="blog-hero">
-            <div class="container">
-                <h1>Blog</h1>
-                <p class="blog-subtitle">Thoughts on technology, development, and innovation</p>
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-close" onclick="closeMobileMenu()">×</button>
+    <a href="../index.html" onclick="closeMobileMenu()">Home</a>
+    <a href="../about.html" onclick="closeMobileMenu()">About</a>
+    <a href="index.html" onclick="closeMobileMenu()" class="active">Blog</a>
+    <a href="../index.html#contact" onclick="closeMobileMenu()">Contact</a>
+  </div>
+
+  <main>
+    <section class="blog-hero">
+      <div class="container">
+        <h1>Blog</h1>
+        <p class="blog-subtitle">
+          Thoughts on technology, development, and innovation
+        </p>
+      </div>
+    </section>
+
+    <section class="blog-posts">
+      <div class="container">
+        <div class="blog-grid">
+          <article class="blog-card">
+            <div class="blog-card-header">
+              <time datetime="2025-06-06">June 6, 2025</time>
+              <span class="blog-category">AI Development</span>
             </div>
-        </section>
-
-        <section class="blog-posts">
-            <div class="container">
-                <div class="blog-grid">
-                    <article class="blog-card">
-                        <div class="blog-card-header">
-                            <time datetime="2025-06-06">June 6, 2025</time>
-                            <span class="blog-category">AI Development</span>
-                        </div>
-                        <h2><a href="posts/2025-06-06-making-the-most-of-agentic-coding.html">Making the most of agentic coding</a></h2>
-                        <p>Learn how to effectively collaborate with AI coding assistants. This post covers calibrating expectations, using custom instructions, tightening feedback loops, and leveraging AI strengths for maximum productivity.</p>
-                        <a href="posts/2025-06-06-making-the-most-of-agentic-coding.html" class="read-more">Read more <span>→</span></a>
-                    </article>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="blog-footer">
-        <div class="container">
-            <p>&copy; 2025 Ouachita Labs. All rights reserved.</p>
+            <h2>
+              <a href="_posts/2025-06-06-making-the-most-of-agentic-coding.html">Making the most of agentic coding</a>
+            </h2>
+            <p>
+              Learn how to effectively collaborate with AI coding assistants.
+              This post covers calibrating expectations, using custom
+              instructions, tightening feedback loops, and leveraging AI
+              strengths for maximum productivity.
+            </p>
+            <a href="_posts/2025-06-06-making-the-most-of-agentic-coding.html" class="read-more">Read more
+              <span>→</span></a>
+          </article>
         </div>
-    </footer>
+      </div>
+    </section>
+  </main>
 
-    <script>
-        // Mobile menu functions
-        function toggleMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            mobileNav.classList.toggle('active');
-        }
+  <footer class="blog-footer">
+    <div class="container">
+      <p>&copy; 2025 Ouachita Labs. All rights reserved.</p>
+    </div>
+  </footer>
 
-        function closeMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            mobileNav.classList.remove('active');
-        }
-    </script>
+  <script>
+    // Mobile menu functions
+    function toggleMobileMenu() {
+      const mobileNav = document.getElementById("mobileNav");
+      mobileNav.classList.toggle("active");
+    }
+
+    function closeMobileMenu() {
+      const mobileNav = document.getElementById("mobileNav");
+      mobileNav.classList.remove("active");
+    }
+  </script>
 </body>
+
 </html>

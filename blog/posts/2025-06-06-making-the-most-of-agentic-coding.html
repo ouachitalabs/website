@@ -1,210 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Making the most of agentic coding - Ouachita Labs</title>
-    <link rel="stylesheet" href="../../styles.css" />
-  </head>
-  <body>
-    <header>
-      <div class="container">
-        <nav>
-          <div class="logo">Ouachita Labs</div>
-          <ul class="nav-links">
-            <li><a href="../../index.html">Home</a></li>
-            <li><a href="../../about.html">About</a></li>
-            <li><a href="../index.html">Blog</a></li>
-            <li><a href="../../index.html#contact">Contact</a></li>
-          </ul>
-          <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-            ☰
-          </button>
-        </nav>
-      </div>
-    </header>
 
-    <div class="mobile-nav" id="mobileNav">
-      <button class="mobile-close" onclick="closeMobileMenu()">×</button>
-      <a href="../../index.html" onclick="closeMobileMenu()">Home</a>
-      <a href="../../about.html" onclick="closeMobileMenu()">About</a>
-      <a href="../index.html" onclick="closeMobileMenu()">Blog</a>
-      <a href="../../index.html#contact" onclick="closeMobileMenu()">Contact</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Making the most of agentic coding - Ouachita Labs</title>
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Ouachita Labs</div>
+        <ul class="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../index.html">Blog</a></li>
+          <li><a href="../../index.html#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+          ☰
+        </button>
+      </nav>
     </div>
+  </header>
 
-    <div class="blog-header">
-      <div class="container">
-        <h1>Making the most of agentic coding</h1>
-        <time>June 6, 2025</time>
-      </div>
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-close" onclick="closeMobileMenu()">×</button>
+    <a href="../../index.html" onclick="closeMobileMenu()">Home</a>
+    <a href="../../about.html" onclick="closeMobileMenu()">About</a>
+    <a href="../index.html" onclick="closeMobileMenu()">Blog</a>
+    <a href="../../index.html#contact" onclick="closeMobileMenu()">Contact</a>
+  </div>
+
+  <div class="blog-header">
+    <div class="container">
+      <h1>Making the most of agentic coding</h1>
+      <time>June 6, 2025</time>
     </div>
+  </div>
 
-    <main>
-      <article class="blog-content container">
-        <h2 style="text-align: left">Calibrate your expectations.</h2>
-        <p>
-          This is an exercise that has to happen seemingly every single time you
-          start working with a new model. OpenAI vs Claude vs Gemini all take
-          instructions and steer a little differently.&nbsp;Think of your
-          different coworkers. One prefers to think on a problem before coming
-          to you with clarifying questions, another has to get a clear
-          understanding of everything up front or else he can not continue. The
-          same is true for large language models.
-        </p>
-        <p>
-          Asking the agent to migrate your core Django app built over 10 years
-          ago to Node.js and React might be more than it can do in one shot.
-          This is when most people give up and write their LinkedIn post about
-          the AI hype bubble. Agents are just as good at question and answer
-          over large codebases as they are at solving leetcode. So take it a
-          step further: ask the agent to come up with three different plans of
-          attack for your problem or feature. You will benefit more from using
-          agents if you let them do some discovery and planning before writing
-          code.
-        </p>
-        <p>
-          Coincidentally this is the same process any engineer should take when
-          starting on a feature.&nbsp;
-        </p>
-        <h2 style="text-align: left">Use custom instructions&nbsp;</h2>
-        <p>
-          Some examples include AGENTS.md, CLAUDE.md, and
-          .github/copilot-instructions.md. Check your editor or agent
-          documentation for details.&nbsp;
-        </p>
-        <p>
-          These are used to inject important context at the start of every
-          conversation (or sometimes every request). I suggest adding to your
-          prompt files something small and light:
-        </p>
-        <p>
-          <b>Project workflow</b>: make change → run "make compile" → run "make
-          test" → run "make test-integration" → all tests must pass
-        </p>
-        <p>
-          <b>Tech debt rules</b>: docs live in docs2/... not docs/..., always
-          run ./login sh before ./start.sh
-        </p>
-        <p>
-          <b>Git workflow</b>: use the "gh" command to open prs and inspect
-          GitHub actions with "gh run view", etc
-        </p>
-        <h2 style="text-align: left">Tightening the feedback loop</h2>
-        <p>
-          One of the best things that you can do to make your agentic coding
-          more productive also turns out to be super nice to have in general:
-          tests.
-        </p>
-        <p>
-          Thankfully LLMs are pretty good at writing unit tests and they help
-          tighten the feedback loop a lot.&nbsp;
-        </p>
-        <p>
-          Speeding up and resolving flakey tests is a really good best practice
-          and will help you and your agent build the confidence needed to trust
-          the changes it's making.
-        </p>
-        <h2 style="text-align: left">Context management and memory</h2>
-        <p>
-          Agents don't have perfect memory across long sessions. Break complex
-          tasks into smaller, focused conversations or use project-specific
-          documentation to maintain context. Consider creating a "working notes"
-          file that the agent can reference and update as it progresses through
-          multi-step tasks.
-        </p>
-        <h2 style="text-align: left">Version control best practices</h2>
-        <p>
-          Commit frequently when working with agents. Create checkpoint commits
-          before major changes so you can easily revert if the agent goes off
-          track. Use descriptive commit messages that indicate AI-assisted work
-          for future reference.&nbsp;
-        </p>
-        <p>
-          <b>Hint</b>: add this to your custom system prompt: "commit after
-          every major change is complete, do not push" 🤖
-        </p>
-        <h2 style="text-align: left">Know when to intervene</h2>
-        <p>
-          Learn to recognize when an agent is stuck in a loop or making the same
-          mistake repeatedly. Sometimes a small human nudge or clarification can
-          get things back on track faster than letting it struggle. Don't be
-          afraid to course-correct or take manual control when needed.
-        </p>
-        <h2 style="text-align: left">Leverage the agent's strengths</h2>
-        <p>
-          Agents excel at boilerplate generation, test writing, documentation,
-          code analysis, and explaining unfamiliar codebases. Use them for these
-          tasks while keeping the high-level architecture decisions and complex
-          business logic to yourself.
-        </p>
-        <h2 style="text-align: left">Set up your environment for success</h2>
-        <p>
-          Ensure your development environment has good error messages, fast test
-          suites, and clear build processes. The easier it is for the agent to
-          understand what went wrong, the faster it can course-correct.
-        </p>
-        <p>
-          If your project is using a semi obscure or newer library, download the
-          relevant docs in a subfolder that it can access or configure an MCP
-          server to give it the tools necessary to look up the docs. This helps
-          eliminate hallucinations of non-existent methods and function
-          args.&nbsp;
-        </p>
-        <h2 style="text-align: left">TLDR</h2>
-        <p>
-          <b>Calibrate expectations</b>: Treat agents like junior developers who
-          need clear guidance and planning - helps avoid frustration when
-          complex tasks fail
-        </p>
-        <p>
-          <b>Custom instructions</b>: Inject project-specific workflows and
-          rules upfront - saves time correcting the same mistakes repeatedly
-        </p>
-        <p>
-          <b>Tighten feedback loops</b>: Invest in good tests and fast builds -
-          gives agents (and you) confidence to make changes quickly
-        </p>
-        <p>
-          <b>Manage context</b>: Break big tasks into focused sessions with
-          documentation - prevents agents from losing track of progress
-        </p>
-        <p>
-          <b>Version control discipline</b>: Commit frequently with descriptive
-          messages - makes it easy to backtrack when things go sideways
-        </p>
-        <p>
-          <b>Know when to intervene</b>: Recognize when agents are stuck in
-          loops - prevents wasted time on repetitive failures
-        </p>
-        <p>
-          <b>Play to strengths</b>: Use agents for boilerplate, tests, and
-          analysis while keeping architecture decisions human - maximizes
-          productivity for both
-        </p>
-        <p>
-          <b>Environment setup</b>: Ensure clear error messages and fast
-          feedback - helps agents self-correct instead of flailing
-        </p>
-      </article>
-    </main>
+  <main>
+    <article class="blog-content container">
+      <h2 style="text-align: left">What to expect.</h2>
+      <p>
+        You've probably been there: excitedly asking ChatGPT to "just build
+        this feature" only to watch it confidently generate code that doesn't
+        compile, uses deprecated APIs, or solves the wrong problem entirely.
+        The frustration is real.
+      </p>
+      <p>
+        Asking the agent to migrate your core Django app built over 10 years
+        ago to Node.js and React might be more than it can do in one shot.
+        This is when most people give up and write their LinkedIn post about
+        the AI hype bubble. Agents are just as good at question and answer
+        over large codebases as they are at solving leetcode. So take it a
+        step further: ask the agent to come up with three different plans of
+        attack for your problem or feature. You will benefit more from using
+        agents if you let them do some discovery and planning before writing
+        code.
+      </p>
+      <p>
+        Coincidentally this is the same process any engineer should take when
+        starting on a feature.&nbsp;
+      </p>
+      <h2 style="text-align: left">Use custom instructions&nbsp;</h2>
+      <p>
+        Some examples include AGENTS.md, CLAUDE.md, and
+        .github/copilot-instructions.md. Check your editor or agent
+        documentation for details.&nbsp;
+      </p>
+      <p>
+        These are used to inject important context at the start of every
+        conversation (or sometimes every request). I suggest adding to your
+        prompt files something small and light:
+      </p>
+      <p>
+        <b>Project workflow</b>: make change → run "make compile" → run "make
+        test" → run "make test-integration" → all tests must pass
+      </p>
+      <p>
+        <b>Tech debt rules</b>: docs live in docs2/... not docs/..., always
+        run ./login sh before ./start.sh
+      </p>
+      <p>
+        <b>Git workflow</b>: use the "gh" command to open prs and inspect
+        GitHub actions with "gh run view", etc
+      </p>
+      <h2 style="text-align: left">Tightening the feedback loop</h2>
+      <p>
+        One of the best things that you can do to make your agentic coding
+        more productive also turns out to be super nice to have in general:
+        tests.
+      </p>
+      <p>
+        Thankfully LLMs are pretty good at writing unit tests and they help
+        tighten the feedback loop a lot.&nbsp;
+      </p>
+      <p>
+        Speeding up and resolving flakey tests is a really good best practice
+        and will help you and your agent build the confidence needed to trust
+        the changes it's making.
+      </p>
+      <h2 style="text-align: left">Context management and memory</h2>
+      <p>
+        Agents don't have perfect memory across long sessions. Break complex
+        tasks into smaller, focused conversations or use project-specific
+        documentation to maintain context. Consider creating a "working notes"
+        file that the agent can reference and update as it progresses through
+        multi-step tasks.
+      </p>
+      <h2 style="text-align: left">Version control best practices</h2>
+      <p>
+        Commit frequently when working with agents. Create checkpoint commits
+        before major changes so you can easily revert if the agent goes off
+        track. Use descriptive commit messages that indicate AI-assisted work
+        for future reference.&nbsp;
+      </p>
+      <p>
+        <b>Hint</b>: add this to your custom system prompt: "commit after
+        every major change is complete, do not push" 🤖
+      </p>
+      <h2 style="text-align: left">Know when to intervene</h2>
+      <p>
+        Learn to recognize when an agent is stuck in a loop or making the same
+        mistake repeatedly. Sometimes a small human nudge or clarification can
+        get things back on track faster than letting it struggle. Don't be
+        afraid to course-correct or take manual control when needed.
+      </p>
+      <h2 style="text-align: left">Leverage the agent's strengths</h2>
+      <p>
+        Agents excel at boilerplate generation, test writing, documentation,
+        code analysis, and explaining unfamiliar codebases. Use them for these
+        tasks while keeping the high-level architecture decisions and complex
+        business logic to yourself.
+      </p>
+      <h2 style="text-align: left">Set up your environment for success</h2>
+      <p>
+        Ensure your development environment has good error messages, fast test
+        suites, and clear build processes. The easier it is for the agent to
+        understand what went wrong, the faster it can course-correct.
+      </p>
+      <p>
+        If your project is using a semi obscure or newer library, download the
+        relevant docs in a subfolder that it can access or configure an MCP
+        server to give it the tools necessary to look up the docs. This helps
+        eliminate hallucinations of non-existent methods and function
+        args.&nbsp;
+      </p>
+      <h2 style="text-align: left">TLDR</h2>
+      <p>
+        <b>Calibrate expectations</b>: Treat agents like junior developers who
+        need clear guidance and planning - helps avoid frustration when
+        complex tasks fail
+      </p>
+      <p>
+        <b>Custom instructions</b>: Inject project-specific workflows and
+        rules upfront - saves time correcting the same mistakes repeatedly
+      </p>
+      <p>
+        <b>Tighten feedback loops</b>: Invest in good tests and fast builds -
+        gives agents (and you) confidence to make changes quickly
+      </p>
+      <p>
+        <b>Manage context</b>: Break big tasks into focused sessions with
+        documentation - prevents agents from losing track of progress
+      </p>
+      <p>
+        <b>Version control discipline</b>: Commit frequently with descriptive
+        messages - makes it easy to backtrack when things go sideways
+      </p>
+      <p>
+        <b>Know when to intervene</b>: Recognize when agents are stuck in
+        loops - prevents wasted time on repetitive failures
+      </p>
+      <p>
+        <b>Play to strengths</b>: Use agents for boilerplate, tests, and
+        analysis while keeping architecture decisions human - maximizes
+        productivity for both
+      </p>
+      <p>
+        <b>Environment setup</b>: Ensure clear error messages and fast
+        feedback - helps agents self-correct instead of flailing
+      </p>
+    </article>
+  </main>
 
-    <footer class="blog-footer">
-      <div class="container">
-        <p>&copy; 2025 Ouachita Labs. All rights reserved.</p>
-      </div>
-    </footer>
+  <footer class="blog-footer">
+    <div class="container">
+      <p>&copy; 2025 Ouachita Labs. All rights reserved.</p>
+    </div>
+  </footer>
 
-    <script>
-      // Mobile menu functions
-      function toggleMobileMenu() {
-        const mobileNav = document.getElementById("mobileNav");
-        mobileNav.classList.toggle("active");
-      }
+  <script>
+    // Mobile menu functions
+    function toggleMobileMenu() {
+      const mobileNav = document.getElementById("mobileNav");
+      mobileNav.classList.toggle("active");
+    }
 
-      function closeMobileMenu() {
-        const mobileNav = document.getElementById("mobileNav");
-        mobileNav.classList.remove("active");
-      }
-    </script>
-  </body>
+    function closeMobileMenu() {
+      const mobileNav = document.getElementById("mobileNav");
+      mobileNav.classList.remove("active");
+    }
+  </script>
+</body>
+
 </html>

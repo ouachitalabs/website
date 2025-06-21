@@ -1,128 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ouachita Labs - AI Solutions for Business</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ouachita Labs - AI Solutions for Business</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">Ouachita Labs</div>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="blog/index.html">Blog</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
-            </nav>
-        </div>
-    </header>
-
-    <div class="mobile-nav" id="mobileNav">
-        <button class="mobile-close" onclick="closeMobileMenu()">×</button>
-        <a href="index.html" onclick="closeMobileMenu()">Home</a>
-        <a href="about.html" onclick="closeMobileMenu()">About</a>
-        <a href="blog/index.html" onclick="closeMobileMenu()">Blog</a>
-        <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Ouachita Labs</div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="blog/index.html">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+      </nav>
     </div>
+  </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h1>AI Consulting & <span class="highlight">Development</span></h1>
-                <p>Production AI systems for Arkansas businesses.</p>
-                <a href="#contact" class="cta-button">Get in Touch</a>
-            </div>
-        </section>
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-close" onclick="closeMobileMenu()">×</button>
+    <a href="index.html" onclick="closeMobileMenu()">Home</a>
+    <a href="about.html" onclick="closeMobileMenu()">About</a>
+    <a href="blog/index.html" onclick="closeMobileMenu()">Blog</a>
+    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  </div>
 
-        <section class="features" id="services">
-            <div class="container">
-                <h2 class="section-title">Services</h2>
-                <p class="section-subtitle">AI solutions built on real experience.</p>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>AI Consulting & <span class="highlight">Development</span></h1>
+        <p>Production AI systems for Arkansas businesses.</p>
+        <a href="#contact" class="cta-button">Get in Touch</a>
+      </div>
+    </section>
 
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🤖</div>
-                        <h3>Custom AI Agents</h3>
-                        <p>Build agents that analyze your data and automate workflows. Experience shipping production systems at Numerator and Amazon.</p>
-                    </div>
+    <section class="features" id="services">
+      <div class="container">
+        <h2 class="section-title">Services</h2>
+        <p class="section-subtitle">AI solutions built on real experience.</p>
 
-                    <div class="feature-card">
-                        <div class="feature-icon">⚡</div>
-                        <h3>Data Integration</h3>
-                        <p>Connect AI models to your databases and APIs through custom MCP servers. Make your data accessible to modern AI tools.</p>
-                    </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🤖</div>
+            <h3>Custom AI Agents</h3>
+            <p>Build agents that analyze your data and automate workflows. Experience shipping production systems at
+              Numerator and Amazon.</p>
+          </div>
 
-                    <div class="feature-card">
-                        <div class="feature-icon">🔧</div>
-                        <h3>Consulting</h3>
-                        <p>Technical guidance on AI adoption. From proof-of-concept to production deployment.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Data Integration</h3>
+            <p>Connect AI models to your databases and APIs through custom MCP servers. Make your data accessible to
+              modern AI tools.</p>
+          </div>
 
-        <section class="contact" id="contact">
-            <div class="container">
-                <h2>Contact</h2>
-                <p>Interested in AI for your business? Let's talk.</p>
-                <a href="mailto:john@ouachitalabs.com" class="cta-button">Get in Touch</a>
+          <div class="feature-card">
+            <div class="feature-icon">🔧</div>
+            <h3>Consulting</h3>
+            <p>Technical guidance on AI adoption. From proof-of-concept to production deployment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <span>📍</span>
-                        <span>Central Arkansas</span>
-                    </div>
-                    <div class="contact-item">
-                        <span>💼</span>
-                        <span>AI Consulting & Development</span>
-                    </div>
-                    <div class="contact-item">
-                        <span>🔧</span>
-                        <span>Enterprise Experience, Local Focus</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+    <section class="contact" id="contact">
+      <div class="container">
+        <h2>Contact</h2>
+        <p>Interested in AI for your business? Let's talk.</p>
+        <a href="mailto:john@ouachitalabs.com" class="cta-button">Get in Touch</a>
 
-    <script>
-        // Mobile menu functions
-        function toggleMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            mobileNav.classList.toggle('active');
-        }
+        <div class="contact-info">
+          <div class="contact-item">
+            <span>📍</span>
+            <span>Central Arkansas</span>
+          </div>
+          <div class="contact-item">
+            <span>💼</span>
+            <span>AI Consulting & Development</span>
+          </div>
+          <div class="contact-item">
+            <span>🔧</span>
+            <span>Enterprise Experience, Local Focus</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-        function closeMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            mobileNav.classList.remove('active');
-        }
+  <script>
+    // Mobile menu functions
+    function toggleMobileMenu() {
+      const mobileNav = document.getElementById('mobileNav');
+      mobileNav.classList.toggle('active');
+    }
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+    function closeMobileMenu() {
+      const mobileNav = document.getElementById('mobileNav');
+      mobileNav.classList.remove('active');
+    }
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
         });
+      });
+    });
 
-        // Add subtle hover effects
-        document.querySelectorAll('.feature-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
+    // Add subtle hover effects
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.addEventListener('mouseenter', function () {
+        this.style.transform = 'translateY(-10px) scale(1.02)';
+      });
 
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-    </script>
+      card.addEventListener('mouseleave', function () {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+  </script>
 </body>
+
 </html>

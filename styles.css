@@ -446,7 +446,9 @@ nav {
 }
 
 /* Animations */
-.hero h1, .hero p, .cta-button {
+.hero h1,
+.hero p,
+.cta-button {
     animation: fadeInUp 1s ease-out;
 }
 
@@ -463,6 +465,7 @@ nav {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -474,6 +477,7 @@ nav {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -693,30 +697,30 @@ nav {
     .blog-hero h1 {
         font-size: 2.5rem;
     }
-    
+
     .blog-grid {
         grid-template-columns: 1fr;
         gap: 30px;
         padding: 0 20px;
     }
-    
+
     .blog-card {
         padding: 30px;
     }
-    
+
     .blog-card h2 {
         font-size: 24px;
     }
-    
+
     .blog-content {
         padding: 60px 30px;
         margin-top: -30px;
     }
-    
+
     .blog-content h2 {
         font-size: 26px;
     }
-    
+
     .blog-content p {
         font-size: 16px;
     }
