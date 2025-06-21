@@ -19,27 +19,7 @@
             min-height: 100vh;
         }
 
-        /* Topographical background pattern */
-        .topo-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.1;
-            z-index: -1;
-            background-image:
-                radial-gradient(ellipse 800px 400px at 25% 30%, transparent 40%, rgba(255,255,255,0.1) 41%, rgba(255,255,255,0.1) 42%, transparent 43%),
-                radial-gradient(ellipse 600px 300px at 75% 60%, transparent 35%, rgba(255,255,255,0.08) 36%, rgba(255,255,255,0.08) 37%, transparent 38%),
-                radial-gradient(ellipse 400px 200px at 40% 80%, transparent 30%, rgba(255,255,255,0.06) 31%, rgba(255,255,255,0.06) 32%, transparent 33%),
-                radial-gradient(ellipse 300px 150px at 80% 20%, transparent 25%, rgba(255,255,255,0.05) 26%, rgba(255,255,255,0.05) 27%, transparent 28%);
-            animation: float 20s ease-in-out infinite;
-        }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(1deg); }
-        }
 
         .container {
             max-width: 1200px;
@@ -90,6 +70,10 @@
             padding: 100px 0 150px;
             text-align: center;
             position: relative;
+            background-image: linear-gradient(to bottom, rgba(26, 46, 29, 0.7), rgba(26, 46, 29, 0.9)), url('ouachita_from_above.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
         .hero h1 {
@@ -140,6 +124,7 @@
         .features {
             padding: 80px 0;
             position: relative;
+            background: linear-gradient(135deg, #1a2e1d 0%, #243328 25%, #2f3f32 50%, #3a4a3d 75%, #455649 100%);
         }
 
         .features-grid {
@@ -290,38 +275,9 @@
             }
         }
 
-        /* Parallax effect */
-        .parallax-element {
-            position: absolute;
-            opacity: 0.1;
-            pointer-events: none;
-        }
-
-        .mountain-layer-1 {
-            top: 20%;
-            left: 10%;
-            width: 200px;
-            height: 100px;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
-            border-radius: 50% 50% 0 0;
-            animation: float 15s ease-in-out infinite;
-        }
-
-        .mountain-layer-2 {
-            top: 60%;
-            right: 15%;
-            width: 150px;
-            height: 75px;
-            background: linear-gradient(-45deg, rgba(255,255,255,0.08) 0%, transparent 100%);
-            border-radius: 50% 50% 0 0;
-            animation: float 18s ease-in-out infinite reverse;
-        }
     </style>
 </head>
 <body>
-    <div class="topo-bg"></div>
-    <div class="parallax-element mountain-layer-1"></div>
-    <div class="parallax-element mountain-layer-2"></div>
 
     <header>
         <div class="container">
@@ -407,16 +363,6 @@
             });
         });
 
-        // Parallax effect on scroll
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.parallax-element');
-
-            parallaxElements.forEach((element, index) => {
-                const speed = 0.5 + (index * 0.2);
-                element.style.transform = `translateY(${scrolled * speed}px)`;
-            });
-        });
 
         // Add subtle hover effects
         document.querySelectorAll('.feature-card').forEach(card => {
