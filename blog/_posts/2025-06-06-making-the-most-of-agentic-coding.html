@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Making the most of agentic coding - Ouachita Labs</title>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Ouachita Labs</div>
+                <ul class="nav-links">
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../about.html">About</a></li>
+                    <li><a href="../index.html">Blog</a></li>
+                    <li><a href="../../index.html#contact">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-close" onclick="closeMobileMenu()">×</button>
+        <a href="../../index.html" onclick="closeMobileMenu()">Home</a>
+        <a href="../../about.html" onclick="closeMobileMenu()">About</a>
+        <a href="../index.html" onclick="closeMobileMenu()">Blog</a>
+        <a href="../../index.html#contact" onclick="closeMobileMenu()">Contact</a>
+    </div>
+
+    <div class="blog-header">
+        <div class="container">
+            <h1>Making the most of agentic coding</h1>
+            <time>June 6, 2025</time>
+        </div>
+    </div>
+
+    <main>
+        <article class="blog-content container">
+            <h2>Calibrate your expectations</h2>
+
+            <p>This is an exercise that has to happen seemingly every single time you start working with a new model. OpenAI vs Claude vs Gemini all take instructions and steer a little differently. Think of your different coworkers. One prefers to think on a problem before coming to you with clarifying questions, another has to get a clear understanding of everything up front or else he can not continue. The same is true for large language models.</p>
+
+            <p>Asking the agent to migrate your core Django app built over 10 years ago to Node.js and React might be more than it can do in one shot. This is when most people give up and write their LinkedIn post about the AI hype bubble. Agents are just as good at question and answer over large codebases as they are at solving leetcode. So take it a step further: ask the agent to come up with three different plans of attack for your problem or feature. You will benefit more from using agents if you let them do some discovery and planning before writing code.</p>
+
+            <p>Coincidentally this is the same process any engineer should take when starting on a feature.</p>
+
+            <h2>Use custom instructions</h2>
+
+            <p>Some examples include AGENTS.md, CLAUDE.md, and .github/copilot-instructions.md. Check your editor or agent documentation for details.</p>
+
+            <p>These are used to inject important context at the start of every conversation (or sometimes every request). I suggest adding to your prompt files something small and light:</p>
+
+            <p><strong>Project workflow</strong>: make change → run "make compile" → run "make test" → run "make test-integration" → all tests must pass</p>
+
+            <p><strong>Tech debt rules</strong>: docs live in docs2/... not docs/..., always run ./login sh before ./start.sh</p>
+
+            <p><strong>Git workflow</strong>: use the "gh" command to open prs and inspect GitHub actions with "gh run view", etc</p>
+
+            <h2>Tightening the feedback loop</h2>
+
+            <p>One of the best things that you can do to make your agentic coding more productive also turns out to be super nice to have in general: tests.</p>
+
+            <p>Thankfully LLMs are pretty good at writing unit tests and they help tighten the feedback loop a lot.</p>
+
+            <p>Speeding up and resolving flakey tests is a really good best practice and will help you and your AI collaborators gain confidence much faster.</p>
+
+            <h2>Managing context effectively</h2>
+
+            <p>Breaking down complex tasks into smaller, focused conversations helps maintain clarity. Create "working notes" files that the AI can reference across sessions. Maintain clear documentation that serves both human developers and AI assistants.</p>
+
+            <h2>Version control best practices</h2>
+
+            <ul>
+                <li>Commit frequently to create checkpoints</li>
+                <li>Use descriptive commit messages</li>
+                <li>Create checkpoint commits before major refactoring</li>
+                <li>Don't let the AI push directly unless you've reviewed the changes</li>
+            </ul>
+
+            <h2>Know when to intervene</h2>
+
+            <p>Recognize when the AI is stuck in a loop or heading in the wrong direction. Be prepared to provide guidance or take manual control when needed. The goal is collaboration, not automation.</p>
+
+            <h2>Leverage AI strengths</h2>
+
+            <p>AI excels at:</p>
+            <ul>
+                <li>Generating boilerplate code</li>
+                <li>Writing comprehensive tests</li>
+                <li>Creating documentation</li>
+                <li>Analyzing existing code patterns</li>
+                <li>Suggesting refactoring opportunities</li>
+            </ul>
+
+            <h2>Environment setup for success</h2>
+
+            <ul>
+                <li>Ensure clear error messages in your build system</li>
+                <li>Maintain fast test suites</li>
+                <li>Provide easy access to documentation</li>
+                <li>Keep your development environment consistent</li>
+            </ul>
+
+            <p>The key to successful agentic coding is treating AI as a collaborative tool that requires strategic guidance and careful management. With the right approach, it can significantly boost your productivity while maintaining code quality.</p>
+        </article>
+    </main>
+
+    <footer class="blog-footer">
+        <div class="container">
+            <p>&copy; 2025 Ouachita Labs. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functions
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.remove('active');
+        }
+    </script>
+</body>
+</html>
