@@ -18,7 +18,6 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="blog/index.html">Blog</a></li>
-          <li><a href="#contact">Contact</a></li>
         </ul>
         <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
       </nav>
@@ -30,7 +29,6 @@
     <a href="index.html" onclick="closeMobileMenu()">Home</a>
     <a href="about.html" onclick="closeMobileMenu()">About</a>
     <a href="blog/index.html" onclick="closeMobileMenu()">Blog</a>
-    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
   </div>
 
   <main>
@@ -38,7 +36,6 @@
       <div class="container">
         <h1>AI Consulting & <span class="highlight">Development</span></h1>
         <p>Production AI systems for Arkansas businesses.</p>
-        <a href="#contact" class="cta-button">Get in Touch</a>
       </div>
     </section>
 
@@ -77,10 +74,10 @@
         <p>Ready to leverage AI for your business? Get in touch.</p>
 
         <div class="contact-links">
-          <a href="mailto:john@ouachitalabs.com" class="contact-button">
+          <button class="contact-button email-copy" data-email="john@ouachitalabs.com">
             <span class="contact-icon">📬</span>
-            john@ouachitalabs.com
-          </a>
+            <span class="email">john@ouachitalabs.com</span>
+          </button>
           <a href="https://linkedin.com/in/jomccr" class="contact-button" target="_blank" rel="noopener noreferrer">
             <span class="contact-icon">💼</span>
             LinkedIn
@@ -118,14 +115,38 @@
       });
     });
 
-    // Add subtle hover effects
-    document.querySelectorAll('.feature-card').forEach(card => {
-      card.addEventListener('mouseenter', function () {
-        this.style.transform = 'translateY(-10px) scale(1.02)';
-      });
+    // Email copy functionality
+    document.querySelectorAll('.email-copy').forEach(button => {
+      button.addEventListener('click', async function () {
+        const email = this.dataset.email;
+        const emailSpan = this.querySelector('.email');
+        const originalText = emailSpan.textContent;
 
-      card.addEventListener('mouseleave', function () {
-        this.style.transform = 'translateY(0) scale(1)';
+        try {
+          await navigator.clipboard.writeText(email);
+          emailSpan.textContent = 'Copied!';
+          this.style.background = 'var(--primary-accent)';
+          this.style.color = 'var(--bg-primary)';
+
+          setTimeout(() => {
+            emailSpan.textContent = originalText;
+            this.style.background = '';
+            this.style.color = '';
+          }, 2000);
+        } catch (err) {
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = email;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+
+          emailSpan.textContent = 'Copied!';
+          setTimeout(() => {
+            emailSpan.textContent = originalText;
+          }, 2000);
+        }
       });
     });
   </script>

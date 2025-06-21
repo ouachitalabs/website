@@ -17,7 +17,6 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="blog/">Blog</a></li>
-          <li><a href="index.html#contact">Contact</a></li>
         </ul>
         <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
       </nav>
@@ -29,7 +28,6 @@
     <a href="index.html" onclick="closeMobileMenu()">Home</a>
     <a href="about.html" onclick="closeMobileMenu()">About</a>
     <a href="blog/" onclick="closeMobileMenu()">Blog</a>
-    <a href="index.html#contact" onclick="closeMobileMenu()">Contact</a>
   </div>
 
   <main>
@@ -120,7 +118,7 @@
         <div class="story-grid">
           <div class="story-content">
             <p>Available for consulting engagements and development projects. Attending InTheRock.ai on June 25th.</p>
-            <p>Email: john@ouachitalabs.com</p>
+            <p>Email: <span class="email">john@ouachitalabs.com</span></p>
           </div>
         </div>
       </div>
@@ -130,7 +128,9 @@
       <div class="container">
         <h2>Get Started</h2>
         <p>Looking for Arkansas businesses interested in AI implementation.</p>
-        <a href="mailto:john@ouachitalabs.com" class="cta-button">Contact</a>
+        <button class="cta-button email-copy" data-email="john@ouachitalabs.com">
+          <span class="email">john@ouachitalabs.com</span>
+        </button>
       </div>
     </section>
   </main>
@@ -157,22 +157,39 @@
       });
     });
 
-    // Add fade-in animation to elements as they come into view
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+    // Email copy functionality
+    document.querySelectorAll('.email-copy').forEach(button => {
+      button.addEventListener('click', async function () {
+        const email = this.dataset.email;
+        const emailSpan = this.querySelector('.email');
+        const originalText = emailSpan.textContent;
 
-    const observer = new IntersectionObserver(function (entries) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in');
+        try {
+          await navigator.clipboard.writeText(email);
+          emailSpan.textContent = 'Copied!';
+          this.style.background = 'var(--primary-accent)';
+          this.style.color = 'var(--bg-primary)';
+
+          setTimeout(() => {
+            emailSpan.textContent = originalText;
+            this.style.background = '';
+            this.style.color = '';
+          }, 2000);
+        } catch (err) {
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = email;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+
+          emailSpan.textContent = 'Copied!';
+          setTimeout(() => {
+            emailSpan.textContent = originalText;
+          }, 2000);
         }
       });
-    }, observerOptions);
-
-    document.querySelectorAll('.story-content, .expertise-item, .timeline-item').forEach(el => {
-      observer.observe(el);
     });
   </script>
 </body>

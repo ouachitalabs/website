@@ -1,30 +1,37 @@
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 :root {
+    /* Typography */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', monospace;
+
     /* Primary Color Palette */
     --primary-accent: #898f50;
     --primary-accent-hover: #77693c;
     --primary-accent-light: #f5f6f0;
-    
+
     /* Text Colors */
     --text-primary: #1a1a1a;
     --text-secondary: #4a5568;
     --text-tertiary: #2d3748;
     --text-muted: #6b7280;
-    
+
     /* Background Colors */
     --bg-primary: #ffffff;
     --bg-secondary: #f8f9fa;
     --bg-tertiary: #fafbfc;
     --bg-quaternary: #f5f7fa;
-    
+
     /* Border Colors */
     --border-light: #e8e8e8;
     --border-medium: #d0d0d0;
-    
+
     /* Gradients */
     --gradient-bg: linear-gradient(180deg, var(--bg-tertiary) 0%, var(--bg-quaternary) 100%);
     --gradient-accent: linear-gradient(135deg, var(--primary-accent) 0%, var(--primary-accent-hover) 100%);
     --gradient-timeline: linear-gradient(180deg, var(--primary-accent) 0%, #576c3e 100%);
-    
+
     /* Hero Overlay */
     --hero-overlay: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(250, 251, 252, 0.55) 100%);
 }
@@ -36,7 +43,7 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+    font-family: var(--font-primary);
     background: var(--bg-primary);
     color: var(--text-primary);
     overflow-x: hidden;
@@ -71,7 +78,7 @@ nav {
 .logo {
     font-size: 24px;
     font-weight: 700;
-    color: var(--primary-accent);
+    color: var(--text-primary);
     letter-spacing: -0.5px;
     text-decoration: none;
 }
@@ -191,17 +198,19 @@ nav {
 }
 
 .hero p {
-    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-family: var(--font-mono);
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
     margin-bottom: 50px;
     color: var(--text-tertiary);
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
-    line-height: 1.7;
+    line-height: 1.6;
     font-weight: 400;
     position: relative;
     z-index: 1;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    letter-spacing: -0.2px;
 }
 
 .cta-button {
@@ -217,10 +226,16 @@ nav {
     border: none;
     position: relative;
     z-index: 1;
+    cursor: pointer;
+    font-family: var(--font-primary);
 }
 
 .cta-button:hover {
     background: var(--primary-accent-hover);
+}
+
+.cta-button:active {
+    transform: scale(0.98);
 }
 
 /* Features Section */
@@ -336,11 +351,21 @@ nav {
     font-weight: 600;
     transition: all 0.3s ease;
     border: 2px solid var(--primary-accent);
+    cursor: pointer;
+    font-family: var(--font-primary);
 }
 
 .contact-button:hover {
     background: var(--primary-accent);
     color: var(--bg-primary);
+}
+
+.email-copy {
+    position: relative;
+}
+
+.email-copy:active {
+    transform: scale(0.98);
 }
 
 .contact-icon {
@@ -545,28 +570,29 @@ nav {
 
 /* Animations - Removed for cleaner experience */
 
+/* Monospace Elements */
+.email,
+.code,
+.technical {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    letter-spacing: -0.2px;
+}
+
+/* Email and tech contact styling */
+a[href^="mailto:"] {
+    font-family: var(--font-mono);
+    letter-spacing: -0.2px;
+}
+
 /* Keyframes removed for performance */
 
 /* Blog Styles */
 .blog-hero {
     padding: 100px 0 80px;
     text-align: center;
-    background: url('ouachita_from_above.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background: var(--bg-primary);
     position: relative;
-}
-
-.blog-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--hero-overlay);
-    z-index: 0;
 }
 
 .blog-hero h1 {
@@ -575,17 +601,16 @@ nav {
     margin-bottom: 20px;
     color: var(--text-primary);
     letter-spacing: -0.5px;
-    position: relative;
-    z-index: 1;
 }
 
 .blog-subtitle {
-    font-size: 20px;
+    font-family: var(--font-mono);
+    font-size: 18px;
     color: var(--text-secondary);
     max-width: 600px;
     margin: 0 auto;
-    position: relative;
-    z-index: 1;
+    letter-spacing: -0.2px;
+    font-weight: 400;
 }
 
 .blog-posts {
@@ -622,20 +647,23 @@ nav {
 }
 
 .blog-card time {
+    font-family: var(--font-mono);
     color: var(--text-muted);
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.2px;
 }
 
 .blog-category {
+    font-family: var(--font-mono);
     background: var(--primary-accent-light);
     color: var(--primary-accent);
     padding: 6px 16px;
     border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
 }
 
 .blog-card h2 {
@@ -710,24 +738,10 @@ nav {
 
 /* Blog post detail page styles */
 .blog-header {
-    background: url('../../ouachita_from_above.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background: var(--bg-primary);
     padding: 120px 0 80px;
     text-align: center;
     position: relative;
-}
-
-.blog-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--hero-overlay);
-    z-index: 0;
 }
 
 .blog-header h1 {
@@ -736,15 +750,13 @@ nav {
     font-weight: 700;
     letter-spacing: -0.5px;
     color: var(--text-primary);
-    position: relative;
-    z-index: 1;
 }
 
 .blog-header time {
+    font-family: var(--font-mono);
     color: var(--text-secondary);
-    font-size: 16px;
-    position: relative;
-    z-index: 1;
+    font-size: 15px;
+    letter-spacing: -0.2px;
 }
 
 .blog-content {
