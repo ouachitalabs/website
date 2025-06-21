@@ -4,276 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ouachita Labs - AI Solutions for Business</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #1a2e1d 0%, #243328 25%, #2f3f32 50%, #3a4a3d 75%, #455649 100%);
-            color: #ffffff;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Header */
-        header {
-            padding: 30px 0;
-            backdrop-filter: blur(10px);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #a8d8a3;
-            letter-spacing: -1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            color: #a8d8a3;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 100px 0 150px;
-            text-align: center;
-            position: relative;
-            background-image: linear-gradient(to bottom, rgba(26, 46, 29, 0.7), rgba(26, 46, 29, 0.9)), url('ouachita_from_above.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 300;
-            margin-bottom: 30px;
-            line-height: 1.1;
-            letter-spacing: -2px;
-        }
-
-        .hero .highlight {
-            color: #a8d8a3;
-            font-weight: 600;
-        }
-
-        .hero p {
-            font-size: 24px;
-            margin-bottom: 50px;
-            opacity: 0.9;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
-            font-weight: 300;
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, #a8d8a3 0%, #7fb87a 100%);
-            color: #2d4a2b;
-            padding: 18px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(168, 216, 163, 0.3);
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(168, 216, 163, 0.4);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            position: relative;
-            background: linear-gradient(135deg, #1a2e1d 0%, #243328 25%, #2f3f32 50%, #3a4a3d 75%, #455649 100%);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
-            margin-top: 60px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 40px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #a8d8a3 0%, #7fb87a 100%);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            font-size: 24px;
-            color: #2d4a2b;
-        }
-
-        .feature-card h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #a8d8a3;
-        }
-
-        .feature-card p {
-            opacity: 0.8;
-            line-height: 1.6;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 48px;
-            font-weight: 300;
-            margin-bottom: 20px;
-            color: #a8d8a3;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 20px;
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 100px 0;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.2);
-            margin-top: 80px;
-        }
-
-        .contact h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            color: #a8d8a3;
-        }
-
-        .contact p {
-            font-size: 18px;
-            margin-bottom: 40px;
-            opacity: 0.9;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            flex-wrap: wrap;
-            margin-top: 40px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
-            opacity: 0.8;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                padding: 60px 0 100px;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .contact-info {
-                flex-direction: column;
-                gap: 20px;
-            }
-        }
-
-        /* Subtle animations */
-        .hero h1, .hero p, .cta-button {
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .feature-card {
-            animation: fadeIn 1s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -282,6 +13,7 @@
             <nav>
                 <div class="logo">Ouachita Labs</div>
                 <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="#contact">Contact</a></li>
@@ -294,7 +26,7 @@
         <section class="hero">
             <div class="container">
                 <h1>AI Consulting & <span class="highlight">Development</span></h1>
-                <p>Production AI systems for Arkansas businesses. Experience from Amazon and Numerator.</p>
+                <p>Production AI systems for Arkansas businesses.</p>
                 <a href="#contact" class="cta-button">Get in Touch</a>
             </div>
         </section>
@@ -302,7 +34,7 @@
         <section class="features" id="services">
             <div class="container">
                 <h2 class="section-title">Services</h2>
-                <p class="section-subtitle">Production-tested AI solutions built on real enterprise experience.</p>
+                <p class="section-subtitle">AI solutions built on real experience.</p>
 
                 <div class="features-grid">
                     <div class="feature-card">
