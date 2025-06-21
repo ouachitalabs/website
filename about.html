@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Ouachita Labs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a2e1d 0%, #243328 25%, #2f3f32 50%, #3a4a3d 75%, #455649 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 30px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #a8d8a3;
+            letter-spacing: -1px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #a8d8a3;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 100px;
+            text-align: center;
+            position: relative;
+            background-image: linear-gradient(to bottom, rgba(26, 46, 29, 0.85), rgba(26, 46, 29, 0.95)), url('ouachita_from_above.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 300;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .content-section:nth-child(even) {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            color: #a8d8a3;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .story-content h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #a8d8a3;
+            font-weight: 300;
+        }
+
+        .story-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .highlight-box {
+            background: rgba(168, 216, 163, 0.1);
+            border-left: 4px solid #a8d8a3;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box h4 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #a8d8a3;
+        }
+
+        .highlight-box p {
+            font-size: 18px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .expertise-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .expertise-item h4 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #a8d8a3;
+        }
+
+        .expertise-item p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin-top: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #a8d8a3;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #a8d8a3;
+        }
+
+        .timeline-item h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #a8d8a3;
+        }
+
+        .timeline-item p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #a8d8a3;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #a8d8a3 0%, #7fb87a 100%);
+            color: #2d4a2b;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(168, 216, 163, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(168, 216, 163, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .expertise-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">Ouachita Labs</a>
+                <ul class="nav-links">
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>About Ouachita Labs</h1>
+                <p>Bringing bleeding-edge AI solutions to Arkansas businesses with hometown values and global expertise.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">The Story</h2>
+                <div class="story-grid">
+                    <div class="story-content">
+                        <h3>From the Ouachitas to Seattle and Back</h3>
+                        <p>I've spent my entire life in Central Arkansas, growing up in the shadow of the Ouachita Mountains. These hills shaped my character - teaching me persistence, curiosity, and the value of community.</p>
+                        <p>In 2019, I began my journey in software development, focusing on data engineering. A year at Amazon in Seattle gave me invaluable experience at scale, but Arkansas called me home. There's something special about this place - the natural beauty of Petit Jean, the healing waters of Hot Springs, and most importantly, the people.</p>
+                    </div>
+                    <div class="story-content">
+                        <h3>Why Ouachita Labs?</h3>
+                        <p>After shipping multiple AI-powered MVPs and agents at Numerator - a leading market research technology company - I realized Arkansas businesses needed someone who understood both cutting-edge AI and local business needs.</p>
+                        <p>Ouachita Labs was born from a simple belief: Arkansas companies deserve access to the same AI innovations as Silicon Valley, delivered by someone who understands their unique challenges and opportunities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Experience That Matters</h2>
+                
+                <div class="highlight-box">
+                    <h4>Real-World AI Implementation</h4>
+                    <p>At Numerator, I've shipped production-quality AI agents that help analysts and business teams understand complex data changes. These aren't just prototypes - they're systems that deliver real value every day.</p>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>2019 - Present</h4>
+                        <p>Full-time software development focusing on data engineering and AI implementation</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Amazon Experience</h4>
+                        <p>Data Engineer - Gained experience working at scale with one of the world's largest tech companies</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Numerator</h4>
+                        <p>Shipped multiple AI-powered MVPs and agents for market research analysis</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>University of Central Arkansas</h4>
+                        <p>Built a strong foundation in computer science and problem-solving</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">What I Bring to Your Business</h2>
+                
+                <div class="expertise-grid">
+                    <div class="expertise-item">
+                        <h4>Bleeding-Edge AI Integration</h4>
+                        <p>Custom MCP servers, internal data source integrations, and agentic solutions that actually work. I've done it in production, not just in demos.</p>
+                    </div>
+                    <div class="expertise-item">
+                        <h4>Research-Driven Innovation</h4>
+                        <p>Currently researching AI computer use through accessibility APIs to help disabled and non-technical users. This forward-thinking approach benefits all my clients.</p>
+                    </div>
+                    <div class="expertise-item">
+                        <h4>Local Understanding</h4>
+                        <p>As a lifelong Arkansan, I understand the unique challenges and opportunities of our local business environment. No coastal assumptions here.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Beyond the Code</h2>
+                <div class="story-grid">
+                    <div class="story-content">
+                        <p>When I'm not building AI solutions, you'll find me hiking the Ouachita Mountains, exploring Petit Jean, or soaking in the hot springs. These natural wonders remind me why I came back to Arkansas - there's a grounding here that keeps me balanced and creative.</p>
+                        <p>My curiosity about technology is matched only by my love for this region. The AI boom presents an incredible opportunity for Arkansas businesses, and I'm here to make sure we don't get left behind.</p>
+                    </div>
+                    <div class="story-content">
+                        <h3>Let's Connect</h3>
+                        <p>I'll be attending InTheRock.ai on June 25th and I'm always open to speaking engagements about AI implementation, data engineering, or helping Arkansas businesses leverage cutting-edge technology.</p>
+                        <p>Whether you need a consultant to guide your AI strategy or a developer to build custom solutions, I'm here to help Arkansas businesses thrive in the AI age.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Be My First Success Story?</h2>
+                <p>I'm looking for forward-thinking Arkansas businesses ready to embrace AI. Let's build something amazing together.</p>
+                <a href="mailto:john@ouachitalabs.com" class="cta-button">Start the Conversation</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add fade-in animation to elements as they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.story-content, .expertise-item, .timeline-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
