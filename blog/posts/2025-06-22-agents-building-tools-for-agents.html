@@ -78,7 +78,7 @@
           Anthropic</a> about the already popular <code>gh</code> command:
       </p>
 
-      <blockquote style="background: #f8f9fa; padding: 15px; border-left: 4px solid #1a73e8; margin: 1.5em 0;">
+      <blockquote>
         Claude knows how to use the gh CLI to interact with GitHub for creating issues, opening pull requests,
         reading comments, and more. Without gh installed, Claude can still use the GitHub API or MCP server (if you
         have it installed).
@@ -89,7 +89,7 @@
         your agents will set you apart from those who just copy and paste code in and out of cursor.
       </p>
 
-      <h2 style="text-align: left">The legacy workflow</h2>
+      <h2>The legacy workflow</h2>
 
       <p>
         Before agents, developers could mount their code in a docker volume that would update regularly. The flow was:
@@ -113,7 +113,7 @@
         productivity. The context switch between your agent and your system that you're working on is just as expensive.
       </p>
 
-      <h2 style="text-align: left">Practical example with afcli</h2>
+      <h2>Practical example with afcli</h2>
 
       <p>
         For my data engineering work, I built <a href="https://pypi.org/project/afcli"><code>afcli</code></a> to
@@ -130,25 +130,23 @@ After making a change, run `afcli` to kick off the dag or task that you're worki
 Run `afcli --help` to understand common usage patterns and specific CLI options.</code>
       </pre>
 
-      <p style="text-align: left">Giving your agent instructions on how to iterate faster unlocks a tight loop that will
+      <p>Giving your agent instructions on how to iterate faster unlocks a tight loop that will
         let you turn features around faster than ever.</p>
 
-      <div style="border-top: 1px solid #e0e0e0; margin-top: 3em; padding-top: 2em;">
-        <h2 style="font-family: var(--font-mono);">Next Steps</h3>
+      <div style="border-bottom: 1px solid #e0e0e0;">
+        <h2>Next Steps</h3>
           <ul>
             <li>Audit your workflow for repetitive API interactions</li>
             <li>Pick one service and build a simple CLI wrapper if it doesn't exist yet</li>
             <li>Add it to your agent's toolkit (CLAUDE.md or equivalent)</li>
             <li>Iterate based on what your agent struggles with</li>
           </ul>
-          <p style="margin-top: 1.5em;">
+          <p>
             <strong>Try it yourself:</strong> <code>pip install afcli</code> for Airflow development, or build your own
             tool for your specific needs.
           </p>
       </div>
 
-      <hr />
-      <br />
       <p>
         <em>
           This post was written by John from Ouachita Labs. If you have a question about how to work better with
