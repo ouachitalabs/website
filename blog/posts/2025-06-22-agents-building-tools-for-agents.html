@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Rise of Niche Software - Ouachita Labs</title>
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">[Ouachita Labs]</div>
+        <ul class="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../index.html">Blog</a></li>
+        </ul>
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+          Menu
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-close" onclick="closeMobileMenu()">Close</button>
+    <a href="../../index.html" onclick="closeMobileMenu()">Home</a>
+    <a href="../../about.html" onclick="closeMobileMenu()">About</a>
+    <a href="../index.html" onclick="closeMobileMenu()">Blog</a>
+    <a href="../../index.html#contact" onclick="closeMobileMenu()">Contact</a>
+  </div>
+
+  <div class="blog-header">
+    <div class="container">
+      <h1>The Rise of Niche Software</h1>
+      <time>June 22, 2025</time>
+    </div>
+  </div>
+
+  <main>
+    <article class="blog-content container">
+      <p class="blog-meta">Tags: agents, software engineering<br>Audience: technical</p>
+
+      <p>
+        With the advent of agentic coding assistants like VS Code's <a
+          href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode">agent mode</a>, totally new IDEs like
+        <a href="https://www.cursor.com">Cursor</a>, and my personal favorite: the minimalist <a
+          href="https://www.anthropic.com/claude-code">Claude code</a> - some software developers have been left
+        scratching their heads trying to figure out what exactly these new assistants are good at. This article will
+        discuss three things to look out for and how to fix them to get the most out of building with agents. The main
+        piece of advice has been the laughing stock of many tech jokes on the internet. I've included the obligatory <a
+          href="https://xkcd.com/1319/">relevant xkcd</a> below.
+      </p>
+
+      <figure style="text-align: center; margin: 2em 0;">
+        <img src="https://imgs.xkcd.com/comics/automation.png" alt="XKCD 1319, 'Automation'"
+          style="max-width: 100%; height: auto;">
+        <figcaption>XKCD 1319, "Automation"</figcaption>
+      </figure>
+
+      <p>
+        The truth is that this used to be true. Writing throwaway software was a <em>luxury</em>, something that rarely
+        was done because the process was often many times more complicated than just doing the task and getting on with
+        your life. Only the most major annoyances got the special treatment of automation at the behest of product
+        management. Often each developer would build their own half-baked smattering of bash scripts and unholy makefile
+        targets combined together into a lovecraftian monster that nobody fully understood.
+      </p>
+
+      <p>
+        However, after the introduction of agents, this all changed.
+      </p>
+
+      <p>
+        Throwaway code is now cheaper than ever to write (or generate). Often it can be done in a single prompt. What
+        used to take a week to build properly now takes hours to get off the ground. This rapid development cycle for
+        small developer experience focused utilities is the most underrated tool for increasing your productivity when
+        working with agents.. If there is a manual interaction with something on the web, especially if it already has
+        an existing API, you should consider building a command line tool that an agent can use for interacting with it
+        if it doesn't exist already. The biggest boost from getting to use an agent vs a traditional chat-only LLM is,
+        well, the <strong>agency</strong> that it has to call tools.
+      </p>
+
+      <p>
+        Take this <a
+          href="https://www.anthropic.com/engineering/claude-code-best-practices#2-give-claude-more-tools">example from
+          Anthropic</a> about the already popular <code>gh</code> command:
+      </p>
+
+      <blockquote style="background: #f8f9fa; padding: 15px; border-left: 4px solid #1a73e8; margin: 1.5em 0;">
+        Claude knows how to use the gh CLI to interact with GitHub for creating issues, opening pull requests,
+        reading comments, and more. Without gh installed, Claude can still use the GitHub API or MCP server (if you
+        have it installed).
+      </blockquote>
+
+      <p>
+        You should be thinking about how to build the <code>gh</code> for your team or service. Building niche tools for
+        your agents can be very rewarding. I think it will turn out to be some of the most productive work that we are
+        all totally skipping today. There will be a suite of these kinds of tools, simple bash tools for interacting
+        with common services, that bubble to the top. Different workflows require different tools, and for my data
+        engineering day job I've built <a href="https://pypi.org/project/afcli"><code>afcli</code></a> to make it easier
+        to interact with development servers that you've stood up during development.
+      </p>
+
+      <h2 style="text-align: left">Why not use the existing airflow CLI?</h2>
+
+      <p>
+        It's niche enough that nobody has built it. The main feature that I had thought was missing from the
+        <code>airflow</code> CLI was the <code>--host</code> functionality. I wanted a way to point to a running airflow
+        host and skip having to find the docker container id, then run docker exec with the proper airflow command, etc.
+        All of this indirection adds potential edge cases for the agent loop to break down. There is also no need for
+      </p>
+
+      <h2 style="text-align: left">The legacy workflow</h2>
+
+      <p>
+        Before agents, developers could mount their code in a docker volume that would update regularly. The flow was:
+      </p>
+
+      <ul>
+        <li>Write code</li>
+        <li>Import error</li>
+        <li>Fix code</li>
+        <li>Trigger dag</li>
+        <li>Task failed</li>
+        <li>Fix code</li>
+        <li>Clear tasks</li>
+        <li>Finally watch logs succeed</li>
+      </ul>
+
+      <p>
+        This iteration loop was completely broken. Imagine a random slack huddle pop up throwing you out of the zone in
+        the middle of this loop. Experienced developers have consistently noted that <a
+          href="https://www.paulgraham.com/makersschedule.html">context switching</a> is the number one killer of your
+        productivity. The context switch between your agent and your system that you're working on is just as expensive.
+      </p>
+
+      <h2 style="text-align: left">Practical example with afcli</h2>
+
+      <p>
+        In your <a href="http://CLAUDE.md">CLAUDE.md</a> or equivalent, you'll want to add something like this:
+      </p>
+      <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>When building with airflow, check the dag and task level statuses with `afcli`.
+Use `afcli` for fetching logs and to validate your changes.
+After making a change, run `afcli` to kick off the dag or task that you're working on and iterate until every task succeeds.
+Run `afcli --help` to understand common usage patterns and specific CLI options.</code>
+      </pre>
+
+      <p style="text-align: left">This may seem simple, but it's insanely effective. Giving your agent the instructions
+        on how to iterate faster unlocks a tight loop that will let you turn features around faster than ever.</p>
+
+      <hr />
+      <br />
+      <p>
+        <em>
+          This post was written by John from Ouachita Labs. If you have a question about how to work better with
+          AI, please reach out to me at <a href="mailto:john@ouachitalabs.com">john@ouachitalabs.com</a>.
+        </em>
+      </p>
+    </article>
+  </main>
+
+  <footer class="blog-footer">
+    <div class="container">
+      <p>&copy; 2025 Ouachita Labs. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu functions
+    function toggleMobileMenu() {
+      const mobileNav = document.getElementById("mobileNav");
+      mobileNav.classList.toggle("active");
+    }
+
+    function closeMobileMenu() {
+      const mobileNav = document.getElementById("mobileNav");
+      mobileNav.classList.remove("active");
+    }
+  </script>
+</body>
+
+</html>
