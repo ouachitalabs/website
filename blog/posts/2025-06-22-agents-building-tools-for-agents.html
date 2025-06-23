@@ -36,51 +36,40 @@
   <div class="blog-header">
     <div class="container">
       <h1>The Rise of Niche Software</h1>
-      <time>June 22, 2025</time>
     </div>
   </div>
 
   <main>
     <article class="blog-content container">
       <p class="blog-meta">Tags: agents, software engineering<br>Audience: technical</p>
-
       <p>
-        With the advent of agentic coding assistants like VS Code's <a
-          href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode">agent mode</a>, totally new IDEs like
-        <a href="https://www.cursor.com">Cursor</a>, and my personal favorite: the minimalist <a
-          href="https://www.anthropic.com/claude-code">Claude code</a> - some software developers have been left
-        scratching their heads trying to figure out what exactly these new assistants are good at. This article will
-        discuss three things to look out for and how to fix them to get the most out of building with agents. The main
-        piece of advice has been the laughing stock of many tech jokes on the internet. I've included the obligatory <a
-          href="https://xkcd.com/1319/">relevant xkcd</a> below.
+        With agentic coding assistants like VS Code's <a
+          href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode">agent mode</a>, <a
+          href="https://www.cursor.com">Cursor</a>, and my personal favorite <a
+          href="https://www.anthropic.com/claude-code">Claude code</a>, building niche tools is faster and easier than
+        ever before.
+        Writing throwaway software used to be a luxury. The process was often more complicated than just doing the task
+        manually. But agents have changed everything, what used to take a week to build now takes hours.
+        The XKCD comic below is a greate example of the old way of thinking about throwaway scripts and software:
       </p>
 
       <figure style="text-align: center; margin: 2em 0;">
         <img src="https://imgs.xkcd.com/comics/automation.png" alt="XKCD 1319, 'Automation'"
           style="max-width: 100%; height: auto;">
-        <figcaption>XKCD 1319, "Automation"</figcaption>
+        <figcaption>XKCD 1319, "Automation" - No longer relevant</figcaption>
       </figure>
 
       <p>
-        The truth is that this used to be true. Writing throwaway software was a <em>luxury</em>, something that rarely
-        was done because the process was often many times more complicated than just doing the task and getting on with
-        your life. Only the most major annoyances got the special treatment of automation at the behest of product
-        management. Often each developer would build their own half-baked smattering of bash scripts and unholy makefile
-        targets combined together into a lovecraftian monster that nobody fully understood.
+        Nowadays, the debugging, rethinking, and ongoing development tasks of these tools can be 100% delegated to your
+        agent.
       </p>
 
       <p>
-        However, after the introduction of agents, this all changed.
-      </p>
-
-      <p>
-        Throwaway code is now cheaper than ever to write (or generate). Often it can be done in a single prompt. What
-        used to take a week to build properly now takes hours to get off the ground. This rapid development cycle for
-        small developer experience focused utilities is the most underrated tool for increasing your productivity when
-        working with agents.. If there is a manual interaction with something on the web, especially if it already has
-        an existing API, you should consider building a command line tool that an agent can use for interacting with it
-        if it doesn't exist already. The biggest boost from getting to use an agent vs a traditional chat-only LLM is,
-        well, the <strong>agency</strong> that it has to call tools.
+        This rapid development cycle for developer experience utilities is the most underrated way to increase
+        productivity with agents. If there's a manual interaction with a web service that has an API, build a command
+        line tool for your agent to use. The biggest boost from agents versus chat-only LLMs is, well, their
+        <strong>agency</strong>. The ability for an agent to call tools and interpret the results are what
+        makes them so useful.
       </p>
 
       <p>
@@ -97,20 +86,7 @@
 
       <p>
         You should be thinking about how to build the <code>gh</code> for your team or service. Building niche tools for
-        your agents can be very rewarding. I think it will turn out to be some of the most productive work that we are
-        all totally skipping today. There will be a suite of these kinds of tools, simple bash tools for interacting
-        with common services, that bubble to the top. Different workflows require different tools, and for my data
-        engineering day job I've built <a href="https://pypi.org/project/afcli"><code>afcli</code></a> to make it easier
-        to interact with development servers that you've stood up during development.
-      </p>
-
-      <h2 style="text-align: left">Why not use the existing airflow CLI?</h2>
-
-      <p>
-        It's niche enough that nobody has built it. The main feature that I had thought was missing from the
-        <code>airflow</code> CLI was the <code>--host</code> functionality. I wanted a way to point to a running airflow
-        host and skip having to find the docker container id, then run docker exec with the proper airflow command, etc.
-        All of this indirection adds potential edge cases for the agent loop to break down. There is also no need for
+        your agents will set you apart from those who just copy and paste code in and out of cursor.
       </p>
 
       <h2 style="text-align: left">The legacy workflow</h2>
@@ -140,7 +116,13 @@
       <h2 style="text-align: left">Practical example with afcli</h2>
 
       <p>
-        In your <a href="http://CLAUDE.md">CLAUDE.md</a> or equivalent, you'll want to add something like this:
+        For my data engineering work, I built <a href="https://pypi.org/project/afcli"><code>afcli</code></a> to
+        streamline Airflow development. The key feature: <code>--host</code> functionality that points directly to a
+        running Airflow instance, eliminating the need to find docker container IDs and run complex exec commands.
+      </p>
+
+      <p>
+        In your <a href="http://CLAUDE.md">CLAUDE.md</a>, add:
       </p>
       <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>When building with airflow, check the dag and task level statuses with `afcli`.
 Use `afcli` for fetching logs and to validate your changes.
@@ -148,8 +130,22 @@ After making a change, run `afcli` to kick off the dag or task that you're worki
 Run `afcli --help` to understand common usage patterns and specific CLI options.</code>
       </pre>
 
-      <p style="text-align: left">This may seem simple, but it's insanely effective. Giving your agent the instructions
-        on how to iterate faster unlocks a tight loop that will let you turn features around faster than ever.</p>
+      <p style="text-align: left">Giving your agent instructions on how to iterate faster unlocks a tight loop that will
+        let you turn features around faster than ever.</p>
+
+      <div style="border-top: 1px solid #e0e0e0; margin-top: 3em; padding-top: 2em;">
+        <h2 style="font-family: var(--font-mono);">Next Steps</h3>
+          <ul>
+            <li>Audit your workflow for repetitive API interactions</li>
+            <li>Pick one service and build a simple CLI wrapper if it doesn't exist yet</li>
+            <li>Add it to your agent's toolkit (CLAUDE.md or equivalent)</li>
+            <li>Iterate based on what your agent struggles with</li>
+          </ul>
+          <p style="margin-top: 1.5em;">
+            <strong>Try it yourself:</strong> <code>pip install afcli</code> for Airflow development, or build your own
+            tool for your specific needs.
+          </p>
+      </div>
 
       <hr />
       <br />

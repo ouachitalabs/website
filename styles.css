@@ -729,6 +729,14 @@ nav {
     font-size: 14px;
 }
 
+.blog-meta {
+    font-family: var(--font-mono);
+    text-align: left;
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: var(--space-lg);
+}
+
 .blog-content {
     padding: var(--space-2xl);
     max-width: 800px;
@@ -870,6 +878,12 @@ nav {
     }
 }
 
+/* Global heading styles - JetBrains Mono */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-mono);
+    font-weight: 500;
+}
+
 /* Utility classes */
 .text-center { text-align: center; }
 .text-left { text-align: left; }
@@ -894,6 +908,25 @@ a[href^="mailto:"] {
     font-family: var(--font-mono);
 }
 
+/* Code styling */
+code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background-color: var(--surface-tertiary);
+    padding: 0.125em 0.375em;
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Code inside pre blocks should not have background */
+pre code {
+    background-color: transparent;
+    padding: 0;
+    font-size: 0.875rem;
+    font-weight: 400;
+}
+
 /* Remove background image from hero */
 .hero {
     background-image: none !important;
@@ -902,4 +935,59 @@ a[href^="mailto:"] {
 
 .hero::before {
     display: none;
+}
+
+/* Link styles */
+a {
+    color: var(--secondary-blue);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-blue-hover);
+}
+
+/* Blog content links - slightly different styling */
+.blog-content a {
+    color: #2563eb;  /* A slightly deeper, richer blue */
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.blog-content a:hover {
+    color: #1d4ed8;
+}
+
+/* Add subtle underline effect on hover for blog links */
+.blog-content a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -1px;
+    left: 0;
+    background-color: currentColor;
+    opacity: 0.5;
+    transition: width 0.2s ease;
+}
+
+.blog-content a:hover::after {
+    width: 100%;
+}
+
+/* Code links should stay monospace */
+.blog-content a code,
+.blog-content code a {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: inherit;
+}
+
+/* Email links maintain monospace */
+.blog-content a[href^="mailto:"] {
+    font-family: var(--font-mono);
+    font-weight: 400;
 }
