@@ -48,28 +48,34 @@
           href="https://www.cursor.com">Cursor</a>, and my personal favorite <a
           href="https://www.anthropic.com/claude-code">Claude code</a>, building niche tools is faster and easier than
         ever before.
-        Writing throwaway software used to be a luxury. The process was often more complicated than just doing the task
-        manually. But agents have changed everything, what used to take a week to build now takes hours.
-        The XKCD comic below is a greate example of the old way of thinking about throwaway scripts and software:
+        Writing throwaway software used to be a luxury. It still happened of course, I'm not saying it's ever been
+        impossible,
+        but the process was often more complicated than just doing the task manually.
+        But agents have changed the calculation, what used to take a week to build now takes hours.
+        Costs to maintain such software has gone down a ton.
+        I'm confident out of all of the software that will be 100% maintained by agents, over 50% of it will be this
+        kind of niche software.
+        The XKCD comic below is a greate example of the old way of thinking about throwaway scripts and software.
       </p>
 
-      <figure style="text-align: center; margin: 2em 0;">
-        <img src="https://imgs.xkcd.com/comics/automation.png" alt="XKCD 1319, 'Automation'"
-          style="max-width: 100%; height: auto;">
-        <figcaption>XKCD 1319, "Automation" - No longer relevant</figcaption>
+      <figure class="blog-figure">
+        <img src="https://imgs.xkcd.com/comics/automation.png" alt="XKCD 1319, 'Automation'">
+        <figcaption>XKCD 1319, "Automation"</figcaption>
       </figure>
 
       <p>
         Nowadays, the debugging, rethinking, and ongoing development tasks of these tools can be 100% delegated to your
         agent.
+        It's still not quite 100% automated yet, but the calculation has definitely changed.
       </p>
 
       <p>
         This rapid development cycle for developer experience utilities is the most underrated way to increase
-        productivity with agents. If there's a manual interaction with a web service that has an API, build a command
-        line tool for your agent to use. The biggest boost from agents versus chat-only LLMs is, well, their
-        <strong>agency</strong>. The ability for an agent to call tools and interpret the results are what
-        makes them so useful.
+        productivity with agents.
+        If there's a manual interaction with a web service that has an API, build a command line tool for your agent to
+        use.
+        The biggest boost from agents versus chat-only LLMs is, well, their <strong>agency</strong>.
+        The ability for an agent to call tools and interpret the results are what makes them so useful.
       </p>
 
       <p>
@@ -124,7 +130,7 @@
       <p>
         In your <a href="http://CLAUDE.md">CLAUDE.md</a>, add:
       </p>
-      <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;"><code>When building with airflow, check the dag and task level statuses with `afcli`.
+      <pre class="blog-code-block"><code>When building with airflow, check the dag and task level statuses with `afcli`.
 Use `afcli` for fetching logs and to validate your changes.
 After making a change, run `afcli` to kick off the dag or task that you're working on and iterate until every task succeeds.
 Run `afcli --help` to understand common usage patterns and specific CLI options.</code>
@@ -133,7 +139,7 @@ Run `afcli --help` to understand common usage patterns and specific CLI options.
       <p>Giving your agent instructions on how to iterate faster unlocks a tight loop that will
         let you turn features around faster than ever.</p>
 
-      <div style="border-bottom: 1px solid #e0e0e0;">
+      <div class="blog-section-divider">
         <h2>Next Steps</h3>
           <ul>
             <li>Audit your workflow for repetitive API interactions</li>

@@ -1045,3 +1045,25 @@ blockquote p {
 blockquote p+p {
     margin-top: var(--space-md);
 }
+
+/* Blog post specific styles */
+.blog-figure {
+    text-align: center;
+    margin: 2em 0;
+}
+
+.blog-figure img {
+    max-width: 100%;
+    height: auto;
+}
+
+.blog-code-block {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.blog-section-divider {
+    border-bottom: 1px solid #e0e0e0;
+}
