@@ -434,6 +434,44 @@ nav {
     transform: scale(0.98);
 }
 
+/* Google Calendar button styling */
+.calendar-button-wrapper {
+    display: inline-flex;
+}
+
+.calendar-button-wrapper button {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: var(--space-sm) !important;
+    padding: 12px var(--space-lg) !important;
+    background: var(--surface-primary) !important;
+    color: var(--primary-blue) !important;
+    text-decoration: none !important;
+    border: 1px solid var(--border-medium) !important;
+    border-radius: var(--radius-lg) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    font-family: var(--font-primary) !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    height: auto !important;
+    min-height: unset !important;
+    line-height: normal !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    box-shadow: none !important;
+}
+
+.calendar-button-wrapper button:hover {
+    background: var(--primary-blue-light) !important;
+    border-color: var(--primary-blue) !important;
+    box-shadow: var(--shadow-1) !important;
+}
+
+.calendar-button-wrapper button:active {
+    transform: scale(0.98) !important;
+}
+
 .contact-icon {
     font-size: 16px;
 }
