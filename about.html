@@ -15,7 +15,7 @@
         <a href="index.html" class="logo">[Ouachita Labs]</a>
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="about.html" class="active">About</a></li>
           <li><a href="blog/index.html">Blog</a></li>
         </ul>
         <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">Menu</button>
@@ -26,8 +26,8 @@
   <div class="mobile-nav" id="mobileNav">
     <button class="mobile-close" onclick="closeMobileMenu()">Close</button>
     <a href="index.html" onclick="closeMobileMenu()">Home</a>
-    <a href="about.html" onclick="closeMobileMenu()">About</a>
-    <a href="blog/" onclick="closeMobileMenu()">Blog</a>
+    <a href="about.html" onclick="closeMobileMenu()" class="active">About</a>
+    <a href="blog/index.html" onclick="closeMobileMenu()">Blog</a>
   </div>
 
   <main>
