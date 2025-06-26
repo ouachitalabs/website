@@ -12,19 +12,19 @@
     --primary-blue-light: #e8f0fe;
     --secondary-blue: #4285f4;
 
-    /* Google's neutral palette */
+    /* Google's neutral palette - Light mode */
     --text-primary: #202124;
     --text-secondary: #5f6368;
     --text-tertiary: #80868b;
     --text-disabled: #9aa0a6;
 
-    /* Google's surface colors */
+    /* Google's surface colors - Light mode */
     --surface-primary: #ffffff;
     --surface-secondary: #f8f9fa;
     --surface-tertiary: #f1f3f4;
     --surface-quaternary: #e8eaed;
 
-    /* Google's borders */
+    /* Google's borders - Light mode */
     --border-light: #dadce0;
     --border-medium: #c4c7c5;
     --border-dark: #5f6368;
@@ -59,6 +59,32 @@
     --space-3xl: 64px;
 }
 
+/* Dark mode variables */
+[data-theme="dark"] {
+    /* Dark mode text colors */
+    --text-primary: #e8eaed;
+    --text-secondary: #9aa0a6;
+    --text-tertiary: #80868b;
+    --text-disabled: #5f6368;
+
+    /* Dark mode surface colors */
+    --surface-primary: #202124;
+    --surface-secondary: #303134;
+    --surface-tertiary: #3c4043;
+    --surface-quaternary: #5f6368;
+
+    /* Dark mode borders */
+    --border-light: #3c4043;
+    --border-medium: #5f6368;
+    --border-dark: #80868b;
+
+    /* Dark mode primary blue adjustments */
+    --primary-blue-light: #1a2332;
+    --success-light: #1a2e1f;
+    --warning-light: #2d2408;
+    --error-light: #2d1b1a;
+}
+
 /* Reset and base styles */
 * {
     margin: 0;
@@ -75,6 +101,17 @@ body {
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'kern' 1;
     text-rendering: optimizeLegibility;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Add transitions to elements that change color */
+header,
+.feature-card,
+.contact-button,
+.blog-card,
+.expertise-item,
+.mobile-nav {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -849,6 +886,7 @@ nav {
     margin-right: auto;
 }
 
+
 /* Responsive design */
 @media (max-width: 768px) {
     .container {
@@ -877,6 +915,7 @@ nav {
         flex-direction: column;
         gap: var(--space-md);
     }
+
 
     .story-grid {
         grid-template-columns: 1fr;
