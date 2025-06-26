@@ -122,7 +122,10 @@
         <h2 class="section-title">Contact</h2>
         <div class="story-grid">
           <div class="story-content">
-            <p>Available for consulting engagements and development projects. Attending InTheRock.ai on June 25th.</p>
+            <p>Available for consulting engagements and development projects of all sizes.
+              Unsure if your project is the right fit?
+              Shoot me an email and we'll figure it out as a team.
+            </p>
             <p>Email: <span class="email">john@ouachitalabs.com</span></p>
           </div>
         </div>
@@ -140,63 +143,7 @@
     </section>
   </main>
 
-  <script>
-    // Mobile menu functions
-    function toggleMobileMenu() {
-      const mobileNav = document.getElementById('mobileNav');
-      mobileNav.classList.toggle('active');
-    }
-
-    function closeMobileMenu() {
-      const mobileNav = document.getElementById('mobileNav');
-      mobileNav.classList.remove('active');
-    }
-
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
-    });
-
-    // Email copy functionality
-    document.querySelectorAll('.email-copy').forEach(button => {
-      button.addEventListener('click', async function () {
-        const email = this.dataset.email;
-        const emailSpan = this.querySelector('.email');
-        const originalText = emailSpan.textContent;
-
-        try {
-          await navigator.clipboard.writeText(email);
-          emailSpan.textContent = 'Copied!';
-          this.style.background = 'var(--primary-accent)';
-          this.style.color = 'var(--bg-primary)';
-
-          setTimeout(() => {
-            emailSpan.textContent = originalText;
-            this.style.background = '';
-            this.style.color = '';
-          }, 2000);
-        } catch (err) {
-          // Fallback for older browsers
-          const textArea = document.createElement('textarea');
-          textArea.value = email;
-          document.body.appendChild(textArea);
-          textArea.select();
-          document.execCommand('copy');
-          document.body.removeChild(textArea);
-
-          emailSpan.textContent = 'Copied!';
-          setTimeout(() => {
-            emailSpan.textContent = originalText;
-          }, 2000);
-        }
-      });
-    });
-  </script>
+  <script src="common.js"></script>
 </body>
 
 </html>
