@@ -494,13 +494,14 @@
             const tempContainer = document.createElement('div');
             tempContainer.style.position = 'absolute';
             tempContainer.style.left = '-9999px';
-            tempContainer.style.width = '800px';
-            tempContainer.style.padding = '40px';
+            tempContainer.style.width = '700px'; // Reduced to ensure it fits with margins
+            tempContainer.style.padding = '20px'; // Smaller padding
             tempContainer.style.backgroundColor = 'white';
             tempContainer.style.color = 'black';
             tempContainer.style.fontFamily = "'JetBrains Mono', monospace";
             tempContainer.style.fontSize = '14px';
             tempContainer.style.lineHeight = '1.8';
+            tempContainer.style.boxSizing = 'border-box';
             
             // Clone the editor content
             tempContainer.innerHTML = editor.innerHTML;
@@ -517,23 +518,32 @@
                 // Use html2canvas to render the content
                 const canvas = await html2canvas(tempContainer, {
                     backgroundColor: '#ffffff',
-                    scale: 2
+                    scale: 2,
+                    width: 740, // Total width including padding
+                    windowWidth: 740
                 });
                 
                 // Calculate dimensions for single long page
                 const imgData = canvas.toDataURL('image/png');
-                const imgWidth = 210; // A4 width in mm
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                // A4 width with margins
+                const pageWidthMM = 210; // A4 width
+                const marginMM = 15; // 15mm margins on each side
+                const contentWidthMM = pageWidthMM - (2 * marginMM);
+                
+                // Calculate height maintaining aspect ratio
+                const imgHeight = (canvas.height * contentWidthMM) / canvas.width;
+                const pageHeightMM = imgHeight + (2 * marginMM);
                 
                 // Create PDF with custom height to fit all content on one page
                 const pdf = new window.jspdf.jsPDF({
                     orientation: 'portrait',
                     unit: 'mm',
-                    format: [imgWidth, imgHeight] // Custom format for single page
+                    format: [pageWidthMM, pageHeightMM] // Custom format for single page
                 });
                 
-                // Add entire image as single page
-                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                // Add entire image as single page with margins
+                pdf.addImage(imgData, 'PNG', marginMM, marginMM, contentWidthMM, imgHeight);
                 
                 pdf.save(`typewriter-roll-${new Date().toISOString().slice(0, 10)}.pdf`);
             } finally {
