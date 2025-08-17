@@ -188,7 +188,8 @@
                 <button id="exportBtn">Export ▼</button>
                 <div class="dropdown-content">
                     <button id="exportTextBtn">.txt</button>
-                    <button id="exportPdfBtn">.pdf</button>
+                    <button id="exportPdfBtn">.pdf (pages)</button>
+                    <button id="exportPdfRollBtn">.pdf (roll)</button>
                 </div>
             </div>
             <button class="theme-toggle" id="themeToggle">🌙</button>
@@ -208,6 +209,7 @@
         const exportDropdown = document.querySelector('.export-dropdown');
         const exportTextBtn = document.getElementById('exportTextBtn');
         const exportPdfBtn = document.getElementById('exportPdfBtn');
+        const exportPdfRollBtn = document.getElementById('exportPdfRollBtn');
         const themeToggle = document.getElementById('themeToggle');
         
 
@@ -267,21 +269,61 @@
                     const selectedText = range.toString();
                     
                     if (selectedText) {
-                        const span = document.createElement('span');
-                        span.className = 'strikethrough';
+                        // Extract the contents and process them
+                        const contents = range.extractContents();
+                        const fragment = document.createDocumentFragment();
                         
-                        try {
-                            range.surroundContents(span);
-                        } catch (e) {
-                            // If surroundContents fails, use a different approach
-                            const contents = range.extractContents();
-                            span.appendChild(contents);
-                            range.insertNode(span);
-                        }
+                        // Process each node to handle spaces differently
+                        const processNode = (node) => {
+                            if (node.nodeType === Node.TEXT_NODE) {
+                                const text = node.textContent;
+                                let currentPos = 0;
+                                
+                                for (let i = 0; i < text.length; i++) {
+                                    const char = text[i];
+                                    
+                                    if (char === ' ' || char === '\t' || char === '\n') {
+                                        // Add any accumulated non-space text as strikethrough
+                                        if (i > currentPos) {
+                                            const span = document.createElement('span');
+                                            span.className = 'strikethrough';
+                                            span.textContent = text.substring(currentPos, i);
+                                            fragment.appendChild(span);
+                                        }
+                                        
+                                        // Add space as regular text
+                                        fragment.appendChild(document.createTextNode(char));
+                                        currentPos = i + 1;
+                                    }
+                                }
+                                
+                                // Add any remaining text as strikethrough
+                                if (currentPos < text.length) {
+                                    const span = document.createElement('span');
+                                    span.className = 'strikethrough';
+                                    span.textContent = text.substring(currentPos);
+                                    fragment.appendChild(span);
+                                }
+                            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                                // For element nodes, wrap the entire element in strikethrough
+                                const span = document.createElement('span');
+                                span.className = 'strikethrough';
+                                span.appendChild(node.cloneNode(true));
+                                fragment.appendChild(span);
+                            } else {
+                                fragment.appendChild(node.cloneNode(true));
+                            }
+                        };
+                        
+                        // Process all child nodes
+                        Array.from(contents.childNodes).forEach(processNode);
+                        
+                        // Insert the processed content
+                        range.insertNode(fragment);
                         
                         // Move cursor to after the struck text
                         const newRange = document.createRange();
-                        newRange.setStartAfter(span);
+                        newRange.setStartAfter(fragment.lastChild || fragment);
                         newRange.collapse(true);
                         selection.removeAllRanges();
                         selection.addRange(newRange);
@@ -342,11 +384,22 @@
 
         function getElementText(element, includeMarkdown = false) {
             let text = '';
+            let isFirst = true;
+            
             element.childNodes.forEach(node => {
                 if (node.nodeType === Node.TEXT_NODE) {
                     text += node.textContent;
                 } else if (node.nodeType === Node.ELEMENT_NODE) {
-                    if (node.classList && node.classList.contains('strikethrough')) {
+                    // Handle line breaks
+                    if (node.tagName === 'BR') {
+                        text += '\n';
+                    } else if (node.tagName === 'DIV') {
+                        // DIVs in contenteditable usually represent new lines
+                        if (!isFirst) {
+                            text += '\n';
+                        }
+                        text += getElementText(node, includeMarkdown);
+                    } else if (node.classList && node.classList.contains('strikethrough')) {
                         if (includeMarkdown) {
                             text += '~~' + getElementText(node, includeMarkdown) + '~~';
                         } else {
@@ -356,6 +409,7 @@
                         text += getElementText(node, includeMarkdown);
                     }
                 }
+                isFirst = false;
             });
             return text;
         }
@@ -372,7 +426,7 @@
             URL.revokeObjectURL(url);
         });
         
-        // Export as PDF
+        // Export as PDF (paginated)
         exportPdfBtn.addEventListener('click', async () => {
             // Create a temporary container for rendering
             const tempContainer = document.createElement('div');
@@ -434,6 +488,59 @@
             }
         });
 
+        // Export as PDF (continuous roll)
+        exportPdfRollBtn.addEventListener('click', async () => {
+            // Create a temporary container for rendering
+            const tempContainer = document.createElement('div');
+            tempContainer.style.position = 'absolute';
+            tempContainer.style.left = '-9999px';
+            tempContainer.style.width = '800px';
+            tempContainer.style.padding = '40px';
+            tempContainer.style.backgroundColor = 'white';
+            tempContainer.style.color = 'black';
+            tempContainer.style.fontFamily = "'JetBrains Mono', monospace";
+            tempContainer.style.fontSize = '14px';
+            tempContainer.style.lineHeight = '1.8';
+            
+            // Clone the editor content
+            tempContainer.innerHTML = editor.innerHTML;
+            
+            // Apply strikethrough styles
+            tempContainer.querySelectorAll('.strikethrough').forEach(el => {
+                el.style.textDecoration = 'line-through';
+                el.style.textDecorationThickness = '2px';
+            });
+            
+            document.body.appendChild(tempContainer);
+            
+            try {
+                // Use html2canvas to render the content
+                const canvas = await html2canvas(tempContainer, {
+                    backgroundColor: '#ffffff',
+                    scale: 2
+                });
+                
+                // Calculate dimensions for single long page
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 210; // A4 width in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                // Create PDF with custom height to fit all content on one page
+                const pdf = new window.jspdf.jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: [imgWidth, imgHeight] // Custom format for single page
+                });
+                
+                // Add entire image as single page
+                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                
+                pdf.save(`typewriter-roll-${new Date().toISOString().slice(0, 10)}.pdf`);
+            } finally {
+                document.body.removeChild(tempContainer);
+            }
+        });
+
         // Load saved content on page load
         const savedContent = localStorage.getItem('typewriter-content');
         if (savedContent) {
@@ -465,6 +572,10 @@
         });
 
         exportPdfBtn.addEventListener('click', () => {
+            exportDropdown.classList.remove('open');
+        });
+
+        exportPdfRollBtn.addEventListener('click', () => {
             exportDropdown.classList.remove('open');
         });
 
