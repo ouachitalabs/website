@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typewriter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --secondary-color: #666666;
+            --border-color: #e0e0e0;
+            --strikethrough-color: #999999;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --secondary-color: #999999;
+            --border-color: #333333;
+            --strikethrough-color: #666666;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            font-variant-ligatures: none;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        button {
+            font-family: 'JetBrains Mono', monospace;
+            font-variant-ligatures: none;
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .editor-container {
+            margin-top: 80px;
+            padding: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        #editor {
+            min-height: calc(100vh - 120px);
+            outline: none;
+            line-height: 1.8;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+
+        .strikethrough {
+            text-decoration: line-through;
+            text-decoration-color: var(--strikethrough-color);
+            text-decoration-thickness: 2px;
+        }
+
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        #placeholder {
+            position: absolute;
+            color: var(--secondary-color);
+            pointer-events: none;
+            top: 2rem;
+        }
+
+        .export-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            min-width: 120px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            margin-top: 4px;
+        }
+
+        .dropdown-content button {
+            display: block;
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border: none;
+            text-align: left;
+            background: none;
+            color: var(--text-color);
+            font-family: 'JetBrains Mono', monospace;
+            font-variant-ligatures: none;
+            cursor: pointer;
+            border-radius: 0;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-content button:first-child {
+            border-radius: 4px 4px 0 0;
+        }
+
+        .dropdown-content button:last-child {
+            border-radius: 0 0 4px 4px;
+        }
+
+        .dropdown-content button:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .export-dropdown.open .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">TYPEWRITER</div>
+        <div class="controls">
+            <button id="newSessionBtn">New Session</button>
+            <div class="export-dropdown">
+                <button id="exportBtn">Export ▼</button>
+                <div class="dropdown-content">
+                    <button id="exportTextBtn">.txt</button>
+                    <button id="exportPdfBtn">.pdf</button>
+                </div>
+            </div>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </div>
+    </div>
+
+    <div class="editor-container">
+        <div id="placeholder">Start typing... (select text + backspace to strike through)</div>
+        <div id="editor" contenteditable="true" spellcheck="false"></div>
+    </div>
+
+    <script>
+        const editor = document.getElementById('editor');
+        const placeholder = document.getElementById('placeholder');
+        const newSessionBtn = document.getElementById('newSessionBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const exportDropdown = document.querySelector('.export-dropdown');
+        const exportTextBtn = document.getElementById('exportTextBtn');
+        const exportPdfBtn = document.getElementById('exportPdfBtn');
+        const themeToggle = document.getElementById('themeToggle');
+        
+
+        // Theme management
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Auto-save functionality
+        let saveTimeout;
+        function autoSave() {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(() => {
+                localStorage.setItem('typewriter-content', editor.innerHTML);
+                localStorage.setItem('typewriter-timestamp', new Date().toISOString());
+            }, 1000);
+        }
+
+        // Placeholder management and auto-save
+        editor.addEventListener('input', () => {
+            if (editor.textContent.length > 0) {
+                placeholder.style.display = 'none';
+            } else {
+                placeholder.style.display = 'block';
+            }
+            autoSave();
+        });
+
+        // Handle backspace as strikethrough and prevent other edits
+        editor.addEventListener('keydown', (e) => {
+            const selection = window.getSelection();
+            
+            // If text is selected and user types, prevent replacement
+            if (!selection.isCollapsed && !e.ctrlKey && !e.metaKey && e.key.length === 1) {
+                e.preventDefault();
+                // Collapse selection to end
+                selection.collapseToEnd();
+                // Then insert the character
+                document.execCommand('insertText', false, e.key);
+                return false;
+            }
+            
+            if (e.key === 'Backspace') {
+                e.preventDefault();
+                
+                // Only strike through if text is selected
+                if (!selection.isCollapsed) {
+                    const range = selection.getRangeAt(0);
+                    const selectedText = range.toString();
+                    
+                    if (selectedText) {
+                        const span = document.createElement('span');
+                        span.className = 'strikethrough';
+                        
+                        try {
+                            range.surroundContents(span);
+                        } catch (e) {
+                            // If surroundContents fails, use a different approach
+                            const contents = range.extractContents();
+                            span.appendChild(contents);
+                            range.insertNode(span);
+                        }
+                        
+                        // Move cursor to after the struck text
+                        const newRange = document.createRange();
+                        newRange.setStartAfter(span);
+                        newRange.collapse(true);
+                        selection.removeAllRanges();
+                        selection.addRange(newRange);
+                    }
+                }
+                
+                // Backspace does nothing when no text is selected
+                return false;
+            }
+            
+            if (e.key === 'Delete') {
+                e.preventDefault();
+                return false;
+            }
+
+            // Prevent Ctrl+Z (undo) and Ctrl+X (cut)
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'z' || e.key === 'x')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Prevent cut and paste that would delete content
+        editor.addEventListener('cut', (e) => {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Prevent paste that would replace selected text
+        editor.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const text = e.clipboardData.getData('text/plain');
+            const selection = window.getSelection();
+            
+            // If text is selected, collapse to end before pasting
+            if (!selection.isCollapsed) {
+                selection.collapseToEnd();
+            }
+            
+            document.execCommand('insertText', false, text);
+            return false;
+        });
+        
+        // Prevent selection replacement via input event
+        editor.addEventListener('beforeinput', (e) => {
+            const selection = window.getSelection();
+            
+            // If text is selected and input would replace it
+            if (!selection.isCollapsed && e.inputType === 'insertText') {
+                e.preventDefault();
+                // Collapse selection to end
+                selection.collapseToEnd();
+                // Insert the text at cursor
+                document.execCommand('insertText', false, e.data);
+                return false;
+            }
+        });
+
+        function getElementText(element, includeMarkdown = false) {
+            let text = '';
+            element.childNodes.forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    text += node.textContent;
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    if (node.classList && node.classList.contains('strikethrough')) {
+                        if (includeMarkdown) {
+                            text += '~~' + getElementText(node, includeMarkdown) + '~~';
+                        } else {
+                            text += getElementText(node, includeMarkdown);
+                        }
+                    } else {
+                        text += getElementText(node, includeMarkdown);
+                    }
+                }
+            });
+            return text;
+        }
+
+        // Export as text with markdown strikethrough
+        exportTextBtn.addEventListener('click', () => {
+            const text = getElementText(editor, true);
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `typewriter-${new Date().toISOString().slice(0, 10)}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+        
+        // Export as PDF
+        exportPdfBtn.addEventListener('click', async () => {
+            // Create a temporary container for rendering
+            const tempContainer = document.createElement('div');
+            tempContainer.style.position = 'absolute';
+            tempContainer.style.left = '-9999px';
+            tempContainer.style.width = '800px';
+            tempContainer.style.padding = '40px';
+            tempContainer.style.backgroundColor = 'white';
+            tempContainer.style.color = 'black';
+            tempContainer.style.fontFamily = "'JetBrains Mono', monospace";
+            tempContainer.style.fontSize = '14px';
+            tempContainer.style.lineHeight = '1.8';
+            
+            // Clone the editor content
+            tempContainer.innerHTML = editor.innerHTML;
+            
+            // Apply strikethrough styles
+            tempContainer.querySelectorAll('.strikethrough').forEach(el => {
+                el.style.textDecoration = 'line-through';
+                el.style.textDecorationThickness = '2px';
+            });
+            
+            document.body.appendChild(tempContainer);
+            
+            try {
+                // Use html2canvas to render the content
+                const canvas = await html2canvas(tempContainer, {
+                    backgroundColor: '#ffffff',
+                    scale: 2
+                });
+                
+                // Convert to PDF using jsPDF
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new window.jspdf.jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+                
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 297; // A4 height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                pdf.save(`typewriter-${new Date().toISOString().slice(0, 10)}.pdf`);
+            } finally {
+                document.body.removeChild(tempContainer);
+            }
+        });
+
+        // Load saved content on page load
+        const savedContent = localStorage.getItem('typewriter-content');
+        if (savedContent) {
+            editor.innerHTML = savedContent;
+            if (editor.textContent.length > 0) {
+                placeholder.style.display = 'none';
+            }
+        }
+
+        // Export dropdown functionality
+        exportBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            exportDropdown.classList.toggle('open');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            exportDropdown.classList.remove('open');
+        });
+
+        // Prevent dropdown from closing when clicking inside
+        exportDropdown.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Close dropdown after selecting an option
+        exportTextBtn.addEventListener('click', () => {
+            exportDropdown.classList.remove('open');
+        });
+
+        exportPdfBtn.addEventListener('click', () => {
+            exportDropdown.classList.remove('open');
+        });
+
+        // New Session functionality
+        newSessionBtn.addEventListener('click', () => {
+            if (confirm('Start a new session? This will clear all current text.')) {
+                localStorage.removeItem('typewriter-content');
+                localStorage.removeItem('typewriter-timestamp');
+                editor.innerHTML = '';
+                placeholder.style.display = 'block';
+                editor.focus();
+            }
+        });
+
+        // Focus editor on load
+        editor.focus();
+    </script>
+</body>
+</html>
