@@ -1,0 +1,181 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Rise of Niche Software - Ouachita Labs</title>
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">[Ouachita Labs]</div>
+        <ul class="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../index.html">Blog</a></li>
+        </ul>
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+          Menu
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-close" onclick="closeMobileMenu()">Close</button>
+    <a href="../../index.html" onclick="closeMobileMenu()">Home</a>
+    <a href="../../about.html" onclick="closeMobileMenu()">About</a>
+    <a href="../index.html" onclick="closeMobileMenu()">Blog</a>
+    <a href="../../index.html#contact" onclick="closeMobileMenu()">Contact</a>
+  </div>
+
+  <div class="blog-header">
+    <div class="container">
+      <h1>Applied AI Fundamentals</h1>
+    </div>
+  </div>
+
+  <main>
+    <article class="blog-content container">
+      <p class="blog-meta">Tags: Education, Fundamentals, Engineering<br />Audience: Novice technical</p>
+      <h1 id="part-1-structured-outputs">Part 1: Structured outputs</h1>
+      <p>Calling LLMs and expecting more than just text.</p>
+      <p>If you’ve ever tried to build a real application with an LLM involved
+        in some way, you’ve probably hit this wall: the AI gives you exactly
+        what you asked for, but in a format that’s completely useless for your
+        code. You might even prompt it to respond in JSON format, but instead
+        you get a chatty response that starts with “Here’s a breakdown…” and
+        ends with “Let me know if you need more clarification!”</p>
+      <p>Getting an LLM to speak JSON was like herding cats. You’d spend more
+        time parsing their creative responses than actually solving your
+        problem. Today this has been solved with a concept intuitively called
+        structured outputs. Instead of hoping your prompt engineering is good
+        enough to get consistent formatting, you can now define exactly what you
+        want back and get it every time, or at least get an immediate error to
+        handle instead of passing subtly bad data down the line. Lets go through
+        an example together.</p>
+      <p>Example</p>
+      <p>Lets say you want to get some kind of structured information back
+        from the LLM like whether or not the article matches some set of tags
+        you’re looking for. Without structured outputs, it’s pretty much like
+        wrangling cats. Your traditional chat might look something like this
+        (using the local model Gemma 3 4B running in LMStudio on an M2 Macbook
+        Air)</p>
+      <p>Prompt</p>
+      <pre><code>Let me know which of the following tags (tech, ai, startups, arkansas, little rock, government) apply to the article below:
+
+TITLE:  Ordinal completes $1 million seed round, looks to scale
+LINK: https://talkbusiness.net/2025/08/ordinal-completes-1-million-seed-round-looks-to-scale/
+PUBLISHER: Arkansas Talk Business &amp; Politics
+DATE: 2025-08-28</code></pre>
+      <p>Output</p>
+      <pre><code>Here&#39;s a breakdown of which tags apply to the article:
+
+* tech: Yes – The article is about a technology company (Ordinal) and their seed funding.
+* ai: Likely – The article mentions Ordinal is a “blockchain-based AI platform,” strongly suggesting an AI component.
+* startups: Yes – Ordinal is a newly formed company seeking to scale, fitting the definition of a startup.
+* arkansas: Yes – The article is published by Arkansas Talk Business &amp; Politics, and the company is based in Arkansas.
+* little rock: Likely – Arkansas Talk Business &amp; Politics is based in Little Rock, Arkansas.
+* government: No – There’s no indication of any governmental involvement in this article.
+
+Therefore, the applicable tags are: tech, ai, startups, arkansas, little rock.</code></pre>
+      <p>This is great, it has the information we want! However, it’s written
+        as a human would respond in natural language. How would I break this
+        into actual tags on a news feed assuming I’m processing thousands of
+        articles a day? With traditional code, even the slightest change in
+        formatting is enough to break your system if you’re not careful, so we
+        have to give it an expected output type. What we’re looking for from the
+        LLM might look something like this assuming you’re using Pydantic, but
+        the same can be done with nearly any object serialization library in any
+        language (dataclasses, zod, serde, etc):</p>
+      <div class="blog-code-block" id="cb3">
+        <pre
+          class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydantic <span class="im">import</span> BaseModel</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Article(BaseModel):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    headline: <span class="bu">str</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    publisher: <span class="bu">str</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    date: datetime.date</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    tags: <span class="bu">list</span>[<span class="bu">str</span>]</span></code></pre>
+      </div>
+      <blockquote>
+        <p>Exercise for the reader: LLMs are great at tagging dynamically based
+          on content, not just selecting which tags match the best. Try getting
+          the AI to generate any tags as it sees fit. What changes in the code or
+          the prompt?</p>
+      </blockquote>
+      <p>You can print the JSON schema which is passed to structured outputs
+        by running</p>
+      <div class="blog-code-block" id="cb4">
+        <pre
+          class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(Article.model_json_schema()))</span></code></pre>
+      </div>
+      <p>What does this output look like when I re-run the LLM?</p>
+      <div class="blog-code-block" id="cb5">
+        <pre class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;headline&quot;</span><span class="fu">:</span> <span class="st">&quot;Ordinal completes $1 million seed round, looks to scale&quot;</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;publisher&quot;</span><span class="fu">:</span> <span class="st">&quot;Arkansas Talk Business &amp; Politics&quot;</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;date&quot;</span><span class="fu">:</span> <span class="st">&quot;2025-08-28&quot;</span><span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;tags&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;tech&quot;</span><span class="ot">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ai&quot;</span><span class="ot">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;startups&quot;</span><span class="ot">,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;arkansas&quot;</span><span class="ot">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;little rock&quot;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
+      </div>
+      <p>Perfect! It matches our pydantic class definition exactly. With
+        structured outputs, you will know for sure that your call to the LLM
+        will return an answer in the expected format or it will raise an error.
+        This is preferable to trying to roll your own serialization in and out
+        of the LLM.</p>
+      <h2 id="real-life-applications">Real life applications</h2>
+      <p>Lets say you want the model to generate informational “cards” like
+        this word of the day for example. The LLM just needs to generate a small
+        JSON record containing the collection of syllables, categorization
+        (noun, verb, adjective, etc), definition, and a link. If the formatting
+        wasn’t guaranteed you would not be able to display it properly.</p>
+      <figure class="blog-figure">
+        <img src="../../assets/structured-outputs/screenshot-1.png">
+        <figcaption>Word of the Day info card with syllabic breakout, categorization, definition, and a link to learn
+          more.</figcaption>
+      </figure>
+      <p>This example comes from an AI powered resume builder. They have a
+        feature that presents alternative phrasing for work experience. Another
+        great example of using structured outputs to get the insights from LLMs
+        in front of your users in a predictable way.</p>
+      <figure class="blog-figure">
+        <img src="../../assets/structured-outputs/screenshot-2.png" />
+        <figcaption>Resume writing tool user interface showing work experience rewording recommendations.</figcaption>
+      </figure>
+      <p>Both of these features could be built with structured outputs. Once
+        you understand how they work, you will start to pick apart and
+        understand how all of the AI powered apps might be working. This will in
+        turn help you apply AI better on your projects.</p>
+      <h2 id="conclusion">Conclusion</h2>
+      <p>Structured outputs transform LLMs from unpredictable text generators
+        into reliable components you can actually build applications around. By
+        defining your data model upfront with tools like Pydantic, you eliminate
+        the guesswork and parsing headaches that plagued early LLM integrations.
+        Instead of wrestling with inconsistent natural language responses, you
+        get guaranteed JSON that fits your schema or a clear error to
+        handle.</p>
+      <p>This shift from “hoping the AI formats things correctly” to “knowing
+        it will or fail gracefully” is what makes LLMs production-ready. When
+        you’re processing thousands of articles, analyzing user feedback, or
+        extracting insights at scale, structured outputs are the difference
+        between a fragile prototype and a system you can actually deploy with
+        confidence.</p>
+      <p>Start with your data model, define your structures, and let the LLM
+        fill in the blanks. That is how you build AI applications that actually
+        work.</p>
+    </article>
+  </main>
+</body>
+
+</html>
