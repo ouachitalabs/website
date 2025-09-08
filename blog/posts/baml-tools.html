@@ -39,7 +39,7 @@
       <p class="blog-meta">Tags: software engineering, large language models<br>Audience: technical</p>
       <p>Let's start at the end and work backwards. At work we sometimes need
         to extract values from semi-structured documents like 10-Qs or earnings
-        call transcripts for example. Here’s a quick script I wrote while
+        call transcripts. Here's a quick script I wrote while
         exploring BAML:</p>
       <pre class="blog-code-block"><code>$ uv run main.py &quot;Combined Walmart U.S. and Samsclub U.S. net sales&quot; --url &quot;https://stock.walmart.com/sec-filings/all-sec-filings/content/0000104169-25-000137/0000104169-25-000137.pdf&quot;
 
@@ -71,31 +71,31 @@
         excellent <a href="https://github.com/dgunning/edgartools">Edgartools
           library</a>, go check it out), but the tags are managed by the filers,
         and sometimes what we need out of the document is not tagged. Not to
-        mention that XBRL is really only a standard for US filings, let alone
+        mention that XBRL is really only a standard for US filings, not
         Canadian/EU filings. Thus, we would like to have one solution to rule
-        them all.. Since it’s a document extraction tool, your first instinct
-        might just be to send the PDF to chatgpt and see if it gets the answer
+        them all. Since it's a document extraction tool, your first instinct
+        might just be to send the PDF to ChatGPT and see if it gets the answer
         right. Sure enough, it does so pretty often. LLMs are exceedingly good
-        at pulling out relevant facts from deep within documents like this. For
-        example: commit hashes, facts and figures, exact dates and timestamps,
-        the LLM is really good at regurgitating these facts just because of how
-        the underlying transformer models work. Note that I’m no ML scientist,
+        at pulling out relevant facts from deep within documents like this:
+        commit hashes, facts and figures, exact dates and timestamps.
+        The LLM is really good at regurgitating these facts just because of how
+        the underlying transformer models work. Note that I'm no ML scientist,
         and my hand waving here should be taken with a grain of salt.</p>
-      <p>Tool calls are neat. They are what break out a single LLM call into a
+      <p>Tool calls are neat. They're what break out a single LLM call into a
         multi-turn agent that can actually interact with something on the
         outside. Orchestrating tool calls is relatively simple when you use a
-        library like <code>openai</code> - however, with BAML things are a bit
+        library like <code>openai</code> – however, with BAML things are a bit
         more low level. <strong>This is a good thing.</strong> Before trying
         BAML, I never truly understood what was happening under the hood when an
-        LLM “decided” to make a tool call. What was that handoff process like?
+        LLM "decided" to make a tool call. What was that handoff process like?
         With BAML everything is nice and transparent. You can see everything as
-        it happens and the tooling around the language makes it very easy to
+        it happens, and the tooling around the language makes it very easy to
         test each prompt as a function with simple inputs/outputs.</p>
-      <p>Basically, the BAML functions serve as a function interface to LLM
+      <p>Basically, BAML functions serve as a function interface to LLM
         prompts. Things go in and come out. BAML tries to help shape the data
         flowing in and out in a reasonably transparent way. Any real compute
         done in a BAML function is <em>purely</em> LLM state transfer. BAML
-        functions are true pure functions, and side effects/mess is handled in
+        functions are true pure functions, and side effects/mess are handled in
         the application layer rather than the routing layer.</p>
       <p>To do the trick I showed at the beginning of the article, I’ve
         defined a few datatypes:</p>
@@ -128,10 +128,10 @@ class CalculatorRequest {
     @@assert(contains_operation, {{ this|regex_match(&quot;[*-+/]&quot;) }} )
 }</code></pre>
       <p>These are my data models. Basically users can extract filing
-        information from an SEC filing (or any document, as you’ll see next) and
+        information from an SEC filing (or any document, as you'll see next) and
         back it up with cold hard facts 😎. These facts contain a value, units,
-        start/end dates, and a location description so that you can find the
-        fact in the doc for debugging purposes. Now, onto the functions</p>
+        start/end dates, and a location description so you can find the
+        fact in the doc for debugging purposes. Now, onto the functions:</p>
       <pre class="blog-code-block"><code>function SearchDoc(document: pdf, query: string) -&gt; FilingInformation {
   client Gemini
   prompt #&quot;
@@ -159,29 +159,29 @@ function NeedCalculator(message: string, facts: Fact[]) -&gt; CalculatorRequest 
     {{ _.role(&quot;user&quot;) }} {{ facts }}
   &quot;#
 }</code></pre>
-      <p>These are the only two BAML functions we need. SearchDoc is a
+      <p>These are the only two BAML functions we need. <code>SearchDoc</code> is a
         function that accepts a PDF and a query, returning some sort of filing
-        information. NeedCalculator is a poorly named function that takes a
+        information. <code>NeedCalculator</code> is a poorly named function that takes a
         message (better thought of as the original query) and a list of facts
-        and turns it into an equation. If you check the models above, you’ll see
+        and turns it into an equation. If you check the models above, you'll see
         that the CalculatorRequest output type is literally just a string named
-        “equation.” This is both hilarious and deeply concerning. How do we
+        "equation." This is both hilarious and deeply concerning. How do we
         solve an equation as a string? It turns out LLMs are very good at
-        solving these simple arithmetic problems, but they’re just not
-        trustworthy (read: deterministic) enough to trust their calculations
-        even though they are correct very often. To remedy this, I thought we
+        solving these simple arithmetic problems, but they're just not
+        trustworthy (read: deterministic) enough to trust their calculations,
+        even though they're correct very often. To remedy this, I thought we
         could just bring a nuke to a paintball match and
-        <code>import sympy</code> - a full blown symbolic algebra system 😀.
+        <code>import sympy</code> – a full-blown symbolic algebra system 😀.
         Now, if the LLM ever decides to calculate derivatives or solve
         differential equations, it has the tools at its disposal.
       </p>
-      <p>So now how do we orchestrate all of this? It’s pretty simple! BAML
-        works kind of like an OpenAPI spec generator if you’ve ever used one
+      <p>So how do we orchestrate all of this? It's pretty simple! BAML
+        works kind of like an OpenAPI spec generator if you've ever used one
         before. Every time you save your work, it regenerates the client super
-        quickly (like in 5ms) which regenerates python files using pydantic for
-        data modeling in our case. Just like with openapi codegen, many
-        languages are supported (go, typescript, python, etc). You can then
-        import the client and use the types and functions you’ve defined in your
+        quickly (like in 5ms), which regenerates Python files using Pydantic for
+        data modeling in our case. Just like with OpenAPI codegen, many
+        languages are supported (Go, TypeScript, Python, etc). You can then
+        import the client and use the types and functions you've defined in your
         <code>*.baml</code> files. The code to orchestrate pretty much looks
         like this:
       </p>
@@ -211,16 +211,16 @@ if __name__ == &#39;__main__&#39;:
     result.derivation = derivation.doit()
 
     print(result.model_dump_json(indent=2))</code></pre>
-      <p>Note how there are no import statements for openai, gemini,
-        anthropic, etc. <strong>You may not have noticed I'm using two
-          totally different model providers here!</strong> I’ve used
+      <p>Note how there are no import statements for OpenAI, Gemini,
+        Anthropic, etc. <strong>You may not have noticed I'm using two
+          totally different model providers here!</strong> I've used
         <code>gemini-2.5-pro</code> for the more complicated document parsing
         and <code>gpt-5-nano</code> for generating the simple equation! I can
-        mix and match models or run requests to different models concurrently
+        mix and match models or run requests to different models concurrently,
         taking the first one to respond. I can even round-robin them if I want
-        (a concept I first read about in <a href="https://xbow.com/blog/alloy-agents">XBOW’s post on alloys</a>
-        which I am very excited to try out in the future). You can also easily
-        plug in openai compatible local LLM servers like Ollama and
+        (a concept I first read about in <a href="https://xbow.com/blog/alloy-agents">XBOW's post on alloys</a>,
+        which I'm very excited to try out in the future). You can also easily
+        plug in OpenAI-compatible local LLM servers like Ollama and
         LMStudio.
       </p>
       <pre class="blog-code-block"><code>client&lt;llm&gt; Gpt5Nano {
@@ -246,14 +246,14 @@ client&lt;llm&gt; Lmstudio {
     base_url &quot;http://localhost:1234/v1&quot;
   }
 }</code></pre>
-      <p>In conclusion, I don’t know what the future holds for programming
+      <p>In conclusion, I don't know what the future holds for programming
         agents and baking LLMs into software, but this approach is a great
-        glimpse into how the future may look. I didn’t even get into the concept
-        of evals, which if your calls to the LLM are factored out into pure
-        functions are now trivial to implement in BAML. The tooling around
+        glimpse into how the future may look. I didn't even get into the concept
+        of evals, which – if your calls to the LLM are factored out into pure
+        functions – are now trivial to implement in BAML. The tooling around
         building things with LLMs is getting better every day. There are about a
-        million different very opinionated frameworks, and sometimes it’s nice
-        to step back into a more flexible lower level of the stack for a
+        million different very opinionated frameworks, and sometimes it's nice
+        to step back into a more flexible, lower level of the stack for a
         change.</p>
     </article>
   </main>
