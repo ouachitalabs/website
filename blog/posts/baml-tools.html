@@ -41,32 +41,36 @@
         to extract values from semi-structured documents like 10-Qs or earnings
         call transcripts. Here's a quick script I wrote while
         exploring BAML:</p>
-      <pre class="blog-code-block"><code>$ uv run main.py &quot;Combined Walmart U.S. and Samsclub U.S. net sales&quot; --url &quot;https://stock.walmart.com/sec-filings/all-sec-filings/content/0000104169-25-000137/0000104169-25-000137.pdf&quot;
+      <pre class="blog-code-block"><code>$ uv run main.py "Combined Walmart U.S. and Samsclub U.S. net sales" --url "https://stock.walmart.com/sec-filings/all-sec-filings/content/0000104169-25-000137/0000104169-25-000137.pdf"
 
 # Output:
 
 {
-  &quot;company&quot;: &quot;Walmart Inc.&quot;,
-  &quot;description&quot;: &quot;Combined net sales for the Walmart U.S. and Sam&#39;s Club U.S. segments for the six months ended July 31, 2025.&quot;,
-  &quot;derivation&quot;: 278776000000,
-  &quot;facts&quot;: [
+  "company": "Walmart Inc.",
+  "description": "Combined Walmart U.S. and Samsclub U.S. net sales for the latest quarter",
+  "derivation": 144549000000,
+  "facts": [
     {
-      &quot;value&quot;: 233074000000,
-      &quot;units&quot;: &quot;USD&quot;,
-      &quot;start_date&quot;: &quot;2025-02-01&quot;,
-      &quot;end_date&quot;: &quot;2025-07-31&quot;,
-      &quot;location&quot;: &quot;Page 15, Segment Information table, under the &#39;Walmart U.S.&#39; section, in the &#39;Net sales&#39; row and &#39;2025&#39; column for the Six Months Ended July 31.&quot;
+      "value": 120911000000,
+      "units": "USD",
+      "start_date": "2025-05-01",
+      "end_date": "2025-07-31",
+      "location": "Page 15, Segment Information table, Walmart U.S. section, 'Net sales' row, '2025' column under 'Three Months Ended July 31,'"
     },
     {
-      &quot;value&quot;: 45702000000,
-      &quot;units&quot;: &quot;USD&quot;,
-      &quot;start_date&quot;: &quot;2025-02-01&quot;,
-      &quot;end_date&quot;: &quot;2025-07-31&quot;,
-      &quot;location&quot;: &quot;Page 15, Segment Information table, under the &#39;Sam&#39;s Club U.S.&#39; section, in the &#39;Net sales&#39; row and &#39;2025&#39; column for the Six Months Ended July 31.&quot;
+      "value": 23638000000,
+      "units": "USD",
+      "start_date": "2025-05-01",
+      "end_date": "2025-07-31",
+      "location": "Page 15, Segment Information table, Sam's Club U.S. section, 'Net sales' row, '2025' column under 'Three Months Ended July 31,'"
     }
   ]
-}</code></pre>
-      <p>These facts can sometimes be teased out with existing archaic and
+}
+</code></pre>
+      <p>The numbers check out. Go <a
+      href="https://stock.walmart.com/sec-filings/all-sec-filings/content/0000104169-25-000137/0000104169-25-000137.pdf">verify
+      them for yourself</a>!
+        These facts can sometimes be teased out with existing archaic and
         very tedious solutions like XBRL tags (made much simpler with the
         excellent <a href="https://github.com/dgunning/edgartools">Edgartools
           library</a>, go check it out), but the tags are managed by the filers,
@@ -84,7 +88,7 @@
       <p>Tool calls are neat. They're what break out a single LLM call into a
         multi-turn agent that can actually interact with something on the
         outside. Orchestrating tool calls is relatively simple when you use a
-        library like <code>openai</code> – however, with BAML things are a bit
+        library like <code>openai</code> - however, with BAML things are a bit
         more low level. <strong>This is a good thing.</strong> Before trying
         BAML, I never truly understood what was happening under the hood when an
         LLM "decided" to make a tool call. What was that handoff process like?
@@ -100,41 +104,41 @@
       <p>To do the trick I showed at the beginning of the article, I’ve
         defined a few datatypes:</p>
       <pre class="blog-code-block"><code>class Fact {
-  value int @description(#&quot;
-    If the value is in currency, round to the nearest whole dollar. For example, always expand &quot;$12.8 millions&quot; to 12800000 &quot;USD&quot;
-  &quot;#)
+  value int @description(#"
+    If the value is in currency, round to the nearest whole dollar. For example, always expand "$12.8 millions" to 12800000 "USD"
+  "#)
   units string
   start_date string
   end_date string?
-  location string? @description(#&quot;
+  location string? @description(#"
     A plain text description of where this fact can be found on the PDF
-  &quot;#)
+  "#)
 }
 
 class FilingInformation {
   company string
   description string
-  derivation int? @description(#&quot;
+  derivation int? @description(#"
     If asked for multi-fact calculation, put the *final calculation* here in whole USD
-  &quot;#)
-  facts Fact[] @description(#&quot;
+  "#)
+  facts Fact[] @description(#"
     If asked for a multi-fact calculation, put the *base facts* here
-  &quot;#)
+  "#)
 }
 
 class CalculatorRequest {
     equation string
 
-    @@assert(contains_operation, {{ this|regex_match(&quot;[*-+/]&quot;) }} )
+    @@assert(contains_operation, {{ this|regex_match("[*-+/]") }} )
 }</code></pre>
       <p>These are my data models. Basically users can extract filing
         information from an SEC filing (or any document, as you'll see next) and
         back it up with cold hard facts 😎. These facts contain a value, units,
         start/end dates, and a location description so you can find the
         fact in the doc for debugging purposes. Now, onto the functions:</p>
-      <pre class="blog-code-block"><code>function SearchDoc(document: pdf, query: string) -&gt; FilingInformation {
+      <pre class="blog-code-block"><code>function SearchDoc(document: pdf, query: string) -> FilingInformation {
   client Gemini
-  prompt #&quot;
+  prompt #"
     Extract the information from the document below.
     Always prefer to source a fact from within a table if possible.
 
@@ -142,12 +146,12 @@ class CalculatorRequest {
     Document: {{document}}
 
     {{ ctx.output_format }}
-  &quot;#
+  "#
 }
 
-function NeedCalculator(message: string, facts: Fact[]) -&gt; CalculatorRequest {
+function NeedCalculator(message: string, facts: Fact[]) -> CalculatorRequest {
   client Gpt5Nano
-  prompt #&quot;
+  prompt #"
     Given a message, create an expression that best represents the user&#39;s
     request.  If you don&#39;t have to calculate anything, return null.
     Never give the answer or include the units. Always just raw numbers and
@@ -155,9 +159,9 @@ function NeedCalculator(message: string, facts: Fact[]) -&gt; CalculatorRequest 
 
     {{ ctx.output_format }}
 
-    {{ _.role(&quot;user&quot;) }} {{ message }}
-    {{ _.role(&quot;user&quot;) }} {{ facts }}
-  &quot;#
+    {{ _.role("user") }} {{ message }}
+    {{ _.role("user") }} {{ facts }}
+  "#
 }</code></pre>
       <p>These are the only two BAML functions we need. <code>SearchDoc</code> is a
         function that accepts a PDF and a query, returning some sort of filing
@@ -171,7 +175,7 @@ function NeedCalculator(message: string, facts: Fact[]) -&gt; CalculatorRequest 
         trustworthy (read: deterministic) enough to trust their calculations,
         even though they're correct very often. To remedy this, I thought we
         could just bring a nuke to a paintball match and
-        <code>import sympy</code> – a full-blown symbolic algebra system 😀.
+        <code>import sympy</code> - a full-blown symbolic algebra system 😀.
         Now, if the LLM ever decides to calculate derivatives or solve
         differential equations, it has the tools at its disposal.
       </p>
@@ -200,7 +204,7 @@ if __name__ == &#39;__main__&#39;:
   pdf = Pdf.from_base64(encode_file_to_base64(args.url))
   result = b.SearchDoc(document=pdf, query=args.query)
 
-  if len(result.facts) &gt; 1:
+  if len(result.facts) > 1:
     request = b.NeedCalculator(
       message=args.query,
       facts=result.facts
@@ -223,34 +227,34 @@ if __name__ == &#39;__main__&#39;:
         plug in OpenAI-compatible local LLM servers like Ollama and
         LMStudio.
       </p>
-      <pre class="blog-code-block"><code>client&lt;llm&gt; Gpt5Nano {
+      <pre class="blog-code-block"><code>client<llm> Gpt5Nano {
   provider openai
   options {
-    model &quot;gpt-5-nano&quot;
+    model "gpt-5-nano"
     api_key env.OPENAI_API_KEY
   }
 }
 
-client&lt;llm&gt; Gemini {
+client<llm> Gemini {
   provider google-ai
   options {
-    model &quot;gemini-2.5-pro&quot;
+    model "gemini-2.5-pro"
     api_key env.GEMINI_API_KEY
   }
 }
 
-client&lt;llm&gt; Lmstudio {
+client<llm> Lmstudio {
   provider openai-generic
   options {
-    model &quot;google/gemma-3-4b&quot;
-    base_url &quot;http://localhost:1234/v1&quot;
+    model "google/gemma-3-4b"
+    base_url "http://localhost:1234/v1"
   }
 }</code></pre>
       <p>In conclusion, I don't know what the future holds for programming
         agents and baking LLMs into software, but this approach is a great
         glimpse into how the future may look. I didn't even get into the concept
-        of evals, which – if your calls to the LLM are factored out into pure
-        functions – are now trivial to implement in BAML. The tooling around
+        of evals, which - if your calls to the LLM are factored out into pure
+        functions - are now trivial to implement in BAML. The tooling around
         building things with LLMs is getting better every day. There are about a
         million different very opinionated frameworks, and sometimes it's nice
         to step back into a more flexible, lower level of the stack for a
