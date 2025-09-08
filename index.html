@@ -16,7 +16,6 @@
         <div class="logo"></div>
         <ul class="nav-links">
           <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="blog/index.html">Blog</a></li>
         </ul>
         <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">Menu</button>
       </nav>
@@ -26,39 +25,78 @@
   <div class="mobile-nav" id="mobileNav">
     <button class="mobile-close" onclick="closeMobileMenu()">Close</button>
     <a href="index.html" onclick="closeMobileMenu()" class="active">Home</a>
-    <a href="blog/index.html" onclick="closeMobileMenu()">Blog</a>
   </div>
 
   <main>
     <section class="hero">
       <div class="container">
         <h1>[Ouachita Labs]</h1>
-        <p>Applied AI • Accessibility • Education Technology</p>
         <div class="contact-links">
           <a href="mailto:john@ouachitalabs.com" class="contact-button">
             Email
           </a>
-	  <a href="https://linkedin.com/in/jomccr" class="contact-button">
+          <a href="https://linkedin.com/in/jomccr" class="contact-button">
             LinkedIn
-	  </a>
+          </a>
         </div>
       </div>
     </section>
 
-    <section class="contact" id="contact">
+    <section class="blog-posts">
       <div class="container">
-        <h2>Contact</h2>
-        <p><strong>North Little Rock, Arkansas</strong></p>
-        <div class="contact-info">
-          <div class="contact-item">
-            <span>john@ouachitalabs.com</span>
-          </div>
+        <div class="blog-grid">
+          <article class="blog-card">
+            <div class="blog-card-header">
+              <span class="blog-category">AI Engineering</span>
+            </div>
+            <h2>
+              <a href="blog/posts/baml-tools.html">Tool calls with BAML</a>
+            </h2>
+            <p>
+              Explore how BAML makes LLM tool orchestration transparent and testable.
+              See a practical example of document extraction with multi-model support
+              and learn why lower-level abstractions can be powerful.
+            </p>
+            <a href="blog/posts/baml-tools.html" class="read-more">Read more
+              <span>&rarr;</span></a>
+          </article>
+
+          <article class="blog-card">
+            <div class="blog-card-header">
+              <span class="blog-category">AI Engineering</span>
+            </div>
+            <h2>
+              <a href="blog/posts/structured-outputs.html">Applied AI Fundamentals: Structured Outputs</a>
+            </h2>
+            <p>
+              Learn how structured outputs transform LLMs from unpredictable text generators
+              into reliable components for production applications. See practical examples
+              using Pydantic and JSON schemas.
+            </p>
+            <a href="blog/posts/structured-outputs.html" class="read-more">Read more
+              <span>&rarr;</span></a>
+          </article>
+
+          <article class="blog-card">
+            <div class="blog-card-header">
+              <span class="blog-category">AI Development</span>
+            </div>
+            <h2>
+              <a href="blog/posts/agents-building-tools-for-agents.html">The Rise of Niche Software</a>
+            </h2>
+            <p>
+              Discover how AI agents excel when given purpose-built CLI tools.
+              Learn why building niche developer tools is easier than ever and
+              see a practical example with afcli for Airflow development.
+            </p>
+            <a href="blog/posts/agents-building-tools-for-agents.html" class="read-more">Read more
+              <span>&rarr;</span></a>
+          </article>
         </div>
       </div>
     </section>
-  </main>
 
-  <script src="common.js"></script>
+    <script src="common.js"></script>
 </body>
 
 </html>
