@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
@@ -32,7 +33,7 @@
 
   <div class="blog-header">
     <div class="container">
-      <h1>The Rise of Niche Software</h1>
+      <h1>Tool calls with BAML</h1>
     </div>
   </div>
 
@@ -101,7 +102,7 @@
         the application layer rather than the routing layer.</p>
       <p>To do the trick I showed at the beginning of the article, I’ve
         defined a few datatypes:</p>
-      <pre class="go"><code>class Fact {
+      <pre class="blog-code-block"><code>class Fact {
   value int @description(#&quot;
     If the value is in currency, round to the nearest whole dollar. For example, always expand &quot;$12.8 millions&quot; to 12800000 &quot;USD&quot;
   &quot;#)
@@ -134,7 +135,7 @@ class CalculatorRequest {
         back it up with cold hard facts 😎. These facts contain a value, units,
         start/end dates, and a location description so that you can find the
         fact in the doc for debugging purposes. Now, onto the functions</p>
-      <pre class="go"><code>function SearchDoc(document: pdf, query: string) -&gt; FilingInformation {
+      <pre class="blog-code-block"><code>function SearchDoc(document: pdf, query: string) -&gt; FilingInformation {
   client Gemini
   prompt #&quot;
     Extract the information from the document below.
@@ -187,7 +188,7 @@ function NeedCalculator(message: string, facts: Fact[]) -&gt; CalculatorRequest 
         <code>*.baml</code> files. The code to orchestrate pretty much looks
         like this:
       </p>
-      <pre class="python"><code>import argparse
+      <pre class="blog-code-block"><code>import argparse
 from utils import encode_file_to_base64
 from baml_py import Pdf
 from baml_client.sync_client import b
@@ -225,7 +226,7 @@ if __name__ == &#39;__main__&#39;:
         plug in openai compatible local LLM servers like Ollama and
         LMStudio.
       </p>
-      <pre class="go"><code>client&lt;llm&gt; Gpt5Nano {
+      <pre class="blog-code-block"><code>client&lt;llm&gt; Gpt5Nano {
   provider openai
   options {
     model &quot;gpt-5-nano&quot;
@@ -259,6 +260,14 @@ client&lt;llm&gt; Lmstudio {
         change.</p>
     </article>
   </main>
+
+  <footer class="blog-footer">
+    <div class="container">
+      <p>&copy; 2025 Ouachita Labs. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../../common.js"></script>
 </body>
 
 </html>

@@ -1141,6 +1141,16 @@ blockquote p+p {
     overflow-x: auto;
 }
 
+[data-theme="dark"] .blog-code-block {
+    background: var(--surface-secondary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .blog-code-block code {
+    color: var(--text-primary);
+    background: transparent;
+}
+
 .blog-section-divider {
     border-bottom: 1px solid #e0e0e0;
 }
