@@ -1,0 +1,141 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>On Context Rot and Premature Optimization - Ouachita Labs</title>
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">[Ouachita Labs]</div>
+        <ul class="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+        </ul>
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+          Menu
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-close" onclick="closeMobileMenu()">Close</button>
+    <a href="../../index.html" onclick="closeMobileMenu()">Home</a>
+  </div>
+
+  <div class="blog-header">
+    <div class="container">
+      <h1>Applied AI Fundamentals</h1>
+    </div>
+  </div>
+
+  <main>
+    <article class="blog-content container">
+      <p class="blog-meta">Tags: AI, LLMs, Context Windows, Engineering Best Practices<br />Audience: Technical practitioners</p>
+      <h1 id="on-context-rot-and-premature-optimization">On Context Rot and Premature Optimization</h1>
+
+      <p>Premature optimization has caused a lot of pain for the folks I've
+seen working on applying LLMs to business problems. What I've seen in
+the past year or two are people seemingly terrified of context rot when
+doing simple data extraction or summary over a lot of text. They are
+scared of writing detailed tool descriptions because it may cloud the
+judgment of the agent they're building, criticizing every line added to
+the system prompt of a POC/demo project. This is a symptom of what is 
+colloquially called <i>context rot</i> - a phenomenon that is rumored to have
+plagued every AI app that was ever built. Never mind that <a
+href="https://ai.google.dev/gemini-api/docs/long-context">1M token
+context windows</a> are becoming more and more common, with some model
+providers allowing <a href="https://x.ai/news/grok-4-fast">mind-boggling
+2M context windows</a>.</p>
+
+<p>What I think is happening when folks mention context rot is really
+more of a function of a long back-and-forth conversation. Studies show
+<a href="https://arxiv.org/html/2505.06120v1">multi-turn conversations
+rot context faster than long single-turn info dumps</a>. For example, an
+LLM that reads the entire Lord of the Rings trilogy in one go - let's
+say 350k tokens - may do better at question and answer over that single
+long text than an LLM with 350k tokens of back and forth on a codebase
+making different unrelated edits. My understanding is that the single
+blob of tokens is unidirectional, while the nuance between the
+interactions of the system/user/assistant messages and tool calls and
+results for a long continued conversation is much higher entropy.</p>
+
+<p>In practice, a lot of the folks who build tools with AI are really
+just hitting the LLM once per task, whatever their specific business
+problem is. If you're extracting information from a financial document
+like a large 10-K, you might begin to think your 114-page document is
+too much for it. Nope. It sits at around 35k tokens of pretty-printed
+text.</p>
+
+<p>Take the latest Yum brands ($YUM) annual SEC filing form 10-K for
+example, sitting at 114 pages, with neatly printed tables like this all
+throughout. Remember that even whitespace matters and gets tokenized the
+same as special characters.</p>
+
+<figure class="blog-figure">
+<img src="../../assets/context-rot/yum-10k-financial-data.png"
+alt="Yum Brands 10-K financial data" />
+<figcaption>Yum Brands 10-K annual report displayed in a terminal, showing detailed financial tables for KFC Division, Taco Bell Division, Pizza Hut Division, and Habit Burger & Grill Division with company sales, franchise revenues, expenses, and operating profit data.</figcaption>
+</figure>
+
+<p>Traditional RAG apologists would claim I should chunk this up,
+convert to markdown, remove all unnecessary whitespace, embed with
+<code>text-embed-small-3</code>, store in a vector database or pgvec,
+build a re-ranker using a separate LLM, etc on and on.</p>
+
+<p>How many tokens do you think this behemoth of a document contains?
+500k? Not even close. It sits right at 100k tokens in total.</p>
+
+<pre class="blog-code-block"><code>&gt;&gt;&gt; encoding = tiktoken.encoding_for_model("gpt-4")
+&gt;&gt;&gt; len(encoding.encode(edgar.find("YUM").latest(form="10-K").text()))
+100308</code></pre>
+
+<figure class="blog-figure">
+<img src="../../assets/context-rot/context-window-bell-curve.jpg"
+alt="Context window bell curve meme" />
+<figcaption>Bell curve meme illustrating the irony of context window management approaches: both ends of the intelligence spectrum advocate "just throw it in the context window" while the middle over-complicates with "complex search tools, vector embeddings, document chunking strategies."</figcaption>
+</figure>
+
+<p>Where folks get into issues with context rot the most is with
+multi-turn coding agents. This is a specific type of context rot that
+we, as programmers, internalize and then mistakenly project onto other
+single-turn applications where it doesn't apply. The best-case scenario
+is that you manage your context with intentional compaction through
+dedicated <code>research -&gt; plan -&gt; implement</code> phases as
+described in <em>Advanced Context Engineering for Agents</em> by Dexter
+Horthy, where he describes his exact method for going through these
+development phases and things to watch out for. The claude code prompts
+(custom slash commands) and agents can be adapted from their open source
+repo <a href="https://github.com/humanlayer/humanlayer">https://github.com/humanlayer/humanlayer</a> under the
+<code>.claude/</code> directory.</p>
+
+<p>Watch Dexter's talk on <em>Advanced Context Engineering for Agents</em>: <a href="https://www.youtube.com/watch?v=IS_y40zY-hc">https://www.youtube.com/watch?v=IS_y40zY-hc</a></p>
+
+<p>Even Dex has described this as a method for squeezing the most out of
+<strong>today's</strong> coding agents. It is not bitter lesson pilled
+as some would say. While we're all waiting around for the next frontier
+of super-long-context Claude/Gemini/GPT-N powered coding agents, we
+still need to optimize for productivity. This method that he's described
+helps with that tremendously. I recently adopted it at my dayjob while
+working on a brownfield Apache Airflow repository with half a million
+lines of code in it.</p>
+
+<p>However, if you're doing classification or data extraction, or any
+other major application of LLMs outside of building a coding agent,
+context is your friend. Most tasks like extracting information from
+documents, writing plans or outlines, categorization, synthesizing
+long-form text into structured data, etc are usually
+context-starved.</p>
+
+<p>The more context you can add, the better results you'll get.</p>
+
+    </article>
+  </main>
+  <script src="../../common.js"></script>
+</body>
+
+</html>
