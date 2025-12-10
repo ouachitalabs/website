@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Macros for Humans: Technical Architecture - Ouachita Labs</title>
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">[Ouachita Labs]</div>
+        <ul class="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+        </ul>
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+          Menu
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-close" onclick="closeMobileMenu()">Close</button>
+    <a href="../../index.html" onclick="closeMobileMenu()">Home</a>
+  </div>
+
+  <div class="blog-header">
+    <div class="container">
+      <h1>Macros for Humans: Technical Architecture</h1>
+    </div>
+  </div>
+
+  <main>
+    <article class="blog-content container">
+      <p class="blog-meta">Tags: AI, RAG, Mobile Development, BAML<br>Audience: Technical</p>
+
+      <p>On the side I've been building Macros for Humans, a cross platform mobile app that folks can use to track their macros, protein goals, calories, weight, etc. The most enjoyable and difficult part to hack on has been the custom RAG pipeline I've built to retrieve the correct ingredients from the USDA databases. Anybody who has used a macro tracking app like myfitnesspal or cronometer understands the nuances between some of the ingredients spread across several databases. For example if you search "deli ham" in cronometer you will get <strong>fifty results</strong> back. I personally think this is a bit of information overload for the average user. While you need a very robust database for coverage purposes, especially for obscure branded foods, most ingredients that people actually eat are simple foods like eggs, vegetables, and cheese.</p>
+
+      <figure class="blog-figure">
+        <img src="../../assets/macros-for-humans/hackers-1995.png" alt="Scene from Hackers (1995) showing characters surrounded by data screens" />
+        <figcaption>How it feels to manually crawl the government databases to find the ingredients for my ham sandwich (Hackers 1995)</figcaption>
+      </figure>
+
+      <h2>The problem</h2>
+
+      <p>Macros for Humans specializes in transforming unstructured inputs and making sense of it as accurately as possible. The problem that you see in traditional meal tracking software is completely centered around data entry friction. For each ingredient you log with cronometer, you are forced to search the database, iterate on your query, decide on one of the fifty results returned, pick the correct <em>units</em> for your measurement. Most ingredients normalize to store nutrition per 100g, but occasionally you still have to either guess or conduct a mini science experiment to accurately convert your measured mass in grams to an equivalent volume based measurement. This is exactly the case for my wife's favorite autumnal coffee creamer!</p>
+
+      <figure class="blog-figure">
+        <img src="../../assets/macros-for-humans/creamer-measurement.png" alt="Screenshot showing creamer measurement conversion challenge" />
+      </figure>
+
+      <p>Macros for Humans <strong>alleviates this friction</strong> by accepting unstructured data, processing it into reasonable base ingredient objects, and then conducting the search and deciding the best ingredient match for you. I've found this speeds up logging <em>significantly</em>. The friction of the traditional macro tracker app scales <em>linearly</em> with the number of ingredients, and so if you're a home cook and you need to build a complex recipe, you can see outrageous (10X or 20X) speedups! Beyond the sheer speed gains, you also reduce total number of clicks to nearly zero. Check out the demo of each app below logging the same meal. I've used cronometer for years, and I'm very fast at navigating it.</p>
+
+      <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin: 2rem 0;">
+        <figure class="blog-figure" style="margin: 0; flex: 1; min-width: 280px; max-width: 400px;">
+          <img src="../../assets/macros-for-humans/mfh-quickdemo.gif" alt="Macros for Humans demo showing quick meal logging" style="width: 100%;" />
+          <figcaption>Macros for Humans: 5 clicks, no typing required.</figcaption>
+        </figure>
+        <figure class="blog-figure" style="margin: 0; flex: 1; min-width: 280px; max-width: 400px;">
+          <img src="../../assets/macros-for-humans/cronometer-quickdemo.gif" alt="Cronometer demo showing meal logging process" style="width: 100%;" />
+          <figcaption>Cronometer: 19 clicks not including typing out three ingredient names and two measurements.</figcaption>
+        </figure>
+      </div>
+
+      <h2>Technical details</h2>
+
+      <p>The end to end design can be broken into three tasks.</p>
+
+      <h3>Structured ingredient extraction</h3>
+
+      <p>An example input to my app is messy text or voice data. For example:
+      <code>"Two eggs. Two slices of toast, 15 grams butter"</code>.
+      The flexibility here is the feature, so we do not want to enforce
+      <em>any</em> kind of limitation to this input. This is resilient to
+      retractions like <code>"wait, no, actually I meant 20 grams of
+      butter"</code>. I have a simple BAML function (prompt) that handles
+      extraction and parses this out into <code>Ingredient</code> objects. 
+      Here is the BAML class I'm using for those interested:</p>
+
+      <pre class="blog-code-block"><code>class Ingredient {
+    name string
+    extra_descriptors string?
+    brand_hint string?
+    alternative_search_terms string[]?
+    measurement int | float | string @description(#"
+        If the user gives an ambiguous measurement, do your best to guess this value in grams.
+        Do not assume 100.
+    "#)
+    units Unit
+    branded bool
+    raw_transcription string?
+    measurement_is_estimated bool @description(#"
+        If you had to estimate a measurement like one scoop of protein powder = 36g, then flag it here.
+    "#)
+
+    @@stream.done
+}</code></pre>
+
+      <p>This should look pretty readable for somebody familiar with something like typescript. Some notes on the BAML specific syntax:</p>
+
+      <ul>
+        <li><code>@@stream.done</code> - this feature allows you to stream entire <code>Ingredient</code> objects back as valid json as the LLM streams out the individual tokens in its response. It helps decrease time to first token significantly.</li>
+        <li><code>@description</code> - these are plain text type annotations that get added to the prompt</li>
+      </ul>
+
+      <p>For more information on what exactly I meant by <em>structured streaming</em> earlier, take a look at <a href="https://docs.boundaryml.com/guide/baml-basics/streaming">their docs</a> or their examples, particularly the <a href="https://baml-examples.vercel.app/examples/get-recipe">recipe generator</a>.</p>
+
+      <p>During this initial extraction we ask the LLM to classify if the ingredient is branded or not, note down any additional qualifiers, etc. This is really useful for narrowing things down from 50 results to the ten best. An example of an additional qualifier could be a search for "Ground beef 90% lean, cooked in a skillet, drained" and the result of the initial pull out would look like this:</p>
+
+      <pre class="blog-code-block"><code>{
+  "title": "Skillet Ground Beef",
+  "ingredients": [
+    {
+      "name": "ground beef",
+      "extra_descriptors": "90% lean, cooked, drained",
+      "brand_hint": null,
+      "alternative_search_terms": null,
+      "measurement": 113,
+      "units": "Grams",
+      "branded": false,
+      "raw_transcription": "Ground beef 90% lean, cooked in a skillet, drained.",
+      "measurement_is_estimated": true
+    }
+  ]
+}</code></pre>
+
+      <p>Note that I didn't give any measurement and it assumed 113 grams? This is a reasonable portion size, but I wanted to showcase the <code>measurement_is_estimated</code> flag. This is set whenever an exact mass is inferred from a fuzzy (or missing) measurement. When I ask it to log two eggs, it automatically assumes 50g a piece for better or worse. I've found the LLM extremely accurate when doing simple estimations. Of course the more you ask of it, the less accurate it becomes.</p>
+
+      <h3>Ingredient search</h3>
+
+      <p>Once we've extracted the high level ingredients we're working with, we need to perform a search per ingredient. This is where structured streaming really shines. As soon as the first <code>Ingredient</code> object returns from the LLM, we kick off a search in the official USDA food data central API. This lets us get results for the first query before the last <code>Ingredient</code> object has even been streamed out. In our case we only are searching one ingredient, but you'll be able to see the flow of information well.</p>
+
+      <p>From the logs I can see that this was the query it made to the API. They provide a DEMO_KEY which you can use to see the results: <a href="https://api.nal.usda.gov/fdc/v1/foods/search?api_key=DEMO_KEY&query=ground+beef+90%25+lean%2C+%2C+drained&pageSize=10&pageNumber=1&dataType=Foundation%2CSR+Legacy%2CSurvey+(FNDDS)">https://api.nal.usda.gov/fdc/v1/foods/search?api_key=DEMO_KEY&query=ground+beef+90%25+lean...</a></p>
+
+      <p>Here we have the response with ten matching results in pretty-printed JSON.</p>
+
+      <figure class="blog-figure">
+        <img src="../../assets/macros-for-humans/usda-api-results.png" alt="USDA FoodData Central API search results showing ten matching results in JSON format" />
+      </figure>
+
+      <p>Now, the question becomes, which of these ten is the best fit given the original input text? That is determined by a process I call re-ranking.</p>
+
+      <h3>Re-ranking (best ingredient selection)</h3>
+
+      <p>Our prompt to do re-ranking has a lot of extra information, but the crux of it is here:</p>
+
+      <pre class="blog-code-block"><code>You are given:
+1. The structured ingredient (with name, descriptors, and optional raw_transcription
+   capturing the exact words from the caller).
+2. A shortlist of USDA FoodData Central candidates produced by a full text search.
+
+Your goal:
+- Select the single best USDA candidate from the shortlist that matches the caller's intent.</code></pre>
+
+      <p>The re-ranker responds with a final recommendation.</p>
+
+      <pre class="blog-code-block"><code>{
+  "primary": {
+    "fdc_id": 171794,
+    "description": "Beef, ground, 90% lean meat / 10% fat, crumbles, cooked, pan-browned",
+    "data_type": "sr_legacy_food",
+    "score": 840.3608,
+    "brand_name": null,
+    "gtin_upc": null
+  },
+  "fallback": null,
+  "confidence": 0.84,
+  "rationale": "The ingredient is described as '90% lean, cooked, drained' and the selected candidate is 'Beef, ground, 90% lean meat / 10% fat, crumbles, cooked, pan-browned', which closely matches the provided descriptors.",
+  "needs_foundational_default": false
+}</code></pre>
+
+      <p>In addition to all of this, we display a separate React component at each step, which users can manipulate before adding to their diary.</p>
+
+      <h2>Conclusion</h2>
+
+      <p>Thanks for following this technical deep dive. BAML has been an incredibly reliable and well thought-out library to use for cases where you need first class support for structured outputs, specifically structured streaming. I think the UI of Macros for Humans is only made possible by BAML and claude (I hate writing react). Macros for Humans will be available for download and purchase by the end of the month on the app store and google play, just in time for new years.</p>
+
+      <p>If you're interested in being a beta tester, or just want to chat about AI search and retrieval pipelines like this, send me an email at <a href="mailto:john@ouachitalabs.com">john@ouachitalabs.com</a>. I would love to chat!</p>
+
+      <hr style="margin-top: 3rem; margin-bottom: 1rem; border: none; border-top: 1px solid #e0e0e0;">
+      <p style="font-size: 0.9em; color: #666; font-style: italic;">
+        <strong>Author's Note:</strong> John is anti <a href="https://en.wikipedia.org/wiki/AI_slop" target="_blank">AI slop</a>.
+        Ouachita Labs blog posts are always written with care by a human brain, proofread with Claude Code.
+      </p>
+
+    </article>
+  </main>
+
+  <footer class="blog-footer">
+    <div class="container">
+      <p>&copy; 2025 Ouachita Labs. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../../common.js"></script>
+</body>
+
+</html>
