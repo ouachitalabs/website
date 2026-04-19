@@ -957,6 +957,10 @@ nav {
         display: block;
     }
 
+    body.home header {
+        display: none;
+    }
+
     .hero {
         padding: var(--space-2xl) 0;
         min-height: auto;
