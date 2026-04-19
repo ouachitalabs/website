@@ -257,10 +257,37 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/hero/ouachita-mountains.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;
+    mix-blend-mode: luminosity;
+    pointer-events: none;
+    z-index: 0;
+    -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+
+[data-theme="dark"] .hero::before {
+    opacity: 0.1;
+    mix-blend-mode: overlay;
 }
 
 .hero .container {
     max-width: 800px;
+    position: relative;
+    z-index: 1;
 }
 
 .hero h1 {
@@ -1034,15 +1061,7 @@ pre code {
     font-weight: 400;
 }
 
-/* Remove background image from hero */
-.hero {
-    background-image: none !important;
-    background: var(--surface-primary);
-}
 
-.hero::before {
-    display: none;
-}
 
 /* Link styles */
 a {
