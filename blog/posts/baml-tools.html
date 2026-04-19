@@ -9,34 +9,21 @@
 </head>
 
 <body>
-  <header>
-    <div class="container">
-      <nav>
-        <div class="logo">[Ouachita Labs]</div>
-        <ul class="nav-links">
-          <li><a href="../../index.html">Home</a></li>
-        </ul>
-        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-          Menu
-        </button>
-      </nav>
-    </div>
-  </header>
-
-  <div class="mobile-nav" id="mobileNav">
-    <button class="mobile-close" onclick="closeMobileMenu()">Close</button>
-    <a href="../../index.html" onclick="closeMobileMenu()">Home</a>
-  </div>
+  <a href="../../index.html" class="logo">[Ouachita Labs]</a>
 
   <div class="blog-header">
     <div class="container">
+      <div class="blog-series">Engineering best practices</div>
       <h1>Tool calls with BAML</h1>
+      <p class="blog-meta">
+        <span class="meta-item"><strong>Tags:</strong> software engineering, large language models</span>
+        <span class="meta-item"><strong>Audience:</strong> technical</span>
+      </p>
     </div>
   </div>
 
   <main>
     <article class="blog-content container">
-      <p class="blog-meta">Tags: software engineering, large language models<br>Audience: technical</p>
       <p>Let's start at the end and work backwards. All the code for this example can be found here:
         <a href="https://github.com/ouachitalabs/baml-playground">https://github.com/ouachitalabs/baml-playground</a>.
       </p>

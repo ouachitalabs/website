@@ -8,35 +8,21 @@
 </head>
 
 <body>
-  <header>
-    <div class="container">
-      <nav>
-        <div class="logo">[Ouachita Labs]</div>
-        <ul class="nav-links">
-          <li><a href="../../index.html">Home</a></li>
-        </ul>
-        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-          Menu
-        </button>
-      </nav>
-    </div>
-  </header>
-
-  <div class="mobile-nav" id="mobileNav">
-    <button class="mobile-close" onclick="closeMobileMenu()">Close</button>
-    <a href="../../index.html" onclick="closeMobileMenu()">Home</a>
-  </div>
+  <a href="../../index.html" class="logo">[Ouachita Labs]</a>
 
   <div class="blog-header">
     <div class="container">
-      <h1>Applied AI Fundamentals</h1>
+      <div class="blog-series">Applied AI Fundamentals</div>
+      <h1 id="part-1-structured-outputs">Part 1: Structured outputs</h1>
+      <p class="blog-meta">
+        <span class="meta-item"><strong>Tags:</strong> Education, Fundamentals, Engineering</span>
+        <span class="meta-item"><strong>Audience:</strong> Novice technical</span>
+      </p>
     </div>
   </div>
 
   <main>
     <article class="blog-content container">
-      <p class="blog-meta">Tags: Education, Fundamentals, Engineering<br />Audience: Novice technical</p>
-      <h1 id="part-1-structured-outputs">Part 1: Structured outputs</h1>
       <p>Calling LLMs and expecting more than just text.</p>
       <p>If you’ve ever tried to build a real application with an LLM involved
         in some way, you’ve probably hit this wall: the AI gives you exactly

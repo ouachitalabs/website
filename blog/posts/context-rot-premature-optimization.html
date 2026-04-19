@@ -8,36 +8,21 @@
 </head>
 
 <body>
-  <header>
-    <div class="container">
-      <nav>
-        <div class="logo">[Ouachita Labs]</div>
-        <ul class="nav-links">
-          <li><a href="../../index.html">Home</a></li>
-        </ul>
-        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-          Menu
-        </button>
-      </nav>
-    </div>
-  </header>
-
-  <div class="mobile-nav" id="mobileNav">
-    <button class="mobile-close" onclick="closeMobileMenu()">Close</button>
-    <a href="../../index.html" onclick="closeMobileMenu()">Home</a>
-  </div>
+  <a href="../../index.html" class="logo">[Ouachita Labs]</a>
 
   <div class="blog-header">
     <div class="container">
-      <h1>Applied AI Fundamentals</h1>
+      <div class="blog-series">Applied AI Fundamentals</div>
+      <h1 id="on-context-rot-and-premature-optimization">On Context Rot and Premature Optimization</h1>
+      <p class="blog-meta">
+        <span class="meta-item"><strong>Tags:</strong> AI, LLMs, Context Windows, Engineering Best Practices</span>
+        <span class="meta-item"><strong>Audience:</strong> Technical practitioners</span>
+      </p>
     </div>
   </div>
 
   <main>
     <article class="blog-content container">
-      <p class="blog-meta">Tags: AI, LLMs, Context Windows, Engineering Best Practices<br />Audience: Technical practitioners</p>
-      <h1 id="on-context-rot-and-premature-optimization">On Context Rot and Premature Optimization</h1>
-
       <p>Premature optimization has caused a lot of pain for the folks I've
 seen working on applying LLMs to business problems. What I've seen in
 the past year or two are people seemingly terrified of context rot when

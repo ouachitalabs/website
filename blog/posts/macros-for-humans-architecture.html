@@ -9,35 +9,21 @@
 </head>
 
 <body>
-  <header>
-    <div class="container">
-      <nav>
-        <div class="logo">[Ouachita Labs]</div>
-        <ul class="nav-links">
-          <li><a href="../../index.html">Home</a></li>
-        </ul>
-        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-          Menu
-        </button>
-      </nav>
-    </div>
-  </header>
-
-  <div class="mobile-nav" id="mobileNav">
-    <button class="mobile-close" onclick="closeMobileMenu()">Close</button>
-    <a href="../../index.html" onclick="closeMobileMenu()">Home</a>
-  </div>
+  <a href="../../index.html" class="logo">[Ouachita Labs]</a>
 
   <div class="blog-header">
     <div class="container">
+      <div class="blog-series">Building with AI</div>
       <h1>Macros for Humans: Technical Architecture</h1>
+      <p class="blog-meta">
+        <span class="meta-item"><strong>Tags:</strong> AI, RAG, Mobile Development, BAML</span>
+        <span class="meta-item"><strong>Audience:</strong> Technical</span>
+      </p>
     </div>
   </div>
 
   <main>
     <article class="blog-content container">
-      <p class="blog-meta">Tags: AI, RAG, Mobile Development, BAML<br>Audience: Technical</p>
-
       <p>On the side I've been building Macros for Humans, a cross platform mobile app that folks can use to track their macros, protein goals, calories, weight, etc. The most enjoyable and difficult part to hack on has been the custom RAG pipeline I've built to retrieve the correct ingredients from the USDA databases. Anybody who has used a macro tracking app like myfitnesspal or cronometer understands the nuances between some of the ingredients spread across several databases. For example if you search "deli ham" in cronometer you will get <strong>fifty results</strong> back. I personally think this is a bit of information overload for the average user. While you need a very robust database for coverage purposes, especially for obscure branded foods, most ingredients that people actually eat are simple foods like eggs, vegetables, and cheese.</p>
 
       <figure class="blog-figure">

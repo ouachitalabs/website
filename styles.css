@@ -3,9 +3,10 @@
 
 :root {
     /* Typography */
-    --font-primary: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', Consolas, monospace;
+    --font-primary: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', Consolas, monospace;
+    --font-display: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
     /* Color Palette - Minimalist / Monochromatic */
     --primary-blue: #111111;
@@ -133,131 +134,25 @@ header .container {
     width: 100%;
 }
 
-/* Header - Google style */
-header {
-    background: var(--surface-primary);
-    border-bottom: 1px solid var(--border-light);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    height: 64px;
-    display: flex;
-    align-items: center;
-}
-
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    position: relative;
-    flex: 1;
-    padding: 0 var(--space-lg);
-}
-
+/* Logo styling */
 .logo {
-    font-family: var(--font-primary);
-    font-size: 24px;
-    font-weight: 700;
+    position: absolute;
+    top: var(--space-lg);
+    left: var(--space-lg);
+    z-index: 100;
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: 600;
     color: var(--text-primary);
     text-decoration: none;
     letter-spacing: -0.02em;
 }
 
-.nav-links {
-    display: flex;
-    gap: var(--space-xl);
-    list-style: none;
-}
-
-.nav-links a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: var(--space-sm) 0;
-    margin: 0 var(--space-md);
-    border-radius: 0;
-    transition: all 0.3s ease;
-    border-bottom: 1px solid transparent;
-}
-
-.nav-links a:hover {
-    background: transparent;
-    color: var(--text-primary);
-    border-bottom-color: var(--primary-blue);
-}
-
-.nav-links a.active {
-    color: var(--primary-blue);
-    background: transparent;
-    border-bottom-color: var(--primary-blue);
-}
-
-/* Mobile menu */
-.mobile-menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-sm);
-    position: absolute;
-    right: 0;
-}
-
-.mobile-menu-toggle:hover {
-    background: var(--surface-tertiary);
-}
-
-.mobile-nav {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: var(--surface-primary);
-    z-index: 1000;
-    padding: var(--space-3xl) var(--space-lg);
-}
-
-.mobile-nav.active {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-}
-
-.mobile-nav a {
-    color: var(--text-primary);
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: 500;
-    padding: var(--space-md) 0;
-    border-bottom: 1px solid var(--border-light);
-}
-
-.mobile-close {
-    position: absolute;
-    top: var(--space-lg);
-    right: var(--space-lg);
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-sm);
-}
-
-.mobile-close:hover {
-    background: var(--surface-tertiary);
+@media (max-width: 768px) {
+    .logo {
+        top: var(--space-md);
+        left: var(--space-md);
+    }
 }
 
 /* Hero section - Google style */
@@ -329,6 +224,7 @@ nav {
 
 /* Button - Minimalist Editorial style */
 .cta-button {
+    font-family: var(--font-mono);
     display: inline-flex;
     align-items: center;
     gap: var(--space-sm);
@@ -489,6 +385,7 @@ nav {
 }
 
 .contact-button {
+    font-family: var(--font-mono);
     display: inline-flex;
     align-items: center;
     gap: var(--space-sm);
@@ -761,7 +658,7 @@ nav {
 }
 
 .blog-card time {
-    font-family: var(--font-primary);
+    font-family: var(--font-mono);
     color: var(--text-tertiary);
     font-size: 12px;
     font-weight: 600;
@@ -770,6 +667,7 @@ nav {
 }
 
 .blog-category {
+    font-family: var(--font-mono);
     background: transparent;
     color: var(--text-tertiary);
     padding: 0;
@@ -833,21 +731,38 @@ nav {
 /* Blog post detail */
 .blog-header {
     background: var(--surface-primary);
-    padding: var(--space-3xl) 0;
+    padding: var(--space-3xl) 0 var(--space-2xl);
     text-align: center;
+}
+
+.blog-series {
+    font-family: var(--font-mono);
+    color: var(--primary-blue);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-md);
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--primary-blue-light);
+    border-radius: var(--radius-sm);
 }
 
 .blog-header h1 {
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-lg);
     letter-spacing: -0.03em;
-    line-height: 1.1;
+    line-height: 1.15;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .blog-header time {
-    font-family: var(--font-primary);
+    font-family: var(--font-mono);
     color: var(--text-secondary);
     font-size: 14px;
     font-weight: 600;
@@ -856,14 +771,21 @@ nav {
 }
 
 .blog-meta {
-    font-family: var(--font-primary);
-    text-align: left;
+    font-family: var(--font-mono);
+    text-align: center;
     color: var(--text-secondary);
-    font-size: 14px;
-    margin-bottom: var(--space-lg);
+    font-size: 13px;
+    margin-top: var(--space-xl);
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+}
+
+.meta-item strong {
+    color: var(--text-primary);
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
 }
 
 .blog-content {
