@@ -1,33 +1,34 @@
-/* Google Fonts Import - Roboto & Google Sans inspired */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* Minimalist, Editorial-inspired Aesthetics */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
 :root {
-    /* Typography - Google's approach */
-    --font-primary: 'Verdana', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* Typography */
+    --font-primary: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', Consolas, monospace;
+    --font-serif: 'Lora', Georgia, Cambria, "Times New Roman", Times, serif;
     --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', Consolas, monospace;
 
-    /* Google-inspired Color Palette */
-    --primary-blue: #1a73e8;
-    --primary-blue-hover: #1557b0;
-    --primary-blue-light: #e8f0fe;
-    --secondary-blue: #4285f4;
+    /* Color Palette - Minimalist / Monochromatic */
+    --primary-blue: #111111;
+    --primary-blue-hover: #333333;
+    --primary-blue-light: #f5f5f5;
+    --secondary-blue: #444444;
 
-    /* Google's neutral palette - Light mode */
-    --text-primary: #202124;
-    --text-secondary: #5f6368;
-    --text-tertiary: #80868b;
-    --text-disabled: #9aa0a6;
+    /* Neutral palette - Light mode */
+    --text-primary: #121212;
+    --text-secondary: #555555;
+    --text-tertiary: #888888;
+    --text-disabled: #bbbbbb;
 
-    /* Google's surface colors - Light mode */
+    /* Surface colors - Light mode */
     --surface-primary: #ffffff;
-    --surface-secondary: #f8f9fa;
-    --surface-tertiary: #f1f3f4;
-    --surface-quaternary: #e8eaed;
+    --surface-secondary: #f9f9f9;
+    --surface-tertiary: #f0f0f0;
+    --surface-quaternary: #e5e5e5;
 
-    /* Google's borders - Light mode */
-    --border-light: #dadce0;
-    --border-medium: #c4c7c5;
-    --border-dark: #5f6368;
+    /* Borders - Light mode */
+    --border-light: #eaeaea;
+    --border-medium: #cccccc;
+    --border-dark: #888888;
 
     /* Google's accent colors */
     --success: #0d652d;
@@ -62,24 +63,28 @@
 /* Dark mode variables */
 [data-theme="dark"] {
     /* Dark mode text colors */
-    --text-primary: #e8eaed;
-    --text-secondary: #9aa0a6;
-    --text-tertiary: #80868b;
-    --text-disabled: #5f6368;
+    --text-primary: #f0f0f0;
+    --text-secondary: #a0a0a0;
+    --text-tertiary: #777777;
+    --text-disabled: #444444;
 
     /* Dark mode surface colors */
-    --surface-primary: #202124;
-    --surface-secondary: #303134;
-    --surface-tertiary: #3c4043;
-    --surface-quaternary: #5f6368;
+    --surface-primary: #121212;
+    --surface-secondary: #1a1a1a;
+    --surface-tertiary: #222222;
+    --surface-quaternary: #333333;
 
     /* Dark mode borders */
-    --border-light: #3c4043;
-    --border-medium: #5f6368;
-    --border-dark: #80868b;
+    --border-light: #2a2a2a;
+    --border-medium: #444444;
+    --border-dark: #666666;
 
-    /* Dark mode primary blue adjustments */
-    --primary-blue-light: #1a2332;
+    /* Dark mode primary/accents */
+    --primary-blue: #eeeeee;
+    --primary-blue-hover: #ffffff;
+    --primary-blue-light: #222222;
+    --secondary-blue: #cccccc;
+    
     --success-light: #1a2e1f;
     --warning-light: #2d2408;
     --error-light: #2d1b1a;
@@ -96,7 +101,8 @@ body {
     font-family: var(--font-primary);
     background: var(--surface-primary);
     color: var(--text-primary);
-    line-height: 1.5;
+    line-height: 1.6;
+    font-size: 1.1rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'kern' 1;
@@ -150,12 +156,12 @@ nav {
 }
 
 .logo {
-    font-family: var(--font-mono);
-    font-size: 22px;
-    font-weight: 500;
+    font-family: var(--font-primary);
+    font-size: 24px;
+    font-weight: 700;
     color: var(--text-primary);
     text-decoration: none;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
 }
 
 .nav-links {
@@ -167,21 +173,27 @@ nav {
 .nav-links a {
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-lg);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: var(--space-sm) 0;
+    margin: 0 var(--space-md);
+    border-radius: 0;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
 }
 
 .nav-links a:hover {
-    background: var(--surface-tertiary);
+    background: transparent;
     color: var(--text-primary);
+    border-bottom-color: var(--primary-blue);
 }
 
 .nav-links a.active {
     color: var(--primary-blue);
-    background: var(--primary-blue-light);
+    background: transparent;
+    border-bottom-color: var(--primary-blue);
 }
 
 /* Mobile menu */
@@ -271,7 +283,7 @@ nav {
     background-image: url('assets/hero/ouachita-mountains.jpg');
     background-size: cover;
     background-position: center;
-    opacity: 0.15;
+    opacity: 0.3;
     mix-blend-mode: luminosity;
     pointer-events: none;
     z-index: 0;
@@ -280,7 +292,7 @@ nav {
 }
 
 [data-theme="dark"] .hero::before {
-    opacity: 0.1;
+    opacity: 0.2;
     mix-blend-mode: overlay;
 }
 
@@ -291,10 +303,10 @@ nav {
 }
 
 .hero h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
     color: var(--text-primary);
     margin-bottom: var(--space-lg);
 }
@@ -305,43 +317,42 @@ nav {
 }
 
 .hero p {
-    font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+    font-family: var(--font-serif);
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
     color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: var(--space-2xl);
-    max-width: 600px;
+    max-width: 650px;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Button - Google Material style */
+/* Button - Minimalist Editorial style */
 .cta-button {
     display: inline-flex;
     align-items: center;
     gap: var(--space-sm);
-    padding: 12px var(--space-lg);
+    padding: 14px var(--space-xl);
     background: var(--primary-blue);
-    color: white;
+    color: var(--surface-primary);
     text-decoration: none;
-    border-radius: var(--radius-lg);
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    border: none;
+    border-radius: 0;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 1px solid var(--primary-blue);
     cursor: pointer;
-    box-shadow: var(--shadow-1);
 }
 
 .cta-button:hover {
-    background: var(--primary-blue-hover);
-    box-shadow: var(--shadow-2);
-    transform: translateY(-1px);
+    background: transparent;
+    color: var(--primary-blue);
 }
 
 .cta-button:active {
-    transform: translateY(0);
-    box-shadow: var(--shadow-1);
+    transform: translateY(1px);
 }
 
 /* Features section */
@@ -352,16 +363,17 @@ nav {
 
 .section-title {
     text-align: center;
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 400;
+    font-size: clamp(2.5rem, 4vw, 3rem);
+    font-weight: 700;
     color: var(--text-primary);
     margin-bottom: var(--space-md);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.03em;
 }
 
 .section-subtitle {
     text-align: center;
-    font-size: clamp(1rem, 2vw, 1.125rem);
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    font-family: var(--font-serif);
     color: var(--text-secondary);
     max-width: 600px;
     margin: 0 auto var(--space-2xl);
@@ -376,24 +388,23 @@ nav {
 }
 
 .feature-card {
-    background: var(--surface-primary);
-    padding: var(--space-2xl);
-    border-radius: var(--radius-lg);
+    background: transparent;
+    padding: var(--space-xl);
+    border-radius: 0;
     border: 1px solid var(--border-light);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
 }
 
 .feature-card:hover {
-    box-shadow: var(--shadow-2);
-    transform: translateY(-2px);
-    border-color: var(--border-medium);
+    border-color: var(--primary-blue);
 }
 
 .feature-icon {
     width: 48px;
     height: 48px;
-    background: var(--primary-blue-light);
-    border-radius: var(--radius-lg);
+    background: transparent;
+    border: 1px solid var(--border-medium);
+    border-radius: 50%;
     margin-bottom: var(--space-lg);
     position: relative;
     display: flex;
@@ -403,40 +414,44 @@ nav {
 
 /* Custom AI Agents Icon */
 .feature-card:nth-child(1) .feature-icon::after {
-    content: '◉';
+    content: '1';
     color: var(--primary-blue);
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
+    font-family: var(--font-primary);
 }
 
 /* Data Integration Icon */
 .feature-card:nth-child(2) .feature-icon::after {
-    content: '⟷';
+    content: '2';
     color: var(--primary-blue);
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
+    font-family: var(--font-primary);
 }
 
 /* Consulting Icon */
 .feature-card:nth-child(3) .feature-icon::after {
-    content: '◐';
+    content: '3';
     color: var(--primary-blue);
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
+    font-family: var(--font-primary);
 }
 
 .feature-card h3 {
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-size: 1.5rem;
+    font-weight: 700;
     color: var(--text-primary);
     margin-bottom: var(--space-md);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
 }
 
 .feature-card p {
     color: var(--text-secondary);
     line-height: 1.6;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    font-family: var(--font-serif);
 }
 
 /* Contact section */
@@ -447,15 +462,16 @@ nav {
 }
 
 .contact h2 {
-    font-size: clamp(2rem, 4vw, 2.5rem);
-    font-weight: 400;
+    font-size: clamp(2.5rem, 4vw, 3rem);
+    font-weight: 700;
     color: var(--text-primary);
     margin-bottom: var(--space-md);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.03em;
 }
 
 .contact p {
-    font-size: 1rem;
+    font-size: 1.15rem;
+    font-family: var(--font-serif);
     color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: var(--space-2xl);
@@ -476,22 +492,24 @@ nav {
     display: inline-flex;
     align-items: center;
     gap: var(--space-sm);
-    padding: 12px var(--space-lg);
-    background: var(--surface-primary);
+    padding: 14px var(--space-xl);
+    background: transparent;
     color: var(--primary-blue);
     text-decoration: none;
     border: 1px solid var(--border-medium);
-    border-radius: var(--radius-lg);
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 0;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    transition: all 0.3s ease;
     cursor: pointer;
 }
 
 .contact-button:hover {
-    background: var(--primary-blue-light);
+    background: var(--primary-blue);
+    color: var(--surface-primary);
     border-color: var(--primary-blue);
-    box-shadow: var(--shadow-1);
 }
 
 .contact-button:active {
@@ -723,17 +741,16 @@ nav {
 }
 
 .blog-card {
-    background: var(--surface-primary);
-    padding: var(--space-2xl);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border-light);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+    padding: var(--space-2xl) 0;
+    border-radius: 0;
+    border: none;
+    border-top: 1px solid var(--border-light);
+    transition: all 0.3s ease;
 }
 
 .blog-card:hover {
-    box-shadow: var(--shadow-2);
-    transform: translateY(-2px);
-    border-color: var(--border-medium);
+    border-top-color: var(--primary-blue);
 }
 
 .blog-card-header {
@@ -744,30 +761,32 @@ nav {
 }
 
 .blog-card time {
-    font-family: var(--font-mono);
+    font-family: var(--font-primary);
     color: var(--text-tertiary);
     font-size: 12px;
-    font-weight: 400;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .blog-category {
-    background: var(--primary-blue-light);
-    color: var(--primary-blue);
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: var(--radius-xl);
-    font-size: 11px;
-    font-weight: 500;
+    background: transparent;
+    color: var(--text-tertiary);
+    padding: 0;
+    border-radius: 0;
+    font-size: 12px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.1em;
 }
 
 .blog-card h2 {
-    font-size: 1.5rem;
-    font-weight: 400;
+    font-size: 1.75rem;
+    font-weight: 700;
     color: var(--text-primary);
     margin-bottom: var(--space-md);
-    line-height: 1.3;
-    letter-spacing: -0.01em;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
 }
 
 .blog-card h2 a {
@@ -782,9 +801,10 @@ nav {
 
 .blog-card p {
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.7;
     margin-bottom: var(--space-lg);
-    font-size: 0.9rem;
+    font-size: 1rem;
+    font-family: var(--font-serif);
 }
 
 .read-more {
@@ -818,25 +838,32 @@ nav {
 }
 
 .blog-header h1 {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 400;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
     color: var(--text-primary);
     margin-bottom: var(--space-md);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
 }
 
 .blog-header time {
-    font-family: var(--font-mono);
+    font-family: var(--font-primary);
     color: var(--text-secondary);
     font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .blog-meta {
-    font-family: var(--font-mono);
+    font-family: var(--font-primary);
     text-align: left;
     color: var(--text-secondary);
     font-size: 14px;
     margin-bottom: var(--space-lg);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .blog-content {
@@ -847,11 +874,11 @@ nav {
 }
 
 .blog-content h2 {
-    font-size: 1.75rem;
-    font-weight: 400;
+    font-size: 2rem;
+    font-weight: 700;
     color: var(--text-primary);
-    margin: var(--space-2xl) 0 var(--space-lg);
-    letter-spacing: -0.01em;
+    margin: var(--space-3xl) 0 var(--space-lg);
+    letter-spacing: -0.02em;
 }
 
 .blog-content h2:first-child {
@@ -859,22 +886,24 @@ nav {
 }
 
 .blog-content p {
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: var(--space-lg);
-    font-size: 1rem;
+    color: var(--text-primary);
+    line-height: 1.8;
+    margin-bottom: var(--space-xl);
+    font-size: 1.15rem;
+    font-family: var(--font-serif);
 }
 
 .blog-content ul {
-    margin: var(--space-lg) 0;
-    padding-left: var(--space-lg);
+    margin: var(--space-lg) 0 var(--space-xl) 0;
+    padding-left: var(--space-xl);
+    font-family: var(--font-serif);
 }
 
 .blog-content li {
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: var(--space-sm);
-    font-size: 0.9rem;
+    color: var(--text-primary);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+    font-size: 1.15rem;
 }
 
 .blog-footer {
@@ -982,15 +1011,26 @@ nav {
     }
 }
 
-/* Global heading styles - JetBrains Mono */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: var(--font-mono);
-    font-weight: 500;
+/* Global heading styles - Typography Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: -0.03em;
+}
+
+h2 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+}
+
+h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
 }
 
 /* Utility classes */
@@ -1121,17 +1161,18 @@ a:hover {
 
 /* Blockquote styles */
 blockquote {
-    background: var(--surface-secondary);
-    border-left: 4px solid var(--primary-blue);
-    padding: var(--space-lg);
-    margin: var(--space-xl) 0;
+    background: transparent;
+    border-left: 2px solid var(--primary-blue);
+    padding: var(--space-md) var(--space-xl);
+    margin: var(--space-2xl) 0;
     font-style: italic;
     color: var(--text-secondary);
-    line-height: 1.6;
+    font-family: var(--font-serif);
 }
 
 .blog-content blockquote {
-    font-size: 0.95rem;
+    font-size: 1.25rem;
+    line-height: 1.6;
 }
 
 blockquote p {
