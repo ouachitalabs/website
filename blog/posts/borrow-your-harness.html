@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Borrow your harness - Ouachita Labs</title>
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+
+<body>
+  <a href="../../index.html" class="logo">[Ouachita Labs]</a>
+
+  <div class="blog-header">
+    <div class="container">
+      <h1>Borrow your harness</h1>
+    </div>
+  </div>
+
+  <main>
+    <article class="blog-content container">
+      <p>I, like many others, tried to take a crack at building agents at work for problems requiring deep domain knowledge. This has been fun, and there have been more <del>failures</del> <strong>learning moments</strong> than pure successes. I wanted to write down one of the main design choices that  keeps coming up while building these kinds of systems.</p>
+
+      <h2>The cold start problem</h2>
+
+      <p>When I first started working on internal AI agents, I made a mistake that I think is pretty common. I started by comparing harness SDKs like LangChain, CrewAI, the OpenAI agents SDK. After all... to build an agent you first have to build a harness, right? These SDKs provide a core agent loop and focus their innovation on how you customize and mold that loop to your own problems. You bring your own tools, even basic ones like <code>read(file)</code>, and in return you get a system that is entirely your own.</p>
+
+      <p>This route may be the right choice for you and the problems you're trying to solve!</p>
+
+      <p>What I found when building with these SDKs is that I was spending an awful lot of time writing boilerplate code. I was dealing with details that are crucial for the agent's basic functionality but do nothing to drive the project forward like loading it with appropriate domain knowledge.</p>
+
+      <p>For most innovation-style side projects you're taking on at work, and for those projects where you are building with individuals who are not themselves deeply experienced in applied AI, structured outputs, tool calling, etc. I'm of the opinion that <strong>you should not roll your own harness</strong>.</p>
+
+      <p>I think this may be counter-intuitive for most folks. When you get pitched an internal data investigation bot your head starts thinking about writing custom <code>query</code> or <code>search_confluence</code> tools, etc. You should instead just give your agent a sandboxed bash shell and access to a <code>psql</code> or <code>snow</code> cli. Maybe write a custom <code>confluence</code> cli tool for it to use (codex was able to one-shot mine in 5 mins).</p>
+
+      <h2>You need the Django of AI</h2>
+
+      <p>You should borrow one of the extremely well-built pieces of software like the excellent <a href="https://pi.dev/">pi</a> - the coding agent underneath OpenClaw. I also use the pi coding agent daily. The built-in tools - read, write, edit, bash - are more than enough to solve most problems. If you need extra functionality, you can either write a CLI utility that can be called from bash, or easily plug in a <a href="https://pi.dev/docs/latest/sdk#custom-tools">custom tool</a> or <a href="https://pi.dev/docs/latest/sdk#extensions">extension</a>.</p>
+
+      <p>Rolling your own harness is similar to building a SaaS with something ultra-lightweight like Flask or FastAPI. It can be done, it has been done before, and there are many cases where that is the best decision to make. However, for most greenfield SaaS projects, you can get away with using something more opinionated like Django. You're locked into the conventions of the project, but those conventions are perfectly fine for most people. If you're building an agent that needs to read, write, and edit files, and run bash commands to solve problems, then pick an off-the-shelf coding harness to skip to the good stuff. Bypass the implementation of basic file and execution tools, as well as the other boilerplate code that isn't unique to the problem you're solving. Why would you roll your own users, groups, auth, admin panel, etc when Django provides an incredibly robust solution for all of this right out of the box? Time is money. Why roll your own suite of custom build and migration scripts when <code>manage.py</code> will do? Don't waste your time reinventing the wheel. You can always swap out harnesses with something custom down the line if you think you need it. But it's likely that You Aren't Gonna Need It.</p>
+
+      <h2>Budgeting your innovation tokens</h2>
+
+      <p>There was an article I read a long time ago featuring a concept I keep coming back to at work called "innovation tokens" (<a href="https://mcfunley.com/choose-boring-technology">Choose Boring Technology</a>).</p>
+
+      <blockquote>
+        <p>If you choose to write your website in NodeJS, you just spent one of your innovation tokens. If you choose to use <a href="https://mcfunley.com/why-mongodb-never-worked-out-at-etsy">MongoDB</a>, you just spent one of your innovation tokens. If you choose to use <a href="https://consul.io/">service discovery tech that’s existed for a year or less</a>, you just spent one of your innovation tokens. If you choose to write your own database, oh god, you’re in trouble.</p>
+      </blockquote>
+
+      <p>This dates the article a bit to claim NodeJS would spend an innovation token, and it's also highly team-dependent, but grant me your suspension of disbelief for just a moment and let's continue. If you choose to write an AI agent, you've spent one (or two) of your innovation tokens right off the bat. You choose to build a custom pipeline for ingesting context into a vector database for semantic search? Arguably one or two tokens right there. You have to roll your own harness from the ground up, including every tool and every connection to your internal domain knowledge? You're cooked. Rules are meant to be broken, so I think it's fair to say we have to choose to go into some sort of innovation token debt if we want to build a system with applied AI right out of the gate. I'll stop my Dan McKinley impersonation before we beat this metaphor to death. There are tons of other great posts and thinkers in this space. Shout out to <a href="https://grugbrain.dev">grugbrain.dev</a> for another one of my favorites.</p>
+
+      <h2>The boring tech for AI agents</h2>
+
+      <p>The point is, you can build a kick-ass, fully integrated agent without touching an agent loop or writing custom tools. I did it with Postgres, Django, React, and ironically a <em>NodeJS</em> service that handled agent runs and streaming websockets back and forth between the user and the agent.</p>
+
+      <hr style="margin-top: 3rem; margin-bottom: 1rem; border: none; border-top: 1px solid #e0e0e0;">
+      <p style="font-size: 0.9em; color: #666; font-style: italic;">
+        <strong>Author's Note:</strong> John is anti <a href="https://en.wikipedia.org/wiki/AI_slop" target="_blank">AI slop</a>.
+        Ouachita Labs blog posts are always written with care by a human brain, proofread with Claude Code.
+      </p>
+
+    </article>
+  </main>
+
+  <script src="../../common.js"></script>
+</body>
+
+</html>
