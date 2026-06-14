@@ -5,21 +5,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Borrow your harness - Ouachita Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=Lilex:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../styles.css" />
 </head>
 
 <body>
-  <a href="../../index.html" class="logo">[Ouachita Labs]</a>
-
-  <div class="blog-header">
-    <div class="container">
-      <h1>Borrow your harness</h1>
-    </div>
-  </div>
-
   <main>
-    <article class="blog-content container">
-      <p>I, like many others, tried to take a crack at building agents at work for problems requiring deep domain knowledge. This has been fun, and there have been more <del>failures</del> <strong>learning moments</strong> than pure successes. I wanted to write down one of the main design choices that  keeps coming up while building these kinds of systems.</p>
+    <a href="../../index.html">Home</a>
+    <article>
+<h1>Borrow your harness</h1>
+<p>I, like many others, tried to take a crack at building agents at work for problems requiring deep domain knowledge. This has been fun, and there have been more <del>failures</del> <strong>learning moments</strong> than pure successes. I wanted to write down one of the main design choices that  keeps coming up while building these kinds of systems.</p>
 
       <h2>The cold start problem</h2>
 
@@ -53,16 +50,13 @@
 
       <p>The point is, you can build a kick-ass, fully integrated agent without touching an agent loop or writing custom tools. I did it with Postgres, Django, React, and ironically a <em>NodeJS</em> service that handled agent runs and streaming websockets back and forth between the user and the agent.</p>
 
-      <hr style="margin-top: 3rem; margin-bottom: 1rem; border: none; border-top: 1px solid #e0e0e0;">
-      <p style="font-size: 0.9em; color: #666; font-style: italic;">
+      <hr />
+      <p>
         <strong>Author's Note:</strong> John is anti <a href="https://en.wikipedia.org/wiki/AI_slop" target="_blank">AI slop</a>.
         Ouachita Labs blog posts are always written with care by a human brain, proofread with Claude Code.
       </p>
-
     </article>
   </main>
-
-  <script src="../../common.js"></script>
 </body>
 
 </html>

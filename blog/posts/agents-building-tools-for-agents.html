@@ -5,21 +5,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Rise of Niche Software - Ouachita Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=Lilex:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../styles.css" />
 </head>
 
 <body>
-  <a href="../../index.html" class="logo">[Ouachita Labs]</a>
-
-  <div class="blog-header">
-    <div class="container">
-      <h1>The Rise of Niche Software</h1>
-    </div>
-  </div>
-
   <main>
-    <article class="blog-content container">
-      <p>
+    <a href="../../index.html">Home</a>
+    <article>
+<h1>The Rise of Niche Software</h1>
+<p>
         With agentic coding assistants like VS Code's <a
           href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode">agent mode</a>, <a
           href="https://www.cursor.com">Cursor</a>, and my personal favorite <a
@@ -35,7 +32,7 @@
         The XKCD comic below is a greate example of the old way of thinking about throwaway scripts and software.
       </p>
 
-      <figure class="blog-figure">
+      <figure>
         <img src="https://imgs.xkcd.com/comics/automation.png" alt="XKCD 1319, 'Automation'">
         <figcaption>XKCD 1319, "Automation"</figcaption>
       </figure>
@@ -107,17 +104,19 @@
       <p>
         In your <a href="http://CLAUDE.md">CLAUDE.md</a>, add:
       </p>
-      <pre class="blog-code-block"><code>When building with airflow, check the dag and task level statuses with `afcli`.
+      <figure>
+<pre>When building with airflow, check the dag and task level statuses with `afcli`.
 Use `afcli` for fetching logs and to validate your changes.
 After making a change, run `afcli` to kick off the dag or task that you're working on and iterate until every task succeeds.
 Run `afcli --help` to understand common usage patterns and specific CLI options.</code>
       </pre>
+</figure>
 
       <p>Giving your agent instructions on how to iterate faster unlocks a tight loop that will
         let you turn features around faster than ever.</p>
 
-      <div class="blog-section-divider">
-        <h2>Next Steps</h3>
+      <section>
+        <h2>Next Steps</h2>
           <ul>
             <li>Audit your workflow for repetitive API interactions</li>
             <li>Pick one service and build a simple CLI wrapper if it doesn't exist yet</li>
@@ -128,7 +127,7 @@ Run `afcli --help` to understand common usage patterns and specific CLI options.
             <strong>Try it yourself:</strong> <code>pip install afcli</code> for Airflow development, or build your own
             tool for your specific needs.
           </p>
-      </div>
+      </section>
 
       <p>
         <em>
@@ -137,22 +136,17 @@ Run `afcli --help` to understand common usage patterns and specific CLI options.
         </em>
       </p>
 
-      <hr style="margin-top: 3rem; margin-bottom: 1rem; border: none; border-top: 1px solid #e0e0e0;">
-      <p style="font-size: 0.9em; color: #666; font-style: italic;">
+      <hr />
+      <p>
         <strong>Author's Note:</strong> John is anti <a href="https://en.wikipedia.org/wiki/AI_slop" target="_blank">AI slop</a>.
         Ouachita Labs blog posts are always written with care by a human brain, proofread with Claude Code.
       </p>
-
     </article>
-  </main>
 
-  <footer class="blog-footer">
-    <div class="container">
+    <footer>
       <p>&copy; 2025 Ouachita Labs. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script src="../../common.js"></script>
+    </footer>
+  </main>
 </body>
 
 </html>

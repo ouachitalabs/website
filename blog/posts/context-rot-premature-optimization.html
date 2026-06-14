@@ -1,24 +1,22 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>On Context Rot and Premature Optimization - Ouachita Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=Lilex:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../styles.css" />
 </head>
 
 <body>
-  <a href="../../index.html" class="logo">[Ouachita Labs]</a>
-
-  <div class="blog-header">
-    <div class="container">
-      <h1 id="on-context-rot-and-premature-optimization">On Context Rot and Premature Optimization</h1>
-    </div>
-  </div>
-
   <main>
-    <article class="blog-content container">
-      <p>Premature optimization has caused a lot of pain for the folks I've
+    <a href="../../index.html">Home</a>
+    <article>
+<h1 id="on-context-rot-and-premature-optimization">On Context Rot and Premature Optimization</h1>
+<p>Premature optimization has caused a lot of pain for the folks I've
 seen working on applying LLMs to business problems. What I've seen in
 the past year or two are people seemingly terrified of context rot when
 doing simple data extraction or summary over a lot of text. They are
@@ -56,7 +54,7 @@ example, sitting at 114 pages, with neatly printed tables like this all
 throughout. Remember that even whitespace matters and gets tokenized the
 same as special characters.</p>
 
-<figure class="blog-figure">
+<figure>
 <img src="../../assets/context-rot/yum-10k-financial-data.png"
 alt="Yum Brands 10-K financial data" />
 <figcaption>Yum Brands 10-K annual report</figcaption>
@@ -70,11 +68,13 @@ build a re-ranker using a separate LLM, etc on and on.</p>
 <p>How many tokens do you think this behemoth of a document contains?
 500k? Not even close. It sits right at 100k tokens in total.</p>
 
-<pre class="blog-code-block"><code>&gt;&gt;&gt; encoding = tiktoken.encoding_for_model("gpt-4")
+<figure>
+<pre>&gt;&gt;&gt; encoding = tiktoken.encoding_for_model("gpt-4")
 &gt;&gt;&gt; len(encoding.encode(edgar.find("YUM").latest(form="10-K").text()))
-100308</code></pre>
+100308</pre>
+</figure>
 
-<figure class="blog-figure">
+<figure>
 <img src="../../assets/context-rot/context-window-bell-curve.jpg"
 alt="Context window bell curve meme" />
 <figcaption>Bell curve meme</figcaption>
@@ -92,8 +92,7 @@ development phases and things to watch out for. The claude code prompts
 (custom slash commands) and agents can be adapted from their open source
 repo <a href="https://github.com/humanlayer/humanlayer">https://github.com/humanlayer/humanlayer</a> under the
 <code>.claude/</code> directory.</p>
-
-<div style="text-align: center; padding: 2rem 0;">
+<figure>
 <iframe width="560" height="315"
 	src="https://www.youtube.com/embed/IS_y40zY-hc?si=0de8nI9cZCT3f6o3"
 	title="YouTube video player" frameborder="0" allow="accelerometer;
@@ -101,7 +100,7 @@ repo <a href="https://github.com/humanlayer/humanlayer">https://github.com/human
 	picture-in-picture; web-share"
 	referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
 </iframe>
-</div>
+</figure>
 
 <p>Even Dex has described this as a method for squeezing the most out of
 <strong>today's</strong> coding agents. It is not bitter lesson pilled
@@ -121,15 +120,13 @@ context-starved.</p>
 
 <p>The more context you can add, the better results you'll get.</p>
 
-      <hr style="margin-top: 3rem; margin-bottom: 1rem; border: none; border-top: 1px solid #e0e0e0;">
-      <p style="font-size: 0.9em; color: #666; font-style: italic;">
+      <hr />
+      <p>
         <strong>Author's Note:</strong> John is anti <a href="https://en.wikipedia.org/wiki/AI_slop" target="_blank">AI slop</a>.
         Ouachita Labs blog posts are always written with care by a human brain, proofread with Claude Code.
       </p>
-
     </article>
   </main>
-  <script src="../../common.js"></script>
 </body>
 
 </html>

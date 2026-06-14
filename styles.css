@@ -7,19 +7,34 @@ html {
 }
 
 body {
+  margin: 0;
   font-family: "IBM Plex Sans";
   line-height: 1.6;
-  background: #26242e;
+  background-color: #26242e;
+  background-image:
+    linear-gradient(rgba(38, 36, 46, 0.90), rgba(38, 36, 46, 0.90)),
+    url("./assets/noise.png");
+  background-repeat: repeat, repeat;
+  background-size: auto, 256px 256px;
   color: #F1ECE7;
 }
 
 main {
   max-width: 72ch;
   margin: 0;
-  padding: 1rem 1rem;
+  padding: 1rem;
 }
 
-h1, h2, h3 {
+main > a:first-child {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-family: "Lilex";
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
   font-family: "IBM Plex Serif";
   line-height: 1.15;
   letter-spacing: -0.015em;
@@ -27,16 +42,41 @@ h1, h2, h3 {
   margin-bottom: 0.75rem;
 }
 
-h1 {font-size: clamp(1.85rem, 2.5vw, 2.2rem);}
+h1 {
+  font-size: clamp(1.85rem, 2.5vw, 2.2rem);
+}
+
 h2 {
   font-size: 1.55rem;
   margin-top: 3rem;
 }
-h3 {font-size: 1.25rem;}
 
-p {
+h3 {
+  font-size: 1.25rem;
+}
+
+p,
+dl {
   margin-top: 0;
   margin-bottom: 1.35rem;
+}
+
+dt {
+  font-weight: 600;
+}
+
+dd {
+  margin-left: 0;
+}
+
+dfn {
+  font-family: "IBM Plex Serif";
+  font-style: normal;
+}
+
+dt span {
+  margin-left: 0.5rem;
+  color: rgba(255, 250, 250, 0.68);
 }
 
 a {
@@ -62,30 +102,51 @@ pre {
   font-size: 0.85em;
   line-height: 1.5;
   padding: 1rem;
-  overflow-x: auto;
   background: #1f1d27;
   border: 1px solid rgba(255, 250, 250, 0.12);
   border-radius: 4px;
-  white-space: pre;
-  overflow-wrap: normal;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 code {
-  font-family: "Lilex", ui-monospace, monospace;
+  font-family: "Lilex";
   font-size: 0.88em;
   background: rgba(255, 250, 250, 0.08);
   padding: 0.1em 0.25em;
   border-radius: 3px;
 }
 
-pre code {
-  background: none;
-  padding: 0;
-  border-radius: 0;
+blockquote {
+  padding-left: 1rem;
+  border-left: 2px solid rgba(255, 250, 250, 0.22);
+  color: rgba(255, 250, 250, 0.82);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  min-height: 70vh;
+  padding: 1rem;
+  font: inherit;
+  color: inherit;
+  background: #1f1d27;
+  border: 1px solid rgba(255, 250, 250, 0.12);
+  border-radius: 4px;
+  resize: vertical;
 }
 
 figure {
   margin: 2rem 0;
+}
+
+figure > pre {
+  margin-bottom: 0;
 }
 
 figcaption {
@@ -95,42 +156,45 @@ figcaption {
   color: rgba(255, 250, 250, 0.68);
 }
 
-img {
+img,
+iframe {
   max-width: 100%;
-  height: auto;
   display: block;
 }
 
-figure iframe {
-  display: block;
-  width: 100%;
-  max-width: 100%;
+img {
   height: auto;
-  width: 100%;
-  max-width: 100%;
 }
 
 iframe {
+  width: 100%;
   aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
 }
 
-body {
-  background-color: #26242e;
-  background-image:
-        linear-gradient(rgba(38, 36, 46, 0.94), rgba(38, 36, 46, 0.94)),
-        url("./assets/noise.png");
-  background-repeat: repeat, repeat;
-  background-size: auto, 256px 256px;
+section[aria-label="Meal logging demos"] {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
 }
 
+section[aria-label="Meal logging demos"] figure {
+  flex: 1 1 280px;
+  max-width: 400px;
+  margin: 0;
+}
 
+hr {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-top: 1px solid rgba(255, 250, 250, 0.16);
+}
 
-
-
-
-
-
-
-
-
-
+footer {
+  color: rgba(255, 250, 250, 0.68);
+  font-size: 0.85rem;
+}

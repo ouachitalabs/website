@@ -5,14 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tool calls with BAML - Ouachita Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=Lilex:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../styles.css" />
 </head>
 
 <body>
-  <a href="../../index.html" class="logo">Home</a>
   <main>
-    <article class="blog-content container">
-      <h1>Tool calls with BAML</h1>
+    <a href="../../index.html">Home</a>
+    <article>
+<h1>Tool calls with BAML</h1>
       <p>Let's start at the end and work backwards. All the code for this example can be found here:
         <a href="https://github.com/ouachitalabs/baml-playground">https://github.com/ouachitalabs/baml-playground</a>.
       </p>
@@ -21,7 +24,8 @@
         to extract values from semi-structured documents like 10-Qs or earnings
         call transcripts. Here's a quick script I wrote while
         exploring BAML:</p>
-      <pre class="blog-code-block"><code>$ uv run main.py "Combined Walmart U.S. and Samsclub U.S. net sales" --url "https://stock.walmart.com/sec-filings/all-sec-filings/content/0000104169-25-000137/0000104169-25-000137.pdf"
+      <figure>
+<pre>$ uv run main.py "Combined Walmart U.S. and Samsclub U.S. net sales" --url "https://stock.walmart.com/sec-filings/all-sec-filings/content/0000104169-25-000137/0000104169-25-000137.pdf"
 
 # Output:
 
@@ -46,7 +50,8 @@
     }
   ]
 }
-</code></pre>
+</pre>
+</figure>
       <p>The numbers check out. Go <a
           href="https://stock.walmart.com/sec-filings/all-sec-filings/content/0000104169-25-000137/0000104169-25-000137.pdf">verify
           them for yourself</a>!
@@ -83,7 +88,8 @@
         the application layer rather than the routing layer.</p>
       <p>To do the trick I showed at the beginning of the article, I’ve
         defined a few datatypes:</p>
-      <pre class="blog-code-block"><code>class Fact {
+      <figure>
+<pre>class Fact {
   value int @description(#"
     If the value is in currency, round to the nearest whole dollar. For example, always expand "$12.8 millions" to 12800000 "USD"
   "#)
@@ -110,13 +116,15 @@ class CalculatorRequest {
     equation string
 
     @@assert(contains_operation, {{ this|regex_match("[*-+/]") }} )
-}</code></pre>
+}</pre>
+</figure>
       <p>These are my data models. Basically users can extract filing
         information from an SEC filing (or any document, as you'll see next) and
         back it up with cold hard facts 😎. These facts contain a value, units,
         start/end dates, and a location description so you can find the
         fact in the doc for debugging purposes. Now, onto the functions:</p>
-      <pre class="blog-code-block"><code>function SearchDoc(document: pdf, query: string) -> FilingInformation {
+      <figure>
+<pre>function SearchDoc(document: pdf, query: string) -> FilingInformation {
   client Gemini
   prompt #"
     Extract the information from the document below.
@@ -142,7 +150,8 @@ function NeedCalculator(message: string, facts: Fact[]) -> CalculatorRequest {
     {{ _.role("user") }} {{ message }}
     {{ _.role("user") }} {{ facts }}
   "#
-}</code></pre>
+}</pre>
+</figure>
       <p>These are the only two BAML functions we need. <code>SearchDoc</code> is a
         function that accepts a PDF and a query, returning some sort of filing
         information. <code>NeedCalculator</code> is a poorly named function that takes a
@@ -169,7 +178,8 @@ function NeedCalculator(message: string, facts: Fact[]) -> CalculatorRequest {
         <code>*.baml</code> files. The code to orchestrate pretty much looks
         like this:
       </p>
-      <pre class="blog-code-block"><code>import argparse
+      <figure>
+<pre>import argparse
 from utils import encode_file_to_base64
 from baml_py import Pdf
 from baml_client.sync_client import b
@@ -194,7 +204,8 @@ if __name__ == &#39;__main__&#39;:
     derivation = parse_mathematica(request.equation)
     result.derivation = derivation.doit()
 
-    print(result.model_dump_json(indent=2))</code></pre>
+    print(result.model_dump_json(indent=2))</pre>
+</figure>
       <p>Note how there are no import statements for OpenAI, Gemini,
         Anthropic, etc. <strong>You may not have noticed I'm using two
           totally different model providers here!</strong> I've used
@@ -207,7 +218,8 @@ if __name__ == &#39;__main__&#39;:
         plug in OpenAI-compatible local LLM servers like Ollama and
         LMStudio.
       </p>
-      <pre class="blog-code-block"><code>client<llm> Gpt5Nano {
+      <figure>
+<pre>client&lt;llm&gt; Gpt5Nano {
   provider openai
   options {
     model "gpt-5-nano"
@@ -215,7 +227,7 @@ if __name__ == &#39;__main__&#39;:
   }
 }
 
-client<llm> Gemini {
+client&lt;llm&gt; Gemini {
   provider google-ai
   options {
     model "gemini-2.5-pro"
@@ -223,13 +235,14 @@ client<llm> Gemini {
   }
 }
 
-client<llm> Lmstudio {
+client&lt;llm&gt; Lmstudio {
   provider openai-generic
   options {
     model "google/gemma-3-4b"
     base_url "http://localhost:1234/v1"
   }
-}</code></pre>
+}</pre>
+</figure>
       <p>In conclusion, I don't know what the future holds for programming
         agents and baking LLMs into software, but this approach is a great
         glimpse into how the future may look. I didn't even get into the concept
@@ -240,22 +253,17 @@ client<llm> Lmstudio {
         to step back into a more flexible, lower level of the stack for a
         change.</p>
 
-      <hr style="margin-top: 3rem; margin-bottom: 1rem; border: none; border-top: 1px solid #e0e0e0;">
-      <p style="font-size: 0.9em; color: #666; font-style: italic;">
+      <hr />
+      <p>
         <strong>Author's Note:</strong> John is anti <a href="https://en.wikipedia.org/wiki/AI_slop" target="_blank">AI slop</a>.
         Ouachita Labs blog posts are always written with care by a human brain, proofread with Claude Code.
       </p>
-
     </article>
-  </main>
 
-  <footer class="blog-footer">
-    <div class="container">
+    <footer>
       <p>&copy; 2025 Ouachita Labs. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script src="../../common.js"></script>
+    </footer>
+  </main>
 </body>
 
 </html>
