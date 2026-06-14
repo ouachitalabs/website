@@ -11,115 +11,52 @@
 <body class="home">
 
   <main>
-    <section class="hero">
-      <div class="container">
-        <h1 style="font-family: var(--font-mono);">[Ouachita Labs]</h1>
-        <div class="contact-links">
-          <a href="mailto:john@ouachitalabs.com" class="contact-button">
-            Email
-          </a>
-          <a href="https://linkedin.com/in/jomccr" class="contact-button">
-            LinkedIn
-          </a>
-        </div>
-      </div>
+    <section id="contact">
+      <p>
+      Welcome to Ouachita Labs
+      <br />
+      Occasionally I find the time to write down thoughts on technology here.
+      </p>
     </section>
-
-    <section class="blog-posts">
-      <div class="container">
-        <div class="blog-grid">
-          <article class="blog-card">
-            <h2>
-              <a href="blog/posts/borrow-your-harness.html">Borrow your harness</a>
-            </h2>
-            <p>
-              I, like many others, tried to take a crack at building agents at work for problems requiring deep domain knowledge.
-            </p>
-            <a href="blog/posts/borrow-your-harness.html" class="read-more">Read more
-              <span>&rarr;</span></a>
-          </article>
-
-          <article class="blog-card">
-            <h2>
-              <a href="blog/posts/macros-for-humans.html">An experimental macro tracker - Macros For Humans</a>
-            </h2>
-            <p>
-              An experimental, SMS only, post-app nutrition tracker. No app.
-              No dashboard. No website. Nothing.
-            </p>
-            <a href="blog/posts/macros-for-humans.html" class="read-more">Read more
-              <span>&rarr;</span></a>
-          </article>
-
-          <article class="blog-card">
-            <h2>
-              <a href="blog/posts/macros-for-humans-architecture.html">Macros for Humans: Technical Architecture</a>
-            </h2>
-            <p>
-              A deep dive into the custom RAG pipeline for a macro tracking app.
-              Learn how structured streaming and USDA database search create
-              a frictionless food logging experience.
-            </p>
-            <a href="blog/posts/macros-for-humans-architecture.html" class="read-more">Read more
-              <span>&rarr;</span></a>
-          </article>
-
-          <article class="blog-card">
-            <h2>
-              <a href="blog/posts/context-rot-premature-optimization.html">On Context Rot and Premature Optimization</a>
-            </h2>
-            <p>
-              Context engineering: understanding when to add and remove context. Explore
-              why most single-turn LLM applications benefit from larger context windows,
-              when context rot actually matters, and how to manage it effectively.
-            </p>
-            <a href="blog/posts/context-rot-premature-optimization.html" class="read-more">Read more
-              <span>&rarr;</span></a>
-          </article>
-
-          <article class="blog-card">
-            <h2>
-              <a href="blog/posts/baml-tools.html">Tool calls with BAML</a>
-            </h2>
-            <p>
-              Explore how BAML makes LLM tool orchestration transparent and testable.
-              See a practical example of document extraction with multi-model support
-              and learn why lower-level abstractions can be powerful.
-            </p>
-            <a href="blog/posts/baml-tools.html" class="read-more">Read more
-              <span>&rarr;</span></a>
-          </article>
-
-          <article class="blog-card">
-            <h2>
-              <a href="blog/posts/structured-outputs.html">Applied AI Fundamentals: Structured Outputs</a>
-            </h2>
-            <p>
-              Learn how structured outputs transform LLMs from unpredictable text generators
-              into reliable components for production applications. See practical examples
-              using Pydantic and JSON schemas.
-            </p>
-            <a href="blog/posts/structured-outputs.html" class="read-more">Read more
-              <span>&rarr;</span></a>
-          </article>
-
-          <article class="blog-card">
-            <h2>
-              <a href="blog/posts/agents-building-tools-for-agents.html">The Rise of Niche Software</a>
-            </h2>
-            <p>
-              Discover how AI agents excel when given purpose-built CLI tools.
-              Learn why building niche developer tools is easier than ever and
-              see a practical example with afcli for Airflow development.
-            </p>
-            <a href="blog/posts/agents-building-tools-for-agents.html" class="read-more">Read more
-              <span>&rarr;</span></a>
-          </article>
-        </div>
-      </div>
+    <hr />
+    <section id="posts">
+      <p>
+      Posts:
+      <ul>
+        <li>
+          <a href="blog/posts/borrow-your-harness.html">Borrow your harness</a>
+        </li>
+        <li>
+          <a href="blog/posts/macros-for-humans-architecture.html">Macros for Humans: Technical Architecture</a>
+        </li>
+        <li>
+          <a href="blog/posts/context-rot-premature-optimization.html">On Context Rot and Premature Optimization</a>
+        </li>
+        <li>
+          <a href="blog/posts/baml-tools.html">Tool calls with BAML</a>
+        </li>
+        <li>
+          <a href="blog/posts/structured-outputs.html">Applied AI Fundamentals: Structured Outputs</a>
+        </li>
+        <li>
+          <a href="blog/posts/agents-building-tools-for-agents.html">The Rise of Niche Software</a>
+        </li>
+      </ul>
     </section>
-
-    <script src="common.js"></script>
+    <hr />
+    <section id="footer">
+      <p>
+        <dl class="wordmark-definition">
+          <dt>
+            <dfn>Ouachita</dfn>
+            <span class="pronunciation">wash-uh-tah</span>
+          </dt>
+          <dd>
+            A name derived from the Ouachita River and Ouachita Mountains of Arkansas and Oklahoma.
+          </dd>
+        </dl>
+      </p>
+    </section>
 </body>
 
 </html>
