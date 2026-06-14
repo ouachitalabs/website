@@ -3,7 +3,9 @@
 }
 
 html {
-  font-size: 22px;
+  font-size: clamp(18px, calc(2.5vw + 10px), 22px);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -20,9 +22,11 @@ body {
 }
 
 main {
+  width: 100%;
   max-width: 72ch;
   margin: 0;
-  padding: 1rem;
+  padding: clamp(0.75rem, 4vw, 1rem);
+  overflow-wrap: break-word;
 }
 
 main > a:first-child {
@@ -43,16 +47,16 @@ h3 {
 }
 
 h1 {
-  font-size: clamp(1.85rem, 2.5vw, 2.2rem);
+  font-size: clamp(1.6rem, calc(1.15rem + 2vw), 2.2rem);
 }
 
 h2 {
-  font-size: 1.55rem;
+  font-size: clamp(1.3rem, calc(1.1rem + 1vw), 1.55rem);
   margin-top: 3rem;
 }
 
 h3 {
-  font-size: 1.25rem;
+  font-size: clamp(1.1rem, calc(1rem + 0.8vw), 1.25rem);
 }
 
 p,
@@ -83,6 +87,7 @@ a {
   color: inherit;
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.15em;
+  overflow-wrap: anywhere;
 }
 
 ul,
@@ -93,11 +98,18 @@ blockquote {
   margin-bottom: 1.25rem;
 }
 
+ul,
+ol {
+  padding-left: 1.25rem;
+}
+
 li + li {
   margin-top: 0.25rem;
 }
 
 pre {
+  max-width: 100%;
+  overflow-x: auto;
   font-family: "Lilex";
   font-size: 0.85em;
   line-height: 1.5;
@@ -115,6 +127,7 @@ code {
   background: rgba(255, 250, 250, 0.08);
   padding: 0.1em 0.25em;
   border-radius: 3px;
+  overflow-wrap: anywhere;
 }
 
 blockquote {
@@ -142,6 +155,7 @@ textarea {
 }
 
 figure {
+  max-width: 100%;
   margin: 2rem 0;
 }
 
@@ -175,7 +189,7 @@ iframe {
 
 section[aria-label="Meal logging demos"] {
   display: flex;
-  gap: 2rem;
+  gap: clamp(1rem, 4vw, 2rem);
   justify-content: center;
   flex-wrap: wrap;
   margin: 2rem 0;
@@ -183,6 +197,7 @@ section[aria-label="Meal logging demos"] {
 
 section[aria-label="Meal logging demos"] figure {
   flex: 1 1 280px;
+  min-width: 0;
   max-width: 400px;
   margin: 0;
 }
@@ -197,4 +212,39 @@ hr {
 footer {
   color: rgba(255, 250, 250, 0.68);
   font-size: 0.85rem;
+}
+
+@supports (text-wrap: balance) {
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 16px;
+  }
+
+  h2 {
+    margin-top: 2.25rem;
+  }
+
+  pre,
+  textarea {
+    padding: 0.75rem;
+  }
+
+  blockquote {
+    padding-left: 0.75rem;
+  }
+
+  figure {
+    margin: 1.5rem 0;
+  }
+
+  hr {
+    margin-top: 2rem;
+  }
 }
