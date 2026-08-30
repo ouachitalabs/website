@@ -161,8 +161,7 @@ a {
 
 .eyebrow,
 .section-coordinate,
-.hero-index,
-.step-number {
+.hero-index {
   font-family: var(--mono);
   font-size: clamp(0.64rem, 0.75vw, 0.76rem);
   letter-spacing: 0.075em;
@@ -180,7 +179,7 @@ a {
 }
 
 .hero h1 {
-  max-width: 14.6ch;
+  max-width: 12ch;
   margin: 0;
   font-size: clamp(3.2rem, 6.75vw, 7.65rem);
   font-stretch: 82%;
@@ -225,9 +224,7 @@ a {
   text-transform: uppercase;
 }
 
-.text-link span,
-.button-link span,
-.footer-email span {
+.text-link span {
   transition: transform 180ms ease;
 }
 
@@ -338,40 +335,48 @@ a {
   display: block;
 }
 
-.work-copy {
-  display: grid;
-  padding-top: clamp(4rem, 9vw, 8rem);
-  grid-template-columns: minmax(0, 1.35fr) minmax(19rem, 0.65fr);
-  column-gap: clamp(4rem, 10vw, 11rem);
-  align-items: start;
+.work-visual {
+  aspect-ratio: 16 / 9;
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  overflow: hidden;
+  border: 1px solid var(--line-dark);
+  background: #18201b;
 }
 
-.work-copy h2 {
-  grid-column: 1 / -1;
-  margin: 0 0 clamp(2.5rem, 5vw, 4.5rem);
-  font-size: clamp(3.8rem, 8vw, 8.8rem);
+.work-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.86) contrast(1.03);
+}
+
+.work-summary {
+  display: grid;
+  padding-top: clamp(2.5rem, 5vw, 4.5rem);
+  grid-template-columns: minmax(0, 1.4fr) minmax(18rem, 0.6fr);
+  gap: clamp(3rem, 8vw, 9rem);
+  align-items: end;
+}
+
+.work-summary h2 {
+  margin: 0;
+  font-size: clamp(3.8rem, 7vw, 7.8rem);
   font-stretch: 82%;
   font-weight: 510;
   letter-spacing: -0.073em;
   line-height: 0.9;
 }
 
-.work-lede {
-  grid-column: 1;
-  grid-row: 2 / span 2;
-  max-width: 16ch;
-  margin: 0;
-  color: var(--paper);
-  font-size: clamp(1.65rem, 3vw, 3rem);
-  font-weight: 480;
-  letter-spacing: -0.045em;
-  line-height: 1.03;
+.work-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .work-description {
-  grid-column: 2;
   max-width: 34rem;
-  margin: 0 0 2.5rem;
+  margin: 0 0 2rem;
   color: rgba(231, 233, 228, 0.7);
   font-size: clamp(1rem, 1.25vw, 1.18rem);
   line-height: 1.55;
@@ -380,10 +385,8 @@ a {
 .button-link {
   display: inline-flex;
   min-height: 3.25rem;
-  padding: 0.8rem 1rem 0.8rem 1.25rem;
+  padding: 0.8rem 1.25rem;
   border: 1px solid rgba(231, 233, 228, 0.42);
-  justify-content: space-between;
-  gap: 3rem;
   align-items: center;
   font-family: var(--mono);
   font-size: 0.72rem;
@@ -393,11 +396,6 @@ a {
   transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
 }
 
-.work-copy .button-link {
-  grid-column: 2;
-  justify-self: start;
-}
-
 .button-link:hover,
 .button-link:focus-visible {
   color: var(--carbon);
@@ -405,127 +403,37 @@ a {
   background: var(--quartz);
 }
 
-.button-link:hover span,
-.button-link:focus-visible span,
-.footer-email:hover span,
-.footer-email:focus-visible span {
-  transform: translate(0.18rem, -0.18rem);
+.philosophy {
+  padding-block: clamp(2rem, 4vw, 3.5rem) clamp(8rem, 15vw, 15rem);
 }
 
-.method {
-  padding-block: clamp(2rem, 4vw, 3.5rem) clamp(7rem, 12vw, 12rem);
-}
-
-.method-intro {
+.philosophy-intro {
   display: grid;
-  padding-block: clamp(4rem, 9vw, 8rem);
-  grid-template-columns: minmax(0, 1.55fr) minmax(17rem, 0.45fr);
+  padding-top: clamp(5rem, 10vw, 9rem);
+  grid-template-columns: minmax(0, 1.5fr) minmax(17rem, 0.5fr);
   gap: clamp(3rem, 8vw, 9rem);
   align-items: end;
 }
 
-.method-intro h2 {
-  max-width: 16ch;
+.philosophy-intro h2 {
+  max-width: 13ch;
   margin: 0;
-  font-size: clamp(2.75rem, 6.1vw, 6.85rem);
+  font-size: clamp(3rem, 6.3vw, 7rem);
   font-stretch: 82%;
   font-weight: 510;
   letter-spacing: -0.068em;
   line-height: 0.95;
 }
 
-.method-intro > p {
+.philosophy-intro h2 span {
+  color: var(--pine);
+}
+
+.philosophy-intro > p {
   margin: 0;
   color: rgba(16, 21, 18, 0.68);
   font-size: clamp(1rem, 1.25vw, 1.18rem);
   line-height: 1.55;
-}
-
-.method-steps {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  border-top: 1px solid var(--line);
-  grid-template-columns: repeat(3, 1fr);
-  list-style: none;
-}
-
-.method-steps li {
-  min-height: 22rem;
-  padding: 1.4rem clamp(1.25rem, 3vw, 2.5rem) 2.5rem;
-  border-right: 1px solid var(--line);
-}
-
-.method-steps li:first-child {
-  padding-left: 0;
-}
-
-.method-steps li:last-child {
-  padding-right: 0;
-  border-right: 0;
-}
-
-.step-number {
-  display: block;
-  margin-bottom: 6rem;
-  color: var(--blue);
-}
-
-.method-steps h3 {
-  margin: 0 0 1rem;
-  font-size: clamp(1.4rem, 2.1vw, 2.15rem);
-  font-weight: 520;
-  letter-spacing: -0.045em;
-}
-
-.method-steps p {
-  max-width: 26rem;
-  margin: 0;
-  color: rgba(16, 21, 18, 0.62);
-  line-height: 1.55;
-}
-
-.thesis-section {
-  color: var(--paper);
-  background: var(--blue);
-}
-
-.thesis-shell {
-  display: grid;
-  min-height: min(52rem, 90svh);
-  padding-block: clamp(3rem, 7vw, 6rem);
-  grid-template-rows: auto 1fr auto;
-}
-
-.thesis-shell .eyebrow {
-  margin: 0;
-}
-
-.thesis-shell h2 {
-  max-width: 15ch;
-  margin: auto 0;
-  padding-block: 5rem;
-  font-size: clamp(3rem, 7vw, 7.8rem);
-  font-stretch: 82%;
-  font-weight: 510;
-  letter-spacing: -0.074em;
-  line-height: 0.91;
-}
-
-.thesis-shell h2 span {
-  color: rgba(244, 245, 241, 0.58);
-}
-
-.thesis-note {
-  max-width: 42rem;
-  margin: 0 0 0 auto;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(244, 245, 241, 0.38);
-  font-family: var(--mono);
-  font-size: clamp(0.7rem, 0.9vw, 0.82rem);
-  letter-spacing: 0.025em;
-  line-height: 1.55;
-  text-transform: uppercase;
 }
 
 .site-footer {
@@ -548,7 +456,6 @@ a {
   padding-block: 1.5rem;
   border-top: 1px solid var(--carbon);
   border-bottom: 1px solid var(--carbon);
-  justify-content: space-between;
   align-items: center;
   font-size: clamp(1.1rem, 2vw, 1.8rem);
   letter-spacing: -0.035em;
@@ -577,8 +484,7 @@ a {
   outline-offset: 4px;
 }
 
-.work-section :focus-visible,
-.thesis-section :focus-visible {
+.work-section :focus-visible {
   outline-color: var(--paper);
 }
 
@@ -605,28 +511,17 @@ a {
     mask-image: linear-gradient(to bottom, transparent 0%, #000 25%, #000 100%);
   }
 
-  .method-intro {
+  .philosophy-intro {
     grid-template-columns: 1fr;
   }
 
-  .work-copy {
+  .work-summary {
     grid-template-columns: 1fr;
-    row-gap: 2rem;
+    gap: 2rem;
   }
 
-  .work-lede,
-  .work-description,
-  .work-copy .button-link {
-    grid-column: 1;
-    grid-row: auto;
-  }
-
-  .method-intro > p {
+  .philosophy-intro > p {
     max-width: 36rem;
-  }
-
-  .method-steps li {
-    min-height: 20rem;
   }
 }
 
@@ -689,47 +584,17 @@ a {
     grid-template-columns: 1fr auto;
   }
 
-  .work-copy h2 {
-    font-size: clamp(4rem, 19vw, 6.5rem);
+  .work-visual {
+    aspect-ratio: 4 / 3;
   }
 
-  .work-lede {
-    max-width: 18ch;
+  .work-summary h2 {
+    font-size: clamp(3.5rem, 16vw, 5.75rem);
   }
 
-  .method-intro h2,
-  .thesis-shell h2,
+  .philosophy-intro h2,
   .footer-callout h2 {
     font-size: clamp(3rem, 15vw, 5.2rem);
-  }
-
-  .method-steps {
-    grid-template-columns: 1fr;
-  }
-
-  .method-steps li,
-  .method-steps li:first-child,
-  .method-steps li:last-child {
-    min-height: auto;
-    padding: 1.25rem 0 3.5rem;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .method-steps li:last-child {
-    border-bottom: 0;
-  }
-
-  .step-number {
-    margin-bottom: 3rem;
-  }
-
-  .thesis-shell {
-    min-height: 75svh;
-  }
-
-  .thesis-note {
-    margin-left: 0;
   }
 
   .footer-base {
