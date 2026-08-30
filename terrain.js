@@ -12,61 +12,134 @@ if (canvas && container) {
   });
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
   const field = new THREE.Group();
-  const lines = [];
-  const lineCount = 43;
-  const pointCount = 160;
+  const ribbons = [];
+  const ribbonCount = 38;
+  const segmentCount = 150;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const saveData = navigator.connection?.saveData === true;
-  const pointer = new THREE.Vector2(0.52, 0.45);
-  const pointerTarget = new THREE.Vector2(0.52, 0.45);
+  const pointer = new THREE.Vector2(0.6, 0.5);
+  const pointerTarget = pointer.clone();
   const clock = new THREE.Clock();
 
-  camera.position.set(0, 5.1, 9.2);
-  camera.lookAt(0, 0.1, 0);
-  field.rotation.z = -0.1;
+  const colorStops = [
+    new THREE.Color("#d57a46"),
+    new THREE.Color("#e7ad68"),
+    new THREE.Color("#dce8d8"),
+    new THREE.Color("#4d826f"),
+    new THREE.Color("#315fd5"),
+  ];
+
+  camera.position.set(0, 0.2, 11.8);
+  camera.lookAt(0, 0, 0);
+  field.rotation.z = -0.09;
   scene.add(field);
 
-  // The Ouachitas are long, parallel ridges that have been folded and
-  // compressed—not a collection of isolated peaks. Layered waves and a
-  // localized bend approximate that structure without tracing the source map.
-  const ridge = (x, z) => {
-    const fold = 0.82 * Math.sin(x * 0.43) + 0.24 * Math.sin((x - z) * 0.82);
-    const phase = z * 2.05 + x * 0.36 + fold;
-    const strata = Math.pow(0.5 + 0.5 * Math.cos(phase), 5.5) * 0.86;
-    const secondary = Math.pow(0.5 + 0.5 * Math.cos(phase * 0.51 + 1.2), 8) * 0.24;
-    const westernLift = Math.exp(-0.13 * ((x + 2.7) ** 2 + (z + 0.5) ** 2)) * 0.32;
-    const easternBend = Math.exp(-0.16 * ((x - 2.1) ** 2 + (z - 0.35) ** 2)) * 0.25;
-    return strata + secondary + westernLift + easternBend - 0.28;
+  const skyLight = new THREE.HemisphereLight(0xe9f0e5, 0x071915, 2.1);
+  const warmLight = new THREE.DirectionalLight(0xffc987, 3.4);
+  const lakeLight = new THREE.PointLight(0x527cff, 4.5, 18);
+  warmLight.position.set(-3.5, 5, 8);
+  lakeLight.position.set(4.5, -2.5, 6);
+  scene.add(skyLight, warmLight, lakeLight);
+
+  const colorAt = (amount) => {
+    const scaled = THREE.MathUtils.clamp(amount, 0, 1) * (colorStops.length - 1);
+    const index = Math.min(Math.floor(scaled), colorStops.length - 2);
+    return colorStops[index].clone().lerp(colorStops[index + 1], scaled - index);
   };
 
-  for (let row = 0; row < lineCount; row += 1) {
-    const z = THREE.MathUtils.lerp(-4, 4, row / (lineCount - 1));
-    const positions = new Float32Array(pointCount * 3);
+  const ridgePoint = (x, row, elapsed, interaction = 0) => {
+    // Parallel bands spread apart at the edges and compress through the
+    // center, echoing the folded, fan-like strata visible from above.
+    const distanceFromFold = Math.min(1, Math.abs(x + 0.15) / 5.8);
+    const spread = 0.24 + 0.88 * Math.pow(distanceFromFold, 1.25);
+    const mainFold = Math.sin(x * 0.37 + elapsed * 0.07) * 0.86;
+    const secondaryFold = Math.sin(x * 0.78 - row * 0.9 - elapsed * 0.045) * 0.17;
+    const rake = x * -0.055;
+    const y = row * 3.25 * spread + mainFold + secondaryFold + rake + interaction;
+    const z = row * -0.55 + Math.cos(x * 0.31 + row * 0.7) * 0.34;
+    return { y, z };
+  };
 
-    for (let point = 0; point < pointCount; point += 1) {
-      const x = THREE.MathUtils.lerp(-6.2, 6.2, point / (pointCount - 1));
-      const offset = point * 3;
-      positions[offset] = x;
-      positions[offset + 1] = ridge(x, z);
-      positions[offset + 2] = z;
+  const buildRibbon = (index) => {
+    const row = THREE.MathUtils.lerp(-1, 1, index / (ribbonCount - 1));
+    const positions = new Float32Array(segmentCount * 2 * 3);
+    const colors = new Float32Array(segmentCount * 2 * 3);
+    const indices = [];
+    const centerPositions = new Float32Array(segmentCount * 3);
+    const baseColor = colorAt(index / (ribbonCount - 1));
+    const stripWidth = index % 7 === 0 ? 0.075 : 0.045;
+
+    for (let point = 0; point < segmentCount; point += 1) {
+      const x = THREE.MathUtils.lerp(-7.2, 7.2, point / (segmentCount - 1));
+      const position = ridgePoint(x, row, 0);
+      const fade = Math.sin(Math.PI * (point / (segmentCount - 1)));
+      const color = baseColor.clone().lerp(new THREE.Color("#ffffff"), 0.1 * fade);
+
+      for (let side = 0; side < 2; side += 1) {
+        const vertex = (point * 2 + side) * 3;
+        positions[vertex] = x;
+        positions[vertex + 1] = position.y + (side === 0 ? -stripWidth : stripWidth);
+        positions[vertex + 2] = position.z;
+        colors[vertex] = color.r;
+        colors[vertex + 1] = color.g;
+        colors[vertex + 2] = color.b;
+      }
+
+      centerPositions[point * 3] = x;
+      centerPositions[point * 3 + 1] = position.y;
+      centerPositions[point * 3 + 2] = position.z + 0.01;
+
+      if (point < segmentCount - 1) {
+        const a = point * 2;
+        const b = a + 1;
+        const c = a + 2;
+        const d = a + 3;
+        indices.push(a, b, c, b, d, c);
+      }
     }
 
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+    geometry.setIndex(indices);
 
-    const isWaterLine = row === 11 || row === 31;
-    const material = new THREE.LineBasicMaterial({
-      color: isWaterLine ? 0x345fd8 : row % 6 === 0 ? 0x5f6957 : 0x173c32,
+    const material = new THREE.MeshPhysicalMaterial({
+      vertexColors: true,
       transparent: true,
-      opacity: isWaterLine ? 0.26 : row % 6 === 0 ? 0.2 : 0.14,
+      opacity: index % 7 === 0 ? 0.88 : 0.7,
+      side: THREE.DoubleSide,
+      depthWrite: false,
+      roughness: 0.3,
+      metalness: 0.08,
+      clearcoat: 1,
+      clearcoatRoughness: 0.18,
+      emissive: baseColor,
+      emissiveIntensity: 0.16,
     });
 
-    const line = new THREE.Line(geometry, material);
-    line.userData.z = z;
+    geometry.computeVertexNormals();
+    const mesh = new THREE.Mesh(geometry, material);
+    field.add(mesh);
+
+    const lineGeometry = new THREE.BufferGeometry();
+    lineGeometry.setAttribute("position", new THREE.BufferAttribute(centerPositions, 3));
+    const lineMaterial = new THREE.LineBasicMaterial({
+      color: baseColor,
+      transparent: true,
+      opacity: index % 7 === 0 ? 0.92 : 0.54,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    });
+    const line = new THREE.Line(lineGeometry, lineMaterial);
     field.add(line);
-    lines.push(line);
+
+    return { mesh, line, row, stripWidth };
+  };
+
+  for (let index = 0; index < ribbonCount; index += 1) {
+    ribbons.push(buildRibbon(index));
   }
 
   const resize = () => {
@@ -84,25 +157,36 @@ if (canvas && container) {
 
   const draw = (elapsed = 0) => {
     pointer.lerp(pointerTarget, 0.035);
-    const pointerX = THREE.MathUtils.lerp(-4.8, 4.8, pointer.x);
-    const pointerZ = THREE.MathUtils.lerp(-3.5, 3.5, pointer.y);
+    const pointerX = THREE.MathUtils.lerp(-5.4, 5.4, pointer.x);
+    const pointerY = THREE.MathUtils.lerp(2.4, -2.4, pointer.y);
 
-    for (const line of lines) {
-      const positions = line.geometry.attributes.position;
-      const z = line.userData.z;
+    for (const ribbon of ribbons) {
+      const meshPositions = ribbon.mesh.geometry.attributes.position;
+      const linePositions = ribbon.line.geometry.attributes.position;
 
-      for (let point = 0; point < pointCount; point += 1) {
-        const x = positions.getX(point);
-        const distance = (x - pointerX) ** 2 + (z - pointerZ) ** 2;
-        const pressure = Math.exp(-distance * 0.62) * 0.2;
-        const breath = Math.sin(elapsed * 0.24 + x * 0.31 + z * 0.47) * 0.018;
-        positions.setY(point, ridge(x, z) + pressure + breath);
+      for (let point = 0; point < segmentCount; point += 1) {
+        const x = linePositions.getX(point);
+        const influence = Math.exp(-((x - pointerX) ** 2) * 0.42);
+        const natural = ridgePoint(x, ribbon.row, elapsed);
+        const interaction = influence * (pointerY - natural.y) * 0.09;
+        const position = ridgePoint(x, ribbon.row, elapsed, interaction);
+
+        linePositions.setY(point, position.y);
+        linePositions.setZ(point, position.z + 0.01);
+
+        for (let side = 0; side < 2; side += 1) {
+          const vertex = point * 2 + side;
+          meshPositions.setY(vertex, position.y + (side === 0 ? -ribbon.stripWidth : ribbon.stripWidth));
+          meshPositions.setZ(vertex, position.z);
+        }
       }
 
-      positions.needsUpdate = true;
+      meshPositions.needsUpdate = true;
+      linePositions.needsUpdate = true;
     }
 
-    field.rotation.y = (pointer.x - 0.5) * 0.04;
+    field.rotation.y = (pointer.x - 0.5) * 0.08;
+    field.rotation.x = (pointer.y - 0.5) * -0.035;
     renderer.render(scene, camera);
   };
 
@@ -113,6 +197,7 @@ if (canvas && container) {
   };
 
   resize();
+  container.classList.add("is-webgl");
 
   if (reducedMotion || saveData) {
     draw(0);
