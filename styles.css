@@ -302,7 +302,7 @@ a {
 .work-shell {
   position: relative;
   z-index: 1;
-  padding-block: clamp(2rem, 4vw, 3.5rem) clamp(5rem, 11vw, 10rem);
+  padding-block: clamp(2rem, 4vw, 3.5rem) clamp(4rem, 7vw, 7rem);
 }
 
 .section-heading {
@@ -336,7 +336,8 @@ a {
 }
 
 .work-visual {
-  aspect-ratio: 16 / 9;
+  position: relative;
+  aspect-ratio: 2.2 / 1;
   margin-top: clamp(2.5rem, 5vw, 4.5rem);
   overflow: hidden;
   border: 1px solid var(--line-dark);
@@ -351,17 +352,33 @@ a {
   filter: saturate(0.86) contrast(1.03);
 }
 
-.work-summary {
+.work-visual::after {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 34%, rgba(8, 12, 10, 0.84) 100%),
+    linear-gradient(90deg, rgba(8, 12, 10, 0.32), transparent 58%);
+  content: "";
+  pointer-events: none;
+}
+
+.work-overlay {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: grid;
-  padding-top: clamp(2.5rem, 5vw, 4.5rem);
+  padding: clamp(1.5rem, 3.5vw, 3.5rem);
   grid-template-columns: minmax(0, 1.4fr) minmax(18rem, 0.6fr);
-  gap: clamp(3rem, 8vw, 9rem);
+  gap: clamp(3rem, 7vw, 8rem);
   align-items: end;
 }
 
-.work-summary h2 {
+.work-overlay h2 {
   margin: 0;
-  font-size: clamp(3.8rem, 7vw, 7.8rem);
+  color: var(--paper);
+  font-size: clamp(3.5rem, 6.5vw, 7rem);
   font-stretch: 82%;
   font-weight: 510;
   letter-spacing: -0.073em;
@@ -376,8 +393,8 @@ a {
 
 .work-description {
   max-width: 34rem;
-  margin: 0 0 2rem;
-  color: rgba(231, 233, 228, 0.7);
+  margin: 0 0 1.5rem;
+  color: rgba(244, 245, 241, 0.82);
   font-size: clamp(1rem, 1.25vw, 1.18rem);
   line-height: 1.55;
 }
@@ -404,19 +421,19 @@ a {
 }
 
 .philosophy {
-  padding-block: clamp(2rem, 4vw, 3.5rem) clamp(8rem, 15vw, 15rem);
+  padding-block: clamp(2rem, 4vw, 3.5rem) clamp(3.5rem, 5vw, 5rem);
 }
 
 .philosophy-intro {
   display: grid;
-  padding-top: clamp(5rem, 10vw, 9rem);
+  padding-top: clamp(3.5rem, 7vw, 6.5rem);
   grid-template-columns: minmax(0, 1.5fr) minmax(17rem, 0.5fr);
   gap: clamp(3rem, 8vw, 9rem);
   align-items: end;
 }
 
 .philosophy-intro h2 {
-  max-width: 13ch;
+  max-width: 11ch;
   margin: 0;
   font-size: clamp(3rem, 6.3vw, 7rem);
   font-stretch: 82%;
@@ -437,7 +454,7 @@ a {
 }
 
 .site-footer {
-  padding-top: clamp(6rem, 12vw, 11rem);
+  padding-top: clamp(3.5rem, 5vw, 5rem);
   background: var(--quartz);
 }
 
@@ -515,9 +532,9 @@ a {
     grid-template-columns: 1fr;
   }
 
-  .work-summary {
+  .work-overlay {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .philosophy-intro > p {
@@ -585,11 +602,24 @@ a {
   }
 
   .work-visual {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 4 / 5;
   }
 
-  .work-summary h2 {
-    font-size: clamp(3.5rem, 16vw, 5.75rem);
+  .work-visual img {
+    object-position: 48% center;
+  }
+
+  .work-visual::after {
+    background: linear-gradient(180deg, transparent 22%, rgba(8, 12, 10, 0.9) 82%);
+  }
+
+  .work-overlay h2 {
+    font-size: clamp(3.25rem, 15vw, 5.25rem);
+  }
+
+  .work-description {
+    max-width: 28rem;
+    margin-bottom: 1.25rem;
   }
 
   .philosophy-intro h2,
