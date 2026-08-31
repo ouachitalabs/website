@@ -8,6 +8,7 @@
   --line: rgba(16, 21, 18, 0.2);
   --line-dark: rgba(231, 233, 228, 0.19);
   --sans: "Instrument Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --serif: "Vollkorn", Georgia, "Times New Roman", serif;
   --mono: "Fragment Mono", "SFMono-Regular", Consolas, monospace;
   --page-pad: clamp(1.25rem, 3.6vw, 4.25rem);
   --page-width: 1600px;
@@ -36,6 +37,12 @@ body {
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+h1,
+h2 {
+  font-family: var(--serif);
+  font-optical-sizing: auto;
 }
 
 a {
@@ -184,9 +191,8 @@ a {
   max-width: 12ch;
   margin: 0;
   font-size: clamp(3.2rem, 6.75vw, 7.65rem);
-  font-stretch: 82%;
   font-weight: 520;
-  letter-spacing: -0.073em;
+  letter-spacing: -0.035em;
   line-height: 0.92;
   text-wrap: balance;
 }
@@ -381,9 +387,8 @@ a {
   margin: 0;
   color: var(--paper);
   font-size: clamp(3.5rem, 6.5vw, 7rem);
-  font-stretch: 82%;
   font-weight: 510;
-  letter-spacing: -0.073em;
+  letter-spacing: -0.035em;
   line-height: 0.9;
 }
 
@@ -438,9 +443,8 @@ a {
   max-width: 11ch;
   margin: 0;
   font-size: clamp(3rem, 6.3vw, 7rem);
-  font-stretch: 82%;
   font-weight: 510;
-  letter-spacing: -0.068em;
+  letter-spacing: -0.035em;
   line-height: 0.95;
 }
 
@@ -464,9 +468,8 @@ a {
   max-width: 13ch;
   margin: 0 0 clamp(4rem, 8vw, 7rem);
   font-size: clamp(3.1rem, 7.5vw, 8rem);
-  font-stretch: 82%;
   font-weight: 510;
-  letter-spacing: -0.075em;
+  letter-spacing: -0.035em;
   line-height: 0.92;
 }
 
