@@ -275,8 +275,8 @@ a {
   inset: 0;
   width: 100%;
   height: 100%;
-  background: url("./assets/hero/ouachita-mountains.jpg") center / cover;
-  filter: saturate(0.72) contrast(1.08);
+  background: url("./assets/hero/ouachita-forest.webp") 50% 58% / cover;
+  filter: saturate(0.5) contrast(1.05) brightness(0.94);
   mix-blend-mode: multiply;
   transform: scale(1.045);
 }
