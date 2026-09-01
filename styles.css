@@ -2046,7 +2046,7 @@ body > main:not(#main) img {
 }
 
 .deal-share .deal-index {
-  color: rgba(244, 245, 241, 0.52);
+  color: rgba(244, 245, 241, 0.78);
 }
 
 .deal-flow article svg,
@@ -2319,6 +2319,10 @@ body > main:not(#main) img {
   min-height: 22rem;
   padding: clamp(1.5rem, 3vw, 3rem);
   flex-direction: column;
+}
+
+.model-options .card-index {
+  color: rgba(16, 21, 18, 0.72);
 }
 
 .model-options article + article {
