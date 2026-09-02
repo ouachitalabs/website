@@ -14,6 +14,13 @@
   --mono: "Fragment Mono", "SFMono-Regular", Consolas, monospace;
   --page-pad: clamp(1.25rem, 3.6vw, 4.25rem);
   --page-width: 1600px;
+  /*
+    Swap this one value to audition another generated hero atmosphere:
+    ouachita-gradient-blue-hour.webp
+    ouachita-gradient-pine-dawn.webp
+    ouachita-gradient-dusk-storm.webp
+  */
+  --hero-atmosphere-image: url("./assets/hero/ouachita-gradient-ai.webp");
 }
 
 *,
@@ -1096,18 +1103,35 @@ body > main:not(#main) img {
 .simple-hero-art {
   position: absolute;
   z-index: 0;
-  top: 0;
-  right: -3%;
-  bottom: 0;
-  width: 70%;
+  inset: 0;
   background:
-    linear-gradient(90deg, var(--carbon) 0%, rgba(16, 21, 18, 0.84) 23%, rgba(16, 21, 18, 0.24) 66%),
-    linear-gradient(180deg, rgba(16, 21, 18, 0.24), transparent 45%, rgba(16, 21, 18, 0.58)),
-    url("./assets/hero/ouachita-forest.webp") 50% 58% / cover;
-  filter: saturate(0.48) contrast(1.08) brightness(0.73);
-  opacity: 0.82;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 24%, #000 100%);
-  mask-image: linear-gradient(to right, transparent 0%, #000 24%, #000 100%);
+    linear-gradient(180deg, rgba(10, 15, 12, 0.08), rgba(10, 15, 12, 0.26)),
+    var(--hero-atmosphere-image) 50% 50% / cover;
+  filter: saturate(0.9) contrast(1.04) brightness(0.88);
+}
+
+.simple-hero-art::before,
+.simple-hero-art::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.simple-hero-art::before {
+  background: linear-gradient(
+    90deg,
+    rgba(11, 16, 13, 0.76) 0%,
+    rgba(11, 16, 13, 0.42) 34%,
+    rgba(11, 16, 13, 0.1) 59%,
+    transparent 78%
+  );
+}
+
+.simple-hero-art::after {
+  background: url("./assets/noise.png") 0 0 / 240px 240px;
+  mix-blend-mode: overlay;
+  opacity: 0.11;
 }
 
 .simple-hero-copy {
@@ -1431,9 +1455,8 @@ body > main:not(#main) img {
   }
 
   .simple-hero-art {
-    right: -25%;
-    width: 115%;
-    opacity: 0.62;
+    inset: 0;
+    opacity: 1;
   }
 
   .simple-section-heading,
