@@ -1145,7 +1145,7 @@ body > main:not(#main) img {
 }
 
 .simple-hero h1 {
-  max-width: 9ch;
+  max-width: 15ch;
   margin: 0 0 2rem;
   color: var(--paper);
   font-size: clamp(3.6rem, 6.25vw, 7rem);
