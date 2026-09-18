@@ -1,4 +1,0 @@
-interface:
-  display_name: "Blog publishing"
-  short_description: "Draft and publish site blog posts"
-  default_prompt: "Use $blog-publishing to draft or publish a post for this site."
