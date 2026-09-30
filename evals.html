@@ -97,10 +97,12 @@ h2 .soft{font-weight:400;font-style:normal;color:var(--muted)}
    Chrome (footer, progress, controls)
    ──────────────────────────────────────────────────────────── */
 #chrome{position:absolute;left:0;right:0;bottom:0;height:120px;z-index:10;pointer-events:none;transition:opacity .5s}
-#chrome .mail{position:absolute;left:calc(140px + var(--dx,0px));bottom:54px;pointer-events:auto;text-decoration:none;
+#chrome .identity{position:absolute;left:calc(140px + var(--dx,0px));bottom:54px;display:flex;align-items:center;gap:20px;white-space:nowrap}
+#chrome .separator{font:400 19px/1 var(--mono);color:var(--muted)}
+#chrome .mail{pointer-events:auto;text-decoration:none;
   font:400 19px/1 var(--mono);letter-spacing:.06em;color:var(--ink-2);opacity:.8}
 #chrome .mail:hover{color:var(--red);opacity:1}
-#chrome .count{position:absolute;right:calc(140px + var(--dx,0px));bottom:54px;font:400 19px/1 var(--mono);letter-spacing:.12em;color:var(--muted);font-variant-numeric:tabular-nums}
+#chrome .count{font:400 19px/1 var(--mono);letter-spacing:.12em;color:var(--muted);font-variant-numeric:tabular-nums}
 #chrome .count b{font-weight:500;color:var(--ink)}
 #chrome .count span{margin:0 10px}
 #chrome .bar{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.06)}
@@ -943,8 +945,11 @@ body{font-feature-settings:"calt" 1,"liga" 1;letter-spacing:-.01em}
 <div id="tip"></div>
 
 <div id="chrome">
-  <a class="mail" href="mailto:john@ouachitalabs.com">john@ouachitalabs.com</a>
-  <div class="count"><b id="cur">01</b><span>/</span><em id="tot" style="font-style:normal">22</em></div>
+  <div class="identity">
+    <div class="count" aria-label="Slide counter"><b id="cur">01</b><span>/</span><em id="tot" style="font-style:normal">20</em></div>
+    <span class="separator" aria-hidden="true">-</span>
+    <a class="mail" href="mailto:john@ouachitalabs.com">john@ouachitalabs.com</a>
+  </div>
   <div class="bar"><i id="prog"></i></div>
 </div>
 
