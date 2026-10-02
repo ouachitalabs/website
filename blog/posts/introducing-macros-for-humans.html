@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Introducing Macros for Humans, a simpler way to count calories and track macros entirely through text messages." />
+  <title>Introducing Macros for Humans - Ouachita Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=Lilex:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+
+<body>
+  <main>
+    <a href="../../index.html">Home</a>
+    <article>
+      <!-- First draft. Revise in John's own words before publishing. -->
+      <h1>Introducing Macros for Humans</h1>
+
+      <p>This weekend somebody I am not related to paid me to use Macros for Humans.</p>
+
+      <p>One subscriber is not product-market fit. Let's all remain calm. It did make the project feel real in a way that months of using it myself never quite did. A stranger found a weird little nutrition tracker I built, understood the pitch, put in a credit card, and started texting it.</p>
+
+      <p>So I think it is finally time to call this a launch.</p>
+
+      <h2>The logging ritual</h2>
+
+      <p>I have used macro trackers like MyFitnessPal and Cronometer for years. They contain an incredible amount of nutrition data. They are also a pain in the ass to use every day.</p>
+
+      <p>Logging a ham sandwich should not require opening a special app, navigating to the correct day and meal, searching a database for ham, scrolling past a wall of nearly identical results, choosing a serving unit, entering the amount, and then repeating the entire process for the bread, cheese, mayonnaise, and chips. The data is useful. The ritual required to get the data into the app is not.</p>
+
+      <p>The friction gets worse for people who cook. Every additional ingredient adds another little search-and-save loop. A nutrition tracker can turn a perfectly normal dinner into light clerical work.</p>
+
+      <p>Macros for Humans takes the information you already have and does that work for you. You text what you ate. It looks up the food, logs it, and replies with the calories and macros it added to your day.</p>
+
+      <figure>
+<pre>You: 120g ham, two slices sourdough, 15g mayo, 30g chips
+
+Macros for Humans: Logged it. Ham sandwich and chips: about 610 cal,
+35g protein, 57g carbs, 27g fat.
+
+P 84 / 160
+F 45 / 70
+C 131 / 220
+T 1275 / 2100</pre>
+      </figure>
+
+      <p>There is no app to install and no new interface to learn. After a short signup, the entire product lives in the texting app already on your phone.</p>
+
+      <h2>Use as much detail as you have</h2>
+
+      <p>Accuracy matters, but accuracy is not a binary property. If you weigh 180 grams of chicken breast, Macros for Humans can use the exact measurement and look up an appropriate USDA result. If you have a packaged food, send the brand or a picture of the nutrition label. If the label is in another language, send it anyway. The agent can read the label, translate it, and search for the product.</p>
+
+      <p>If you cooked a recipe, send the ingredients once and tell it the finished weight or number of servings. It will save the recipe. When you eat the leftovers tomorrow, you can say you had 350 grams of last night's taco meat instead of rebuilding the entire recipe from scratch.</p>
+
+      <p>If you realize the amount was wrong, text a correction:</p>
+
+      <figure>
+<pre>You: actually that was 200g chicken, not 150
+
+Macros for Humans: Fixed it. Added 80 cal and 15g protein.</pre>
+      </figure>
+
+      <p>Sometimes you will not have any of that information. You are at a coffee shop with a friend. You ate a restaurant meal. Somebody handed you a pastry and, very reasonably, you did not pull a scale out of your pocket.</p>
+
+      <p>Send a description or a photo. Macros for Humans will make a conservative estimate and tell you that it is an estimate.</p>
+
+      <p>This is not pretending a model can discover the exact mass of rice from a photograph. It cannot. This is accepting that real life will occasionally offer you a choice between an imperfect log and no log at all.</p>
+
+      <h2>Consistency beats performative precision</h2>
+
+      <p>I have watched one unmeasured meal derail an otherwise useful day of tracking. You do well at breakfast and lunch, eat something difficult to quantify at dinner, and decide the day is now unknowable. The next morning the blank space feels like a broken streak. Eventually you stop opening the tracker.</p>
+
+      <p>An estimate with clearly understood uncertainty is often more useful than an empty database row. The exact number may be wrong, but it preserves the shape of the day and keeps the habit alive. When precise information is available, Macros for Humans uses it. When it is not, the product gives you a reasonable fallback instead of turning nutrition tracking into a purity test.</p>
+
+      <p>The conversation also lets you do more than dump numbers into a diary. You can ask how much protein you have left, what you could eat for dinner to get closer to your targets, or how your intake has looked this week. It remembers your targets, recurring foods, recipes, weight logs, and corrections.</p>
+
+      <h2>Why text messages?</h2>
+
+      <p>I built multiple versions of Macros for Humans as a normal mobile or web app. Some of those versions worked pretty well. None of them changed the basic fact that logging food required me to stop what I was doing, open a purpose-built interface, and perform a series of tiny administrative tasks.</p>
+
+      <p>Texting is already how people send messy information from their phones. A message can contain a sentence, an exact measurement, a photo, a correction, or a question. It can arrive while you are cooking, sitting in a drive-through, or walking out of the gym. There is no form deciding in advance what kind of information you are allowed to send.</p>
+
+      <p>The constraint is also useful. Macros for Humans cannot hide the core workflow behind tabs, dashboards, notifications, and settings screens. It has to be helpful in a few short messages and then get out of the way.</p>
+
+      <p>SMS is not perfect. It is not end-to-end encrypted, it has carrier and compliance baggage, and it is a terrible place for a beautiful 90-day chart. I chose it because the most important moment in this product is not reviewing a chart. It is the ten seconds after you finish eating when you decide whether logging the meal is worth the trouble.</p>
+
+      <h2>Who it is for</h2>
+
+      <p>Macros for Humans is for anybody who has been frustrated with counting calories or tracking macros in the past.</p>
+
+      <p>You can be a powerlifter starting a bulk, somebody trying to lose weight, a parent attempting to get more protein into a chaotic day, or a person who just wants an honest picture of what they eat. You do not have to weigh every gram. If you do weigh your food, the product respects the precision you provide instead of replacing it with a guess.</p>
+
+      <p>The first seven days are free. After that it is $5 per month or $50 per year. You can <a href="https://macrosforhumans.com/signup/">start tracking by text here</a>.</p>
+
+      <p>If you are more interested in the engineering decisions, I also wrote a technical deep dive about <a href="the-fourth-version-has-no-app.html">the four versions of the product, Cloudflare Durable Objects, and why the version without an app is the one I finally launched</a>.</p>
+
+      <p>Keep the discipline. Lose the admin tax.</p>
+
+      <hr />
+      <p>Macros for Humans is built by Ouachita Labs in Arkansas. Questions, feedback, and wonderfully strange food logs are welcome at <a href="mailto:john@ouachitalabs.com">john@ouachitalabs.com</a>.</p>
+    </article>
+
+    <footer>
+      <p>&copy; 2026 Ouachita Labs. All rights reserved.</p>
+    </footer>
+  </main>
+</body>
+
+</html>
