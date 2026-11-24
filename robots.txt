@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ouachitalabs.com/sitemap.xml
