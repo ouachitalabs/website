@@ -1,0 +1,106 @@
+--- a/hero-apps.tsx
++++ b/hero-apps.tsx
+@@ -39,8 +39,12 @@
+ function Hero({ fixed }: { fixed: boolean }) {
+   return (
+     <div className="ab-mock-hero">
+-      <div className="ab-headline">Build better<br />{(fixed ? FIXED : TYPO)[0]}, {(fixed ? FIXED : TYPO)[1]}</div>
+-      <span className="ab-mock-actions"><span className="ab-mock-primary" /><span className="ab-mock-secondary" /></span>
++      <small className="document-issuer">{fixed ? 'Mill Creek Mutual' : 'Cedar Falls · Permit office'}</small>
++      <div className="ab-headline">{fixed ? 'Proof of insurance' : 'Contractor permit'}</div>
++      <dl className="document-details">
++        <div><dt>{fixed ? 'Insured' : 'Issued to'}</dt><dd>Oak Street Carpentry</dd></div>
++        <div><dt>{fixed ? 'Policy' : 'Permit'}</dt><dd>{fixed ? 'GL-10482' : 'CP-0724'}</dd></div>
++      </dl>
+     </div>
+   );
+ }
+@@ -78,9 +82,9 @@
+       url={<span className="ab-address-content">{frame.url}</span>}
+       urlShape="pill"
+       tabs={[
+-        tabLabel('production', 'Acme'),
+-        tabLabel('preview', 'Acme'),
+-        tabLabel('github', `${PR_TITLE} ${PR_NUMBER}`),
++        tabLabel('production', 'Permit.pdf'),
++        tabLabel('preview', 'Insurance.pdf'),
++        tabLabel('github', 'City portal'),
+         <span className="ab-tab-plus" key="plus" data-target="tab-plus"><Plus size={13} /></span>,
+       ]}
+       lights="color"
+@@ -112,9 +116,9 @@
+       <div className="ab-page ab-pr" data-on={(frame.githubTab && frame.active === 'github') || undefined}>
+         <div className="ab-pr-title">{PR_TITLE} <span className="ab-pr-number">{PR_NUMBER}</span></div>
+         <div className="ab-pr-field">
+-          <span className="ab-pr-placeholder" data-target="pr-field" data-hidden={!frame.fieldEmpty || undefined}>{frame.fieldFocused && <span className="ab-caret ab-caret-lead" />}Add a description</span>
++          <span className="ab-pr-placeholder" data-target="pr-field" data-hidden={!frame.fieldEmpty || undefined}>{frame.fieldFocused && <span className="ab-caret ab-caret-lead" />}Attach permit and proof of insurance</span>
+           {/* Each image's place, reserved at its final size so the flying copy lands on it exactly */}
+-          {(['Before', 'After'] as const).map((label, i) => (
++          {(['Current permit', 'Proof of insurance'] as const).map((label, i) => (
+             <div className="ab-pr-shot" key={label}>
+               <span className="ab-pr-caption" data-on={frame.copies[i].caption || undefined}>{label}</span>
+               <span className="ab-pr-attach" data-target={`slot-${i}`} data-on={frame.copies[i].attached || undefined} style={{ width: slot.width, height: slot.height }}>
+@@ -125,6 +129,7 @@
+             </div>
+           ))}
+         </div>
++        {frame.copies.every(copy => copy.attached) && <p className="permit-ready">✓ Both documents attached · Ready for review</p>}
+         <span className="ab-anchor ab-pr-rest" data-target="pr-rest" />
+       </div>
+     </Window>
+--- a/hero-timeline.ts
++++ b/hero-timeline.ts
+@@ -8,10 +8,10 @@
+ // request's description, Before and After side by side. It closes the pull
+ // request and the preview, and the loop ends where it began: production open,
+ // the hand resting on the page.
+-//   0–0.4s      production (acme.com, a plain black circle favicon)
++//   0–0.4s      production (files.example/permit.pdf, a plain black circle favicon)
+ //   1.4–2.15s   screenshot 1: a dashed box dragged over the hero from its top left to its
+ //               lower right, it turns blue with a flash, the copy flies to the hand
+-//   3.1s        carrying it, + opens acme-git-fix-typo.vercel.app (Vercel's preview favicon)
++//   3.1s        carrying it, + opens files.example/insurance.pdf (Vercel's preview favicon)
+ //   4.1–4.85s   screenshot 2, the fixed hero, the same stroke: its copy joins the first
+ //   5.75s       + opens the pull request on GitHub (the GitHub mark)
+ //   6.75s       click into the empty description
+@@ -32,11 +32,11 @@
+ export const SHOT_GAP = 8;
+ 
+ /** Addresses, shared by the tabs and the commands. */
+-export const PRODUCTION_URL = 'acme.com';
+-export const PREVIEW_URL = 'acme-git-fix-typo.vercel.app';
+-export const PR_URL = 'github.com/acme/web/pull/128';
+-export const PR_TITLE = 'Fix typos in hero heading';
+-export const PR_NUMBER = '#128';
++export const PRODUCTION_URL = 'files.example/permit.pdf';
++export const PREVIEW_URL = 'files.example/insurance.pdf';
++export const PR_URL = 'city.example/permits/renew';
++export const PR_TITLE = 'Contractor permit renewal';
++export const PR_NUMBER = 'Draft';
+ /** The headline's second line, misspelled on production and fixed on the
+  * preview ("Build better" stays right): one wrong key in each word, a neighbor
+  * that adds an ascender or descender, so the word's outline changes
+--- a/hero-tab-picker.tsx
++++ b/hero-tab-picker.tsx
+@@ -7,9 +7,9 @@
+ 
+ const ORDER: readonly HeroTab[] = ['production', 'preview', 'github'];
+ const NAMES: Record<HeroTab, string> = {
+-  production: `Production, ${PRODUCTION_URL}`,
+-  preview: `Preview, ${PREVIEW_URL}`,
+-  github: `Pull request, ${PR_TITLE} ${PR_NUMBER}`,
++  production: `Current permit, ${PRODUCTION_URL}`,
++  preview: `Insurance certificate, ${PREVIEW_URL}`,
++  github: `City portal, ${PR_TITLE} ${PR_NUMBER}`,
+ };
+ 
+ type Box = { left: number; top: number; width: number; height: number };
+@@ -18,7 +18,7 @@
+  * Reduced motion only: the still hero's browser tabs, made real. The scene is
+  * aria-hidden (its figcaption tells the story), so these buttons sit outside
+  * it, over the mock tabs' measured boxes, as one tablist: click or arrow
+- * through Production, the Preview and the pull request to see each page as it
++ * through Current permit, the Preview and the pull request to see each page as it
+  * stands in the still. Selecting one only changes which tab is active; nothing
+  * plays, seeks or moves the camera. The mock's close buttons and + stay
+  * decorative (they would need a story the still doesn't have).

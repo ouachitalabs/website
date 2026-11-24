@@ -9,7 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <script src="theme.js"></script>
   <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="demo.css">
 </head>
 <body>
   <header class="site-header wrap">
@@ -19,16 +21,31 @@
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
+    <span class="theme-control" hidden>
+      <select id="dark-mode" aria-label="Color theme">
+        <option value="on">Dark</option>
+        <option value="off">Light</option>
+        <option value="system" selected>Auto</option>
+      </select>
+    </span>
   </header>
 
   <main>
     <section class="hero wrap" aria-labelledby="hero-title">
-      <p class="eyebrow">Independent AI consultancy · Central Arkansas</p>
-      <h1 id="hero-title">What could AI make possible for your business?</h1>
-      <p class="intro">I help small business owners brainstorm what they could do with AI, from getting a few hours back each week to taking on a project that’s always felt out of reach. When we find an idea worth pursuing, I can help you build it.</p>
-      <a class="button" href="mailto:john@ouachitalabs.com">
-        john@ouachitalabs.com
-      </a>
+      <div class="hero-copy">
+        <p class="eyebrow">Independent AI consultancy · Central Arkansas</p>
+        <h1 id="hero-title">What could AI make possible for your business?</h1>
+        <p class="intro">I help small business owners brainstorm what they could do with AI, from getting a few hours back each week to taking on a project that’s always felt out of reach. When we find an idea worth pursuing, I can help you build it.</p>
+        <a class="button" href="mailto:john@ouachitalabs.com">
+          john@ouachitalabs.com
+        </a>
+      </div>
+      <figure class="demo-example">
+        <div class="demo-frame">
+          <iframe class="hero-demo" title="Animated walkthrough of a contractor’s permit renewal" src="assets/browser-demo/index.html"></iframe>
+        </div>
+        <figcaption>“Get my permit renewal ready for review.” <span>Animated example</span></figcaption>
+      </figure>
     </section>
 
     <section id="projects" class="projects wrap" aria-labelledby="projects-title">

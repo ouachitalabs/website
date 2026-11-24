@@ -7,13 +7,24 @@
   <title>Macros for Humans: Technical Architecture - Ouachita Labs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=Lilex:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../../styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet" />
+  <script src="../../theme.js"></script>
+  <link rel="stylesheet" href="../../home.css" />
+  <link rel="stylesheet" href="../post.css" />
 </head>
 
 <body>
-  <main>
-    <a href="../../index.html">Home</a>
+  <header class="site-header wrap">
+    <a class="brand" href="../../">Ouachita Labs</a>
+    <span class="theme-control" hidden>
+      <select id="dark-mode" aria-label="Color theme">
+        <option value="on">Dark</option>
+        <option value="off">Light</option>
+        <option value="system" selected>Auto</option>
+      </select>
+    </span>
+  </header>
+  <main class="post">
     <article>
       <h1>Macros for Humans: Technical Architecture</h1>
       <p>On the side I've been building Macros for Humans, a cross platform mobile app that folks can use to track their macros, protein goals, calories, weight, etc. The most enjoyable and difficult part to hack on has been the custom RAG pipeline I've built to retrieve the correct ingredients from the USDA databases. Anybody who has used a macro tracking app like myfitnesspal or cronometer understands the nuances between some of the ingredients spread across several databases. For example if you search "deli ham" in cronometer you will get <strong>fifty results</strong> back. I personally think this is a bit of information overload for the average user. While you need a very robust database for coverage purposes, especially for obscure branded foods, most ingredients that people actually eat are simple foods like eggs, vegetables, and cheese.</p>
@@ -33,7 +44,7 @@
 
       <p>Macros for Humans <strong>alleviates this friction</strong> by accepting unstructured data, processing it into reasonable base ingredient objects, and then conducting the search and deciding the best ingredient match for you. I've found this speeds up logging <em>significantly</em>. The friction of the traditional macro tracker app scales <em>linearly</em> with the number of ingredients, and so if you're a home cook and you need to build a complex recipe, you can see outrageous (10X or 20X) speedups! Beyond the sheer speed gains, you also reduce total number of clicks to nearly zero. Check out the demo of each app below logging the same meal. I've used cronometer for years, and I'm very fast at navigating it.</p>
 
-      <section aria-label="Meal logging demos">
+      <section class="meal-demos" aria-label="Meal logging demos">
         <figure>
           <img src="../../assets/macros-for-humans/mfh-quickdemo.gif" alt="Macros for Humans demo showing quick meal logging" />
           <figcaption>Macros for Humans: 5 clicks, no typing required.</figcaption>

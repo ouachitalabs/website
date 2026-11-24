@@ -7,13 +7,24 @@
   <title>Borrow your harness - Ouachita Labs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=Lilex:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../../styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet" />
+  <script src="../../theme.js"></script>
+  <link rel="stylesheet" href="../../home.css" />
+  <link rel="stylesheet" href="../post.css" />
 </head>
 
 <body>
-  <main>
-    <a href="../../index.html">Home</a>
+  <header class="site-header wrap">
+    <a class="brand" href="../../">Ouachita Labs</a>
+    <span class="theme-control" hidden>
+      <select id="dark-mode" aria-label="Color theme">
+        <option value="on">Dark</option>
+        <option value="off">Light</option>
+        <option value="system" selected>Auto</option>
+      </select>
+    </span>
+  </header>
+  <main class="post">
     <article>
 <h1>Borrow your harness</h1>
 <p>I, like many others, tried to take a crack at building agents at work for problems requiring deep domain knowledge. This has been fun, and there have been more <del>failures</del> <strong>learning moments</strong> than pure successes. I wanted to write down one of the main design choices that  keeps coming up while building these kinds of systems.</p>
