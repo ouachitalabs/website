@@ -1,31 +1,45 @@
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-  gap: clamp(1.5rem, 4vw, 3.5rem);
-  align-items: center;
-  text-align: left;
+.hero { text-align: left; padding-block: clamp(2.75rem, 6vw, 5.5rem) 2rem; }
+.hero, .use-cases { border-inline: 1px solid var(--line); }
+.hero, .case-copy, .case-output { padding-inline: clamp(1.25rem, 3.4vw, 3rem); }
+.hero h1 { margin: 0; max-width: 17ch; font-size: clamp(2.6rem, 5.8vw, 4.8rem); line-height: 1.02; }
+.hero .intro { max-width: 51ch; margin: 1.25rem 0 2rem; }
+.case-nav { display: flex; flex-wrap: wrap; gap: .45rem; }
+.case-nav a { padding: .45rem .9rem; border: 1px solid var(--line); border-radius: 2rem; font-size: .85rem; text-decoration: none; }
+.case-nav a:hover, .case-nav a:focus-visible { background: var(--ink); color: var(--paper); }
+.use-cases { margin-bottom: clamp(2rem, 5vw, 4rem); border-bottom: 1px solid var(--line); }
+.use-case { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); border-top: 1px solid var(--line); scroll-margin-top: 1rem; }
+.case-copy, .case-output { padding-block: clamp(1.75rem, 4vw, 3.5rem); }
+.case-copy h2 { max-width: 16ch; font-size: clamp(2rem, 3.6vw, 3.1rem); line-height: 1.06; }
+.case-copy > p:last-child { max-width: 37ch; color: var(--muted); margin: 1rem 0 0; }
+.case-output { margin: 0; border-left: 1px solid var(--line); min-width: 0; }
+.social .case-copy { grid-column: 2; grid-row: 1; }
+.social .case-output { grid-column: 1; grid-row: 1; border-left: 0; border-right: 1px solid var(--line); }
+.request { margin: 0 0 1.35rem auto; width: fit-content; max-width: 86%; background: var(--surface); padding: .75rem 1rem; border-radius: 1rem 1rem .25rem 1rem; font-size: .9rem; line-height: 1.45; }
+.demo-frame { container-type: inline-size; overflow: hidden; border: 1px solid var(--line); background: var(--surface); }
+.hero-demo { display: block; width: 100%; aspect-ratio: 1080 / 750; border: 0; }
+@container (max-width: 559.98px) { .hero-demo { aspect-ratio: 960 / 1050; } }
+.post-proof, .review-proof { border: 1px solid var(--line); border-radius: .65rem; overflow: hidden; }
+.post-art {
+  display: grid; align-content: space-between; gap: 1.6rem;
+  padding: clamp(1.1rem, 2vw, 1.75rem);
+  background: #d8d3ff; color: #211d32;
 }
-.hero .intro { margin-inline: 0; }
-.demo-frame {
-  container-type: inline-size;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  background: var(--surface);
+.post-art > span { font-weight: 550; letter-spacing: -.025em; }
+.post-art strong, .review-sum { font-size: clamp(2.8rem, 5vw, 4.2rem); line-height: 1; font-weight: 500; letter-spacing: -.075em; }
+.post-art strong span { font-size: .48em; letter-spacing: -.05em; }
+.post-proof > p { margin: 1rem 1.2rem; font-size: .9rem; }
+.post-proof footer { padding: .7rem 1.2rem; color: var(--muted); border-top: 1px solid var(--line); font-size: .78rem; }
+.review-proof { padding: 1.2rem; }
+.record-label, .review-note, dt small { color: var(--muted); font-size: .8rem; }
+.record-label { margin: 0 0 1rem; }
+.review-note { margin: .4rem 0 1rem; }
+.review-proof dl { margin: 0; font-size: .9rem; }
+.review-proof dl div { display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--line); padding-top: .65rem; margin-top: .65rem; }
+.review-proof dt small { display: block; }
+.review-proof dd { margin: 0; font-variant-numeric: tabular-nums; }
+@media (max-width: 45rem) {
+  .use-case { grid-template-columns: 1fr; }
+  .social .case-copy, .social .case-output { grid-column: auto; grid-row: auto; }
+  .case-output, .social .case-output { border: 0; padding-top: 0; }
+  .request { max-width: 93%; }
 }
-.hero-demo {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1080 / 750;
-  border: 0;
-}
-@container (max-width: 559.98px) {
-  .hero-demo { aspect-ratio: 960 / 1050; }
-}
-@media (max-width: 48rem) {
-  .hero { grid-template-columns: 1fr; }
-  .hero h1 { margin-left: 0; }
-}
-.demo-example { margin: 0; min-width: 0; }
-.demo-example figcaption { margin-top: 0.65rem; font-size: 0.85rem; }
-.demo-example figcaption span { color: var(--muted); font-size: 0.75rem; white-space: nowrap; margin-left: 0.35rem; }

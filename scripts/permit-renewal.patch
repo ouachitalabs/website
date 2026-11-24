@@ -7,10 +7,10 @@
 -      <div className="ab-headline">Build better<br />{(fixed ? FIXED : TYPO)[0]}, {(fixed ? FIXED : TYPO)[1]}</div>
 -      <span className="ab-mock-actions"><span className="ab-mock-primary" /><span className="ab-mock-secondary" /></span>
 +      <small className="document-issuer">{fixed ? 'Mill Creek Mutual' : 'Cedar Falls · Permit office'}</small>
-+      <div className="ab-headline">{fixed ? 'Proof of insurance' : 'Contractor permit'}</div>
++      <div className="ab-headline">{fixed ? 'Proof of insurance' : 'Business permit'}</div>
 +      <dl className="document-details">
-+        <div><dt>{fixed ? 'Insured' : 'Issued to'}</dt><dd>Oak Street Carpentry</dd></div>
-+        <div><dt>{fixed ? 'Policy' : 'Permit'}</dt><dd>{fixed ? 'GL-10482' : 'CP-0724'}</dd></div>
++        <div><dt>{fixed ? 'Insured' : 'Issued to'}</dt><dd>Oak Street Co.</dd></div>
++        <div><dt>{fixed ? 'Policy' : 'Permit'}</dt><dd>{fixed ? 'GL-10482' : 'BP-0724'}</dd></div>
 +      </dl>
      </div>
    );
@@ -75,7 +75,7 @@
 +export const PRODUCTION_URL = 'files.example/permit.pdf';
 +export const PREVIEW_URL = 'files.example/insurance.pdf';
 +export const PR_URL = 'city.example/permits/renew';
-+export const PR_TITLE = 'Contractor permit renewal';
++export const PR_TITLE = 'Business permit renewal';
 +export const PR_NUMBER = 'Draft';
  /** The headline's second line, misspelled on production and fixed on the
   * preview ("Build better" stays right): one wrong key in each word, a neighbor

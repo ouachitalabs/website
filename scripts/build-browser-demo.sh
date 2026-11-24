@@ -20,7 +20,7 @@ base = Path("docs/src/components/landing")
 p = base / "hero-scene/browser-desktop-scene.tsx"
 s = p.read_text()
 start = s.index("An agent notices a bug")
-p.write_text(s[:start] + "An animated agent collects a carpenter’s current permit and insurance certificate, then drops both into a sample city renewal draft for the owner to review." + s[s.index("</figcaption>", start):])
+p.write_text(s[:start] + "An animated agent collects a business’s current permit and insurance certificate, then drops both into a sample city renewal draft for the owner to review." + s[s.index("</figcaption>", start):])
 p = base / "hero-scene/presence-cursor.tsx"
 p.write_text(p.read_text().replace('import { BrandMark } from \'../compat\'', 'import { BrandMark } from \'../compat/brand-mark\'').replace('name={mark} size={MARK_SIZE[mark]}', 'name="openai" size={MARK_SIZE.openai}'))
 p = base / "compat/brand-mark.tsx"

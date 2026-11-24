@@ -32,38 +32,66 @@
 
   <main>
     <section class="hero wrap" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="eyebrow">Independent AI consultancy · Central Arkansas</p>
-        <h1 id="hero-title">What could AI make possible for your business?</h1>
-        <p class="intro">I help small business owners brainstorm what they could do with AI, from getting a few hours back each week to taking on a project that’s always felt out of reach. When we find an idea worth pursuing, I can help you build it.</p>
-        <a class="button" href="mailto:john@ouachitalabs.com">
-          john@ouachitalabs.com
-        </a>
-      </div>
-      <figure class="demo-example">
-        <div class="demo-frame">
-          <iframe class="hero-demo" title="Animated walkthrough of a contractor’s permit renewal" src="assets/browser-demo/index.html"></iframe>
-        </div>
-        <figcaption>“Get my permit renewal ready for review.” <span>Animated example</span></figcaption>
-      </figure>
+      <p class="eyebrow">Independent AI consultancy · Central Arkansas</p>
+      <h1 id="hero-title">What could AI make possible for your business?</h1>
+      <p class="intro">I work with small business owners to find the tasks an AI agent can take off their plate. Here’s what that can look like.</p>
+      <nav class="case-nav" aria-label="Explore examples">
+        <a href="#permits">Permit renewals</a>
+        <a href="#social">Social posts</a>
+        <a href="#expenses">Tax review</a>
+      </nav>
     </section>
 
-    <section id="projects" class="projects wrap" aria-labelledby="projects-title">
-      <h2 id="projects-title">What we could work on together</h2>
-      <div class="project-grid">
-        <article>
-          <h3>Take on more jobs</h3>
-          <p>Give your team one place to turn new inquiries into estimates, follow up with customers, and hand off booked work.</p>
-        </article>
-        <article>
-          <h3>Cut down on paperwork</h3>
-          <p>Pull information from invoices and receipts into one weekly report so you can see where the money went.</p>
-        </article>
-        <article>
-          <h3>Reach new customers</h3>
-          <p>Try a campaign for a group you’ve never marketed to before, with a landing page, emails, and ads you can test on a small budget.</p>
-        </article>
-      </div>
+    <section id="projects" class="use-cases wrap" aria-label="Small business AI examples">
+      <article class="use-case" id="permits">
+        <div class="case-copy">
+          <p class="eyebrow">Permit renewals</p>
+          <h2>Catch the deadline before it catches you.</h2>
+          <p>An agent checks the expiration date, gathers the paperwork, and prepares the renewal in the city portal. You review it before filing.</p>
+        </div>
+        <figure class="case-output permit-output">
+          <figcaption class="request">Let me know a month before our permit expires. Get the renewal ready, too.</figcaption>
+          <div class="demo-frame">
+            <iframe class="hero-demo" title="Example business permit renewal" src="assets/browser-demo/index.html"></iframe>
+          </div>
+        </figure>
+      </article>
+
+      <article class="use-case social" id="social">
+        <div class="case-copy">
+          <p class="eyebrow">Social posts</p>
+          <h2>Tell customers when plans change.</h2>
+          <p>Give the agent a quick update in your own words. It drafts a post for Facebook and Instagram, then publishes both when you approve.</p>
+        </div>
+        <figure class="case-output">
+          <figcaption class="request">We’re opening an hour later this Saturday. Can you let everyone know?</figcaption>
+          <div class="post-proof">
+            <div class="post-art"><span>Saturday hours</span><strong>10<span>am</span>–4<span>pm</span></strong></div>
+            <p>A little later this Saturday. We’ll be open from 10 to 4, then back to our usual hours next week.</p>
+            <footer>✓ Published to Facebook and Instagram</footer>
+          </div>
+        </figure>
+      </article>
+
+      <article class="use-case" id="expenses">
+        <div class="case-copy">
+          <p class="eyebrow">Tax review</p>
+          <h2>Find the expenses that slipped through.</h2>
+          <p>An agent checks receipts and bank records against last year’s expense report. Your accountant gets the source for each potential missed deduction.</p>
+        </div>
+        <figure class="case-output">
+          <figcaption class="request">Did any business expenses get left out of last year’s filing?</figcaption>
+          <div class="review-proof">
+            <p class="record-label">Example expense review</p>
+            <strong class="review-sum">$3,260</strong>
+            <p class="review-note">In potential deductions for your accountant to check</p>
+            <dl>
+              <div><dt>Office rent <small>Bank statements · 3 payments</small></dt><dd>$2,400</dd></div>
+              <div><dt>Software subscriptions <small>Vendor receipts · 2 invoices</small></dt><dd>$860</dd></div>
+            </dl>
+          </div>
+        </figure>
+      </article>
     </section>
 
     <section id="about" class="about" aria-labelledby="about-title">
